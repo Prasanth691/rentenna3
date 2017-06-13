@@ -1,0 +1,33 @@
+{% import 'base/forms.nunjucks' as forms %}
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+    <div class="property-not-found landing">
+        <div class="bannerwrapper">
+            <div class="banner content">
+                <div class="title">
+                    <h1>
+                        Sorry, we had trouble locating that adddress
+                    </h1>
+                    <p>
+                        Sometimes we have trouble finding addresses, and it
+                        helps to break it out into individual components.
+                        Try filling out the form below so we can try again.
+                    </p>
+                </div>
+                <div class="address-form">
+                    <form action="/find-address/" method="GET">
+                        <input type="hidden" name="callback" value="{{ callback }}" />
+                        {{ forms.text("House Number", 'streetNumber', components.streetNumber,
+                            required=True) }}
+                        {{ forms.text("Street Name", 'street', components.street,
+                            required=True) }}
+                        {{ forms.text("City", 'city', components.city) }}
+                        {{ forms.select('State', 'state', components.state, stateOptions) }}
+                        {{ forms.text("Zip Code", 'zip', components.zip) }}
+                        <button class="cta inverse">Search Again</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

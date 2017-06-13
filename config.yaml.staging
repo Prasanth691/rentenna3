@@ -1,0 +1,32 @@
+ABTEST:
+  MOCK: true
+AUTOCOMPLETE:
+  elastic: true
+  unit: true
+EMAIL:
+  shard: staging
+MAILCHIMP:
+  MOCK: false
+MANDRILL:
+  MOCK: false
+MCI:
+  DOMAIN: www.addressreport.com
+PIPELINE:
+  BUCKET: ar-reporting
+URL:
+  BASE: https://staging-dot-rentenna3.appspot.com
+  DOMAIN: staging-dot-rentenna3.appspot.com
+  ISOLATE_IFRAME_BASE: https://isolated-dot-rentenna3.appspot.com
+  STATIC: /resource
+WEB:
+  EXPORT_BUCKET: ar-export
+  PARTNER_BULK_BUCKET: partnerbulk
+  UPLOAD_BUCKET: ar-resource
+  UPLOAD_URL: /web-admin/uploaded-file/
+analytics.mock: true
+datastore_namespace: staging
+report_simultaneous: 8
+tag:
+  hash: decd2ac4-ddd7-45a1-8f8d-85a96fdd0769
+  level: staging
+

@@ -1,0 +1,6 @@
+<div class="collection-description-editor">
+    <form method="POST">
+        <textarea name="description">{{ description }}</textarea>
+        <button>Save it, bro.</button>
+    </form>
+</div>

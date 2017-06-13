@@ -1,0 +1,23 @@
+<div class="slide dropdown-slide">
+    <form nosubmit>
+        <h1>
+            {{ question }}
+        </h1>
+        <div class="input">
+            <form>
+                <div>
+                    <select>
+                        {% for option in options %}
+                            <option value="{{ option.value }}">
+                                {{ option.title }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button class="btn btn-primary primary">
+                    {{ buttonText or 'Next' }}
+                </button>
+            </form>
+        </div>
+    </form>
+</div>

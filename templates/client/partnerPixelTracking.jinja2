@@ -1,0 +1,6 @@
+{% macro addTracking(name) %}
+    {% set tracking = app().settings().get(name) %}
+    {% if tracking and tracking.strip() %}
+        {{ tracking|safe }}
+    {% endif %}
+{% endmacro %}

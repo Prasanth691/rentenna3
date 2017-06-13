@@ -1,0 +1,16 @@
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container state-machine-list">
+        <h1>Available state machines:</h1>
+        <ul>
+            {% for machine in machines %}
+                <li>
+                    <a href="{{ machine.getAdminUrl() }}">
+                        {{ machine.__name__ }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,86 @@
+@import "config.sass"
+
+$background: #ecf0f1
+$dark: #35495d
+$darkDark: #2d3e4f
+$darkest: #273645
+$danger: #e54d42
+$dangerDark: #be3a31
+$header: #1f2a36
+$light: #c2c6ca
+$lightDark: #bdc3c7
+$lightLight: #e3e7e8
+$neutral: #95a5a6
+$primary: #3a99d8
+$primaryDark: #2f81b7
+$primaryLight: #c6d7e7
+$success: #39ca74
+$successDark: #30ad63
+$white: #ffffff
+
+$font: #03172c
+$fontOnWhite: #2d3e4f
+$mutedFont: #889a9b
+
+$lightBorder: #ecf0f1
+$border: #e5e9ea
+
+$breakdownColor1: #9a5cb4
+$breakdownColor2: #f1c93c
+$breakdownColor3: #3a99d8
+$breakdownColor4: #35495d
+
+$keyColor1: #9a5cb4
+$keyColor2: #35495d
+$keyColor3: #3a99d8
+$keyColor4: #f1c93c
+$keyColor5: #39ca74
+$keyColor6: #e47e30
+$keyColor7: #e54d42
+$keyColor8: #29bb9c
+$keyColor9: #e88b2c
+
+@function resource ($path)
+    @return url('#{ $staticDir }#{$path}')
+
+@mixin circle ($radius)
+    border-radius: $radius
+    height: $radius
+    width: $radius
+
+@mixin override-form-label-width($newWidth, $mobileWidth:$newWidth)
+    .form-field
+
+        label
+            width: $newWidth
+            @include isMobile()
+                width: $mobileWidth
+
+        .input-space
+            left: $newWidth
+            @include isMobile()
+                left: $mobileWidth
+
+@mixin sexy-border($color, $backgroundColor)
+    position: relative
+    
+    &:after
+        content: " "
+        border-bottom: 1px solid $color
+        position: absolute
+        top: 50%
+        left: 0
+        right: 0
+        z-index: 4
+
+    h1, .text
+        position: relative
+        margin: 0 auto
+        background-color: $backgroundColor
+        padding: 0 10px
+        z-index: 5
+
+@mixin transform ($transformation)
+    transform: $transformation
+    -webkit-transform: $transformation
+    -ms-transform: $transformation

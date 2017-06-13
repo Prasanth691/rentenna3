@@ -1,0 +1,51 @@
+{% extends 'email/confirmationTemplateBase.jinja2' %}
+
+{% block extraCssClasses %}invitation-template{% endblock %}
+
+{% block preview %}
+    Confirm that you'd like us to send you alerts for {{ commonName }}
+{% endblock %}
+
+{% block header %}
+    <div class="header-text white table">
+    	<div class="cell cta">
+	        <h1>Background Check Any Address in the Country!</h1>
+            <a href="{{ otuLink('%s?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=invitation-email&utm_content=banner-cta' % target) }}">
+	            <div class="content cta-btn orange">REVIEW YOUR REPORT!</div>
+	        </a>
+	    </div>
+	    <div class="cell report">
+	    	<img src="{{ urlJoin( urlBase, '/resource/image/email/sample-report.png' ) }}" class="sample-report" />
+	    </div>
+    </div>
+{% endblock %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+	{{ renderGreeting(user) }}
+    <p>
+        I’d like to invite you to check out a great new service called AddressReport that I’m now able to offer you.
+    </p>
+    <p>
+		Check on your own address. Check out other properties or areas you’re interested in. Find out all the nitty gritty details about nearly any property.
+    </p>
+    <p>
+	    <a href="{{ otuLink('%s?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=invitation-email&utm_content=banner-cta' % target) }}" class="white">
+	        <div class="cta-btn green">
+	            CLICK TO VIEW YOUR REPORT!
+	        </div>
+	    </a>
+    </p>
+    <p>
+        Have a look at your report. Feel free to search other addresses or neighborhoods. And be sure to sign up to receive alerts so you know right away when new information is available.
+    </p>    
+    <p>
+        I hope you find this new service valuable and feel free to <strong>{% if contactInfo.email %}<a href="mailto:{{ contactInfo.email }}?subject=Invitaion to view a report" target="_blank">reach out to me</a>{% else %} reach out to me{% endif %}</strong> anytime with questions or comments!
+    </p>
+    {{ renderContactName(contactInfo) }}
+    <div class="cta-banner">
+        {% include 'email/asSeenIn.jinja2' %}
+    </div>
+{% endblock %}

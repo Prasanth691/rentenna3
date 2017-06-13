@@ -1,0 +1,53 @@
+<div class="life-report-section report-section">
+    <div class="report-section-header">
+        <h2>Life</h2>
+    </div>
+    <div class="life-browser">
+        <div class="category-selector expanded">
+            <div class="categories">
+                <h3>Where you'll</h3>
+                <div class="category-list">
+                    {% for type in subsections.dailyLife.types %}
+                        <div class="category" target="{{ type.id }}">
+                            {{ type.name }}<span class="go-back-text hidden">go back</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a href="{{ subsections.dailyLife.yelpSearchLink }}" target="_blank">
+                    <img src="{{ resource('/image/yelp.png') }}" class="yelp-logo" />
+                </a>
+            </div>
+        </div>
+
+        {% for type in subsections.dailyLife.types %}
+            <div class="results" id="{{ type.id }}">
+                {% for result in type.results %}
+                    <div class="result"
+                        href="http://www.yelp.com/biz/{{ result.id }}"
+                        {% if result.image_url %}
+                            style="background-image:url('{{ result.image_url }}')"
+                        {% endif %}>
+                        <div class="info">
+                            <div class="name">
+                                {{ result.name }}
+                            </div>
+                            <div class="rating">
+                                <img src="{{ result.rating_img_url_large }}" />
+                            </div>
+                            {% if result.distance %}
+                                <div class="distance">
+                                    {{ getDistance(result.distance) }}
+                                    Away
+                                </div>
+                            {% endif %}
+                            <div class="review-count">
+                                {{ plural(result.review_count, "Review") }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    </div>
+</div>

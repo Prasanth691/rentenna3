@@ -1,0 +1,30 @@
+{% import 'base/forms.nunjucks' as forms %}
+
+{% extends 'admin/baseAdmin.jinja2' %}
+{% block content %}
+    <div class="content users">
+        <h2>Recent Free Trials</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Partner Name</th>
+                    <th>Partner Id</th>
+                    <th>Accepted</th>
+                    <th>Accepted Date (Est.)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td>
+                            {{ log.partnerName }}
+                        </td>
+                        <td>{{ log.partnerId }}</td>
+                        <td>{{ log.accepted }}</td>
+                        <td>{{ date(log.acceptedDate) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

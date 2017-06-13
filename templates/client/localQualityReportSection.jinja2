@@ -1,0 +1,215 @@
+{% import 'client/mapLegend.jinja2' as legend %}
+{% import 'client/maskedMeter.jinja2' as maskedMeter %}
+
+{% macro renderNoise(stats) %}
+    <div class="narrative-box-container">
+        <div class="narrative-box neutral">
+            <div class="intro">
+                There were
+            </div>
+            <div class="number">
+                {{ stats.noiseComplaints.count }}
+            </div>
+            <div class="units">
+                noise complaints in the last year
+                {{ stats.noiseComplaints.distanceDescription }}
+            </div>
+        </div>
+        <button class="drilldown-button" target="noise-complaint-map">
+            <span class="label">
+                See the Noise Complaint Map
+            </span>
+        </button>
+
+        {% if renderFullReport %}
+            <div class="noise-complaint-map drilldown map-drilldown" id="noise-complaint-map">
+                {{ JsonPayload(
+                    location=target.location) }}
+                {{ legend.render([
+                    "Loud Music / Party", "Construction", "Loud Talking / Yelling", "Car / Truck", "Dog Barking", "Industrial / Machinery", "Alarm", "Other", "Helicopter"
+                ])}}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro renderFilth(stats) %}
+    <div class="narrative-box-container">
+        <div class="narrative-box neutral">
+            <div class="intro">
+                There were
+            </div>
+            <div class="number">
+                {{ stats.filthComplaints.count }}
+            </div>
+            <div class="units">
+                filth complaints in the last year
+                {{ stats.filthComplaints.distanceDescription }}
+            </div>
+        </div>
+        <button class="drilldown-button" target="filth-complaint-map">
+            <span class="label">
+                See the Filth Complaint Map
+            </span>
+        </button>
+
+        {% if renderFullReport %}
+            <div class="filth-complaint-map drilldown map-drilldown" id="filth-complaint-map">
+                {{ JsonPayload(
+                    location=target.location) }}
+                {{ legend.render([
+                    "Sewer", "Graffiti", "Air Quality", "Urinating in Public", "Hazardous Materials", "Street Filth", "Litter / Clutter", "Industrial Waste"
+                ])}}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro renderStreet(stats) %}
+    <div class="narrative-box-container">
+        <div class="narrative-box neutral">
+            <div class="intro">
+                There were
+            </div>
+            <div class="number">
+                {{ stats.streetComplaints.count }}
+            </div>
+            <div class="units">
+                street complaints in the last year
+                {{ stats.streetComplaints.distanceDescription }}
+            </div>
+        </div>
+        <button class="drilldown-button" target="street-complaint-map">
+            <span class="label">
+                See the Street Complaint Map
+            </span>
+        </button>
+
+        {% if renderFullReport %}
+            <div class="street-complaint-map drilldown map-drilldown" id="street-complaint-map">
+                {{ JsonPayload(
+                    location=target.location) }}
+                {{ legend.render([
+                    "Street Light", "Road Condition", "Scaffold Safety", "Dead Tree", "Sidewalk Condition", "Broken Parking Meter"
+                ])}}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro renderComplaints(stats) %}
+    <div class="quick-stats">
+        <div class="content">
+            <h3 class="content">Local Quality at a Glance</h3>
+            
+            <div class="caveat">
+                Incident data comes from NYC 311. To report complaints or learn more about NYC 311 visit <a href="http://www1.nyc.gov/311/" target="_blank">here</a>
+            </div>
+        </div>
+        <div class="subsection-row content">
+            {{ renderNoise(stats) }}
+            {{ renderFilth(stats) }}
+            {{ renderStreet(stats) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro renderRodents(stats) %}
+    <div class="rodent-sightings content subsection-row">
+        <div class="heading">
+            <h3>Rodent Sightings</h3>
+        </div>
+
+        <div class="here rodent-section">
+            <h4>
+                {{ stats.building }} 
+                rodent sightings reported 
+                {{ target.getCity().getDistance('nearby')['description'] }} 
+                of {{ commonName }}
+            </h4>
+            {{ maskedMeter.render(stats.buildingPercent, 'rodent', False) }}
+        </div>
+
+        <div class="city rodent-section">
+            <h4>
+                {{ stats.city }} rodent sightings is typical 
+                around buildings in {{ target.getCity().name }}
+            </h4>
+            {{ maskedMeter.render(stats.cityPercent, 'rodent', True) }}
+        </div>
+
+        <button class="drilldown-button" target="rodent-complaint-map">
+            <span class="label">
+                See the Rodent Complaint Map
+            </span>
+        </button>
+
+        {% if renderFullReport %}
+            <div class="rodent-complaint-map drilldown map-drilldown" id="rodent-complaint-map">
+                {{ JsonPayload(
+                    location=target.location) }}
+                {{ legend.render([
+                    "Condition Attracting Rodents", "Rat Sighting", "Mouse Sighting", "Signs of Rodents", "Rodent Bite"
+                ])}}
+            </div>
+        {% endif %}
+    </div>    
+{% endmacro %}
+
+{% macro renderTrees(stats) %}
+    <div class="street-trees content subsection-row">
+        <div class="heading">
+            <h3>Street Trees</h3>
+        </div>
+
+        <div class="here street-tree-section">
+            <h4>
+                {{ stats.streetTreeCount }} 
+                street trees
+                {{ target.getCity().getDistance('nearby')['description'] }} 
+                of {{ commonName }}
+            </h4>
+            {{ maskedMeter.render(stats.streetTreePercent, 'street-tree', False) }}
+        </div>
+        <div class="city street-tree-section">
+            <h4>
+                {{ stats.cityCount }} street trees is typical 
+                around buildings in {{ target.getCity().name }}
+            </h4>
+            {{ maskedMeter.render(stats.cityPercent, 'street-tree', True) }}
+        </div>
+
+        <button class="drilldown-button" target="street-tree-map">
+            <span class="label">
+                See the Street Tree Map
+            </span>
+        </button>
+
+        {% if renderFullReport %}
+            <div class="street-tree-map drilldown map-drilldown" id="street-tree-map">
+                {{ JsonPayload(
+                    location=target.location) }}
+            </div>
+        {% endif %}
+    </div>    
+{% endmacro %}
+
+<div class="local-quality-report-section report-section">
+    <div class="report-section-header">
+        <h2>Local Quality</h2>
+        <p>{{ description }}</p>
+    </div>
+
+    {% if subsections.complaints %}
+        {{ renderComplaints(subsections.complaints) }}
+    {% endif %}
+
+
+    {% if subsections.rats %}
+        {{ renderRodents(subsections.rats) }}
+    {% endif %}
+
+    {% if subsections.trees %}
+        {{ renderTrees(subsections.trees) }}
+    {% endif %}   
+</div>

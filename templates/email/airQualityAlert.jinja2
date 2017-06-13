@@ -1,0 +1,124 @@
+{% extends 'email/alertTemplateBase.jinja2' %}
+
+{% block extraCssClasses %}alert-base air-quality-alert{% endblock %}
+
+{% block preview %}
+    Air quality
+    {% if lastWeek.breezometer_aqi > thisWeek.breezometer_aqi %}
+        down by 
+        {{ plural(lastWeek.breezometer_aqi - thisWeek.breezometer_aqi, "point") }}
+    {% elif thisWeek.breezometer_aqi > lastWeek.breezometer_aqi %}
+        up by 
+        {{ plural(thisWeek.breezometer_aqi - lastWeek.breezometer_aqi, "point") }}
+    {% endif %}
+    around 
+    {{ property.shortName }}
+{% endblock %}
+
+{% block alerts %}
+    {% set target = property.getUrl(True) %}
+    {% set tracking = "?utm_source=automation-email&utm_medium=email&utm_campaign=property-alerts-air-quality" %}
+    {% set aqiOverride = "&aqi=" + thisWeek.breezometer_aqi|string %}
+
+    <div class="section-heading">
+        AQI (AIR QUALITY INDEX) UPDATE
+    </div>
+
+    <div class="section-container breezometer-section">
+        <h4>AQI This Week:</h4>
+
+        <div class="score" style="color: {{ thisWeek.breezometer_color }}">
+            {{ thisWeek.breezometer_aqi|int }}
+            <span class="max-score">/100</span>
+        </div>
+        <h5>{{ thisWeek.breezometer_description }}</h5>
+
+        <p class="aqi">
+            The AQI of 
+            {{ thisWeek.breezometer_aqi }} 
+            from this week has
+            {% if lastWeek.breezometer_aqi > thisWeek.breezometer_aqi %}
+                decreased by 
+                {{ plural(lastWeek.breezometer_aqi - thisWeek.breezometer_aqi, "point") }}
+            {% elif thisWeek.breezometer_aqi > lastWeek.breezometer_aqi %}
+                increased by 
+                {{ plural(thisWeek.breezometer_aqi - lastWeek.breezometer_aqi, "point") }}
+            {% endif %}
+            compared to the AQI of 
+            {{ lastWeek.breezometer_aqi }} 
+            from last week.
+        </p>
+
+        <a href="{{ otuLink('%s%s%s&utm_content=air-quality-link' % (target, tracking, aqiOverride)) ~ '#air-quality' }}">
+            <div class="all-sales">
+                See Current Air Quality for
+                {{ property.shortName }}  
+            </div>
+        </a>
+    </div>
+
+    {#
+    <div class="dominant-pollutant">
+        <h4>Dominant Pollutant This Week</h4>
+        <p>
+            {{ thisWeek.dominant_pollutant_text.main }}
+            {{ thisWeek.dominant_pollutant_text.causes }}
+            {{ thisWeek.dominant_pollutant_text.effects }}
+        </p>
+    </div>
+    #}
+
+    <table class="recommendations">
+        <tr>
+            <td class="recommendation-image">
+                <div class="breezometer-badge" 
+                        style="background-color: {{ thisWeek.breezometer_color }}">
+                    <img src="https://www.addressreport.com/resource/image/breezometer/kids.png"/>
+                </div>
+            </td>
+            <td class="recommendation">
+                <h4>Children under the age of 14</h4>
+                <p>{{ thisWeek.random_recommendations.children }}</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="recommendation-image">
+                <div class="breezometer-badge" 
+                        style="background-color: {{ thisWeek.breezometer_color }}">
+                    <img src="https://www.addressreport.com/resource/image/breezometer/sport.png" />
+                </div>
+            </td>
+            <td class="recommendation">
+                <h4>Sports and Recreation</h4>
+                <p>{{ thisWeek.random_recommendations.sport }}</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="recommendation-image">
+                <div class="breezometer-badge" 
+                        style="background-color: {{ thisWeek.breezometer_color }}">
+                    <img src="https://www.addressreport.com/resource/image/breezometer/health.png" />
+                </div>
+            </td>
+            <td class="recommendation">
+                <h4>Health and Safety</h4>
+                <p>{{ thisWeek.random_recommendations.health }}</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="recommendation-image">
+                <div class="breezometer-badge" 
+                        style="background-color: {{ thisWeek.breezometer_color }}">
+                    <img src="https://www.addressreport.com/resource/image/breezometer/home.png" />
+                </div>
+            </td>
+            <td class="recommendation">
+                <h4>Indoor Considerations</h4>
+                <p>{{ thisWeek.random_recommendations.inside }}</p>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% import 'forms' as forms %}
+{% extends 'modalView' %}
+{% block content %}
+    <div class="main">    
+        <h2>{{ title }}</h2>
+        <p>{{ body }}</p>
+        <button class="button cta">
+            {{ button }}
+        </button>
+    </div>
+{% endblock %}

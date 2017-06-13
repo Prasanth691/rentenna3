@@ -1,0 +1,394 @@
+{% import 'client/upgradeCta.jinja2' as upgradeCta %}
+
+{% macro renderBuildingInfo(buildingInfo, key, label, useCommas=False) %}
+    {% if buildingInfo.get(key) %}
+        <div class="building-fact building-type">
+            <div class="label">
+                {{ label }}
+            </div>
+            <div class="data">
+                {% if useCommas %}
+                    {{ commas(buildingInfo.get(key)) }}
+                {% else %}
+                    {{ buildingInfo.get(key) }}
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderInsurentCheck(buildingInfo) %}
+    {% if buildingInfo.isInsurent %}
+        <div class="building-fact insurent-check">
+            <div class="label">
+                <a target="_blank" href="http://www.insurent.com/?utm_source=rentenna.com">
+                    Insurent Accepted
+                </a>
+            </div>
+            <div class="data">
+                <i class="fa fa-check"></i>
+            </div>
+            <i class="fa fa-question-circle explain"></i>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderUpWaitTime(elevators) %}
+    {% if elevators.elevatorWaitTimeUp %}
+        <div class="narrative-box-container wait">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    Typical Lobby Wait Time
+                </div>
+                <div class="number">
+                    {{ elevators.elevatorWaitTimeUp }}
+                </div>
+                <div class="units">
+                    seconds
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderUpTravelTime(elevators) %}
+    {% if elevators.elevatorTravelTimeUp %}
+        <div class="narrative-box-container travel">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    Travel Time From Lobby
+                </div>
+                <div class="number">
+                    {{ elevators.elevatorTravelTimeUp }}
+                </div>
+                <div class="units">
+                    seconds
+                </div>
+            </div>
+
+            {% if elevators.elevatorTimeDownByFloor %}
+                <button class="drilldown-button" target="elevator-travel-time-by-floor-up">
+                    <span class="label">
+                        See Travel Time by Floor
+                    </span>
+                </button>
+                {{ renderUpTravelTimeDrilldown(elevators) }}
+            {% endif %}
+        </div>
+
+    {% endif %}
+{% endmacro %}
+
+{% macro renderUpTravelTimeDrilldown(elevators) %}
+    {% if renderFullReport %}
+        <div class="drilldown elevator-time-by-floor" id="elevator-travel-time-by-floor-up">
+            {{ JsonPayload(
+                times=elevators.elevatorTimeUpByFloor,
+                mode='travel',
+                title='Elevator Travel Time by Floor') }}
+        </div>
+    {% else %}
+        {{ upgradeCta.render('elevator-travel-time-by-floor-up',
+            heading="Upgrade to see elevator wait time estimates",
+            description="""
+                Don’t move to a building with slow, crowded elevators.
+                See estimated elevator wait and travel times by floor for this building
+                based on our detailed analysis of the building’s unit count, floor
+                count, elevator count, and elevator speeds.
+            """) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro renderDownWaitTime(elevators) %}
+    {% if elevators.elevatorWaitTimeDown %}
+        <div class="narrative-box-container wait">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    Typical Floor Wait Time
+                </div>
+                <div class="number">
+                    {{ elevators.elevatorWaitTimeDown }}
+                </div>
+                <div class="units">
+                    seconds
+                </div>
+            </div>
+
+            {% if elevators.elevatorTimeDownByFloor %}
+                <button class="drilldown-button" target="elevator-wait-time-by-floor">
+                    <span class="label">
+                        See Wait Time by Floor
+                    </span>
+                </button>
+                {{ renderDownWaitTimeDrilldown(elevators) }}
+            {% endif %}
+        </div>
+
+    {% endif %}
+{% endmacro %}
+
+{% macro renderDownWaitTimeDrilldown(elevators) %}
+    {% if renderFullReport %}
+        <div class="drilldown elevator-time-by-floor" id="elevator-wait-time-by-floor">
+            {{ JsonPayload(
+                times=elevators.elevatorTimeDownByFloor,
+                mode='wait',
+                title='Elevator Wait Time by Floor') }}
+        </div>
+    {% else %}
+        {{ upgradeCta.render('elevator-wait-time-by-floor',
+            heading="Upgrade to see elevator wait time estimates",
+            description="""
+                Don’t move to a building with slow, crowded elevators.
+                See estimated elevator wait and travel times by floor for this building
+                based on our detailed analysis of the building’s unit count, floor
+                count, elevator count, and elevator speeds.
+            """) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro renderDownTravelTime(elevators) %}
+    {% if elevators.elevatorTravelTimeDown %}
+        <div class="narrative-box-container travel">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    Travel Time From Floor
+                </div>
+                <div class="number">
+                    {{ elevators.elevatorTravelTimeDown }}
+                </div>
+                <div class="units">
+                    seconds
+                </div>
+            </div>
+
+            {% if elevators.elevatorTimeDownByFloor %}
+                <button class="drilldown-button" target="elevator-travel-time-by-floor-down">
+                    <span class="label">
+                        See Travel Time by Floor
+                    </span>
+                </button>
+                {{ renderDownTravelTimeDrilldown(elevators) }}
+            {% endif %}
+        </div>
+
+    {% endif %}
+{% endmacro %}
+
+{% macro renderDownTravelTimeDrilldown(elevators) %}
+    {% if renderFullReport %}
+        <div class="drilldown elevator-time-by-floor" id="elevator-travel-time-by-floor-down">
+            {{ JsonPayload(
+                times=elevators.elevatorTimeDownByFloor,
+                mode='travel',
+                title='Elevator Travel Time by Floor') }}
+        </div>
+    {% else %}
+        {{ upgradeCta.render('elevator-travel-time-by-floor-down',
+            heading="Upgrade to see elevator wait time estimates",
+            description="""
+                Don’t move to a building with slow, crowded elevators.
+                See estimated elevator wait and travel times by floor for this building
+                based on our detailed analysis of the building’s unit count, floor
+                count, elevator count, and elevator speeds.
+            """) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro complaints(data) %}
+    <div class="narrative-box-container">
+        <div class="narrative-box neutral">
+            <div class="intro">
+                The total number of problems reported for {{ commonName }} is
+            </div>
+            <div class="number">
+                {{ data.totalProblems }}    
+            </div>
+            <div class="units">
+                Problems
+            </div>
+        </div>
+
+        {% if data.complaints %}
+            <button class="drilldown-button" target="complaints-table">
+                <span class="label">
+                    See the table
+                </span>
+            </button>
+            {{ complaintsDrilldown(data.complaints) }}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro complaintsDrilldown(complaints) %}
+    {% if renderFullReport %}
+        <div class="complaints-table table drilldown" id="complaints-table">
+            <table>
+                <thead>
+                    <th>Date</th>
+                    <th>Unit</th>
+                    <th>Space</th>
+                    <th>Problem</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                </thead>
+                {% for complaint in complaints %}
+                    {% for problem in complaint.Problems %}
+                        <tr>
+                            <td>{{ date(complaint.ReceivedDate, '%B %d, %Y') }}</td>
+                            <td>{{ complaint.Apartment or "--" }}</td>
+                            <td>{{ problem.getSpace() }}</td>
+                            <td>{{ problem.getProblem() }}</td>
+                            <td>{{ problem.getPriority() }}</td>
+                            <td>{{ problem.getStatus() }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        {{ upgradeCta.render('complaints-table',
+            heading="Upgrade to see what’s been crawling inside those walls",
+            description="""
+                See detailed complaints and violations histories for
+                %s, including reported vermin and bedbug infestations, lead paint hazards,
+                carbon monoxide concerns, smoke detector problems, lack of hot water, water leaks,
+                plumbing issues, and more.
+            """ % commonName) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro violations(data) %}
+    <div class="narrative-box-container">
+        <div class="narrative-box neutral">
+            <div class="intro">
+                The total number of historical violations
+                for {{ commonName }} is
+            </div>
+            <div class="number">
+                {{ data.totalViolations }}    
+            </div>
+            <div class="units">
+                Violations
+            </div>
+        </div>
+
+        {% if data.violations %}
+            <button class="drilldown-button" target="violations-table">
+                <span class="label">
+                    See the table
+                </span>
+            </button>
+            {{ violationsDrilldown(data.violations) }}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro violationsDrilldown(violations) %}
+    {% if renderFullReport %}
+        <div class="violations-table table drillable-table drilldown" id="violations-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date Observed</th>
+                        <th>Violation</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for violation in violations %}
+                        <tr class="row">
+                            <td>{{ date(violation.InspectionDate, '%B %d, %Y') }}</td>
+                            <td>{{ violation.getProblem() }}</td>
+                            <td>{{ violation.getClass() }}</td>
+                            <td>{{ violation.getStatus() }}</td>
+                        </tr>
+                        <tr class="sub-row">
+                            <td colspan="999">
+                                <div class="full-description">
+                                    {{ violation.NOVDescription }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        {{ upgradeCta.render('violations-table',
+            heading="Upgrade to see what’s been crawling inside those walls",
+            description="""
+                See detailed complaints and violations histories from
+                this building, including reported vermin infestations, lead paint hazards,
+                carbon monoxide concerns, smoke detector problems, water leaks,
+                plumbing issues, and more.
+            """) }}
+    {% endif %}
+{% endmacro %}
+
+<div class="building-report-section report-section">
+    <div class="report-section-header">
+        <h2>Building</h2>
+    </div>
+
+    {% if subsections.buildingInfo %}
+        <div class="building-info content">
+            {{ renderBuildingInfo(subsections.buildingInfo, 
+                'buildingTypeShort', 'Building Type') }}
+            {{ renderBuildingInfo(subsections.buildingInfo, 
+                'unitCount', 'Unit Count') }}
+            {{ renderBuildingInfo(subsections.buildingInfo, 
+                'bedCount', 'Bedroom Count') }}
+            {{ renderBuildingInfo(subsections.buildingInfo, 
+                'floorCount', 'Floor Count') }}
+            {{ renderBuildingInfo(subsections.buildingInfo,
+                'numberElevators', 'Elevators') }}
+            {{ renderBuildingInfo(subsections.buildingInfo,
+                'buildYear', 'Build Year') }}
+            {{ renderBuildingInfo(subsections.buildingInfo,
+                'buildingSqft', 'Building SQFT', useCommas=True) }}
+            {{ renderInsurentCheck(subsections.buildingInfo) }}
+        </div>
+    {% endif %}
+
+    {% if subsections.elevators %}
+        <div class="elevators">
+            <h3 class="content">Elevators</h3>
+            
+            <div class="subsection-row content">
+                <div class="elevator-direction up">
+                    <div class="direction-label">
+                        Heading up during evening peak
+                    </div>
+                    {{ renderUpWaitTime(subsections.elevators) }}
+                    {{ renderUpTravelTime(subsections.elevators) }}
+                </div>
+                <div class="elevator-direction down">
+                    <div class="direction-label">
+                        Heading down during morning peak
+                    </div>
+                    {{ renderDownWaitTime(subsections.elevators) }}
+                    {{ renderDownTravelTime(subsections.elevators) }}
+                </div>
+            </div>
+        </div>  
+    {% endif %}
+
+    {% if subsections.complaints %}
+        <div class="complaints-stats">
+            <div class="content">
+            <a name="complaints"></a>
+                <h3>Complaints and Violations</h3>
+                <div class="caveat">
+                    Violations data comes from NYC HPD (<a href="http://www1.nyc.gov/site/hpd/index.page" target="_blank">Housing Preservation and Development</a>) and is collected via NYC 311.
+                </div>
+            </div>
+            <div class="subsection-row content">
+                {{ complaints(subsections.complaints) }}
+                {{ violations(subsections.complaints) }}
+            </div>
+        </div>
+    {% endif %}
+
+</div>

@@ -1,0 +1,516 @@
+{% import 'base/forms.nunjucks' as forms %}
+
+{% extends 'admin/baseAdmin.jinja2' %}
+
+{% block content %}
+    <div class="content">
+        <div class="breadcrumbs">
+            <div class="content">
+                {% for breadcrumb in breadcrumbs %}
+                    {% if not loop.last %}
+                        <div class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a href="{{ breadcrumb.url }}" itemprop="url">
+                                <span itemprop="title">{{ breadcrumb.title }}</span>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="breadcrumb current">
+                            <span class="name">
+                                {{ breadcrumb.title }}
+                            </span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#overview" data-target="#overview" data-toggle="tab">Overview</a></li>
+            <li><a href="#emailTempalte" data-target="#emailTemplate" data-toggle="tab">Email template</a></li>
+        </ul>
+
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="overview">
+                <div class="partner-dashboard-section partner-dashboard-reportview"></div>
+                <div class="partner-dashboard-section partner-dashboard-email"></div>
+                <div class="partner-dashboard-section partner-dashboard-unsubscribe"></div>
+                <div class="partner-dashboard-section partner-dashboard-rate"></div>
+                <div class="partner-dashboard-section partner-dashboard-usercount"></div>
+            </div>
+            <div class="tab-pane fade" id="emailTemplate">
+                <div class="partner-dashboard-section templateAlertForAirQuality">
+                    <h3 class="title"></h3>
+                    <div class="partner-dashboard-section counts"></div>
+                    <div class="partner-dashboard-section rates"></div>
+                </div>
+                <div class="partner-dashboard-section templateAlertFor311">
+                    <h3 class="title"></h3>
+                    <div class="partner-dashboard-section counts"></div>
+                    <div class="partner-dashboard-section rates"></div>
+                </div>
+                <div class="partner-dashboard-section templateAlertForValue">
+                    <h3 class="title"></h3>
+                    <div class="partner-dashboard-section counts"></div>
+                    <div class="partner-dashboard-section rates"></div>
+                </div>
+                <div class="partner-dashboard-section templateAlertForNearbySales">
+                    <h3 class="title"></h3>
+                    <div class="partner-dashboard-section counts"></div>
+                    <div class="partner-dashboard-section rates"></div>
+                </div>
+                <div class="partner-dashboard-section templateSubscribeForAlerts">
+                    <h3 class="title"></h3>
+                    <div class="partner-dashboard-section counts"></div>
+                    <div class="partner-dashboard-section rates"></div>
+                </div>
+                <div class="partner-dashboard-section templateRegisteredEmail">
+                    <h3 class="title"></h3>
+                    <div class="partner-dashboard-section counts"></div>
+                    <div class="partner-dashboard-section rates"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="//fb.me/react-15.1.0.min.js"></script>
+        <script src="//fb.me/react-dom-15.1.0.min.js"></script>
+
+        <script src="//code.highcharts.com/stock/highstock.js"></script>
+        <script src="//code.highcharts.com/modules/funnel.js"></script>
+        <script src="//code.highcharts.com/modules/exporting.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+        <script src="//highcharts.github.io/export-csv/export-csv.js?version=1.4.2"></script>
+
+        <div id="partner-dashboard-data" data-url="{{ analyticsUrl }}" data-apikey="{{ apiKey }}" data-apisecret="{{ apiSecret }}"></div>
+        <script type="text/javascript">
+            window.onload = function(){
+                var dataHolder = $("#partner-dashboard-data")
+                var url = dataHolder.data("url")
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(
+                        {
+                            "api_key": dataHolder.data("apikey"),
+                            "api_secret": dataHolder.data("apisecret"),
+                            "dateRange" : "lastquarter",
+                            "interval" : "daily"
+                        }
+                    ),
+                    success: initCharts
+
+                }) 
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(
+                        {
+                            "api_key": dataHolder.data("apikey"),
+                            "api_secret": dataHolder.data("apisecret"),
+                            "dateRange" : "lastquarter",
+                            "interval" : "daily",
+                            "templates" : [
+                                "AlertForAirQuality", 
+                                "AlertFor311", 
+                                "AlertForValue",
+                                "AlertForNearbySales", 
+                                "SubscribeForAlerts", 
+                                "RegisteredEmail"
+                            ]
+                        }
+                    ),
+                    success: initEmailTemplateCharts
+
+                })    
+            }
+
+            function constructTemplateChart(template, data) {
+
+                if (!data || data.length < 1) {
+                    return null;
+                }
+
+                var result = data.reverse();
+
+                var dateRanges = _.pluck(result, "dateRange");
+                dateRanges = _.map(dateRanges, function(item){
+                    return moment(item[0], "YYYY-MM-DD").format("ddd, MM/DD/YYYY")
+                });
+
+                function getData(fieldName) {
+                    return _.pluck(result, fieldName)
+                }
+
+                var Chart = React.createClass({
+                    componentDidMount: function() {
+                        // Extend Highcharts with modules
+                        if (this.props.modules) {
+                            this.props.modules.forEach(function(module) {
+                                module(Highcharts);
+                            });
+                        }
+                        // Set container which the chart should render to.
+                        this.chart = new Highcharts[this.props.type || "Chart"](
+                            this.props.container,
+                            this.props.options
+                        );
+                    },
+                    //Destroy chart before unmount.
+                    componentWillUnmount: function() {
+                        this.chart.destroy();
+                    },
+                    //Create the div which the chart will be rendered to.
+                    render: function() {
+                        return React.createElement('div', {
+                            id: this.props.container
+                        });
+                    }
+                });
+
+                var baseOptions = {
+                    rangeSelector: {
+                        selected: 0
+                    },
+                    tooltip: {
+                        style: {
+                            width: '200px'
+                        },
+                        valueDecimals: 0,
+                        shared: true
+                    },
+                    xAxis:{
+                        categories: dateRanges,
+                        labels : {
+                            formatter : function(){
+                                return moment(this.value, "ddd, MM/DD/YYYY").format("YYYY-MM-DD")
+                            }
+                        }
+                    }
+                }
+                
+                var elementCounts = React.createElement(Chart, {
+                    container: 'template-email-counts-' +  template,
+                    {# type: 'stockChart', #}
+                    options: $.extend({}, baseOptions, {
+                        title: {
+                            text: template + ' : email statistics'
+                        },
+                        series : [
+                            {
+                                name : "delivered",
+                                data : getData("delivered")
+                            },
+                            {
+                                name : "opens",
+                                data : getData("opens")
+                            },
+                            {
+                                name : "sent",
+                                data : getData("sent")
+                            },
+                            {
+                                name : "unopened",
+                                data : getData("unopened")
+                            },
+                            {
+                                name : "clicks",
+                                data : getData("clicks")
+                            }
+                        ]
+                    })
+                });
+
+                function parseRate(str) {
+                    if (str == 'N/A')
+                    {
+                        return null
+                    }
+
+                    return parseFloat(str)
+                }
+
+                function rateArray(fieldName) {
+                    return _.map(getData(fieldName), function(item){
+                        return parseRate(item)
+                    })
+                }
+
+                var elementRates = React.createElement(Chart, {
+                    container: 'rates-' + template,
+                    options: $.extend({}, baseOptions, {
+                        title: {
+                            text: template + ' : rate statistics'
+                        },
+                        tooltip: {
+                            style: {
+                                width: '200px'
+                            },
+                            shared: true,
+                            valueDecimals: 2,
+                            pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}%</b><br/>'
+                        },
+                        yAxis:{
+                            labels: {
+                                formatter: function () {
+                                    return this.value + '%';
+                                }
+                            }
+                        },
+                        series : [
+                            {
+                                name : "delivery rate",
+                                data : rateArray("deliveryRate")
+                            },
+                            {
+                                name : "open rate",
+                                data : rateArray("openRate")
+                            },
+                            {
+                                name : "unopen rate",
+                                data : rateArray("unopenRate")
+                            },
+                            {
+                                name : "click rate",
+                                data : rateArray("clickRate")
+                            }
+                        ]
+                    })
+                });
+
+                var $container = $(".template" + template);
+                $container.find(".title").text(template);
+                var containerCountsElem = $container.find(".counts").get(0);
+                var containerRatesElem = $container.find(".rates").get(0);
+                ReactDOM.render(elementCounts, containerCountsElem);
+                ReactDOM.render(elementRates, containerRatesElem);
+            }
+
+            function initEmailTemplateCharts(data) {
+
+                var templates = data['templates']
+
+                for (var index=0; index < templates.length; index++)
+                {
+                    var template = templates[index];
+                    constructTemplateChart(template, data['result'][template]);
+                }
+            }
+
+            function initCharts(data) {
+
+                var result = data.result.reverse();
+                var dateRanges = _.pluck(result, "dateRange");
+                dateRanges = _.map(dateRanges, function(item){
+                    return moment(item[0], "YYYY-MM-DD").format("ddd, MM/DD/YYYY")
+                });
+
+                function getData(fieldName) {
+                    return _.pluck(result, fieldName)
+                }
+
+                var Chart = React.createClass({
+                    componentDidMount: function() {
+                        // Extend Highcharts with modules
+                        if (this.props.modules) {
+                            this.props.modules.forEach(function(module) {
+                                module(Highcharts);
+                            });
+                        }
+                        // Set container which the chart should render to.
+                        this.chart = new Highcharts[this.props.type || "Chart"](
+                            this.props.container,
+                            this.props.options
+                        );
+                    },
+                    //Destroy chart before unmount.
+                    componentWillUnmount: function() {
+                        this.chart.destroy();
+                    },
+                    //Create the div which the chart will be rendered to.
+                    render: function() {
+                        return React.createElement('div', {
+                            id: this.props.container
+                        });
+                    }
+                });
+
+                var baseOptions = {
+                    rangeSelector: {
+                        selected: 0
+                    },
+                    tooltip: {
+                        style: {
+                            width: '200px'
+                        },
+                        valueDecimals: 0,
+                        shared: true
+                    },
+                    xAxis:{
+                        categories: dateRanges,
+                        labels : {
+                            formatter : function(){
+                                return moment(this.value, "ddd, MM/DD/YYYY").format("YYYY-MM-DD")
+                            }
+                        }
+                    }
+                }
+                
+                var elementReportView = React.createElement(Chart, {
+                    container: 'reportViews',
+                    options: $.extend({}, baseOptions, {
+                        title: {
+                            text: 'Report View Statistics'
+                        },
+                        series : [
+                            {
+                                name : "report views",
+                                data : getData("reportViews")
+                            }
+                        ]
+                    })
+                });
+
+                var elementEmail = React.createElement(Chart, {
+                    container: 'email',
+                    {# type: 'stockChart', #}
+                    options: $.extend({}, baseOptions, {
+                        title: {
+                            text: 'Email Statistics'
+                        },
+                        series : [
+                            {
+                                name : "delivered",
+                                data : getData("delivered")
+                            },
+                            {
+                                name : "opens",
+                                data : getData("opens")
+                            },
+                            {
+                                name : "sent",
+                                data : getData("sent")
+                            },
+                            {
+                                name : "unopened",
+                                data : getData("unopened")
+                            },
+                            {
+                                name : "clicks",
+                                data : getData("clicks")
+                            }
+                        ]
+                    })
+                });
+
+                var elementUnsubscribe = React.createElement(Chart, {
+                    container: 'unsubscribe',
+                    options: $.extend({}, baseOptions, {
+                        title: {
+                          text: 'Unsubscribe Statistics'
+                        },
+                        series : [
+                            {
+                                name : "unsubscribes",
+                                data : getData("unsubscribes")
+                            }
+                        ]
+                    })
+                });
+
+                var elementUserCount = React.createElement(Chart, {
+                    container: 'userCount',
+                    {# type: 'stockChart', #}
+                    options: $.extend({}, baseOptions, {
+                        title: {
+                            text: 'User/Subscriber Statistics'
+                        },
+                        series : [
+                            {
+                                name : "user",
+                                data : getData("user")
+                            },
+                            {
+                                name : "subscriber",
+                                data : getData("subscriber")
+                            }
+                        ]
+                    })
+                });
+
+                function parseRate(str) {
+                    if (str == 'N/A')
+                    {
+                        return null
+                    }
+
+                    return parseFloat(str)
+                }
+
+                function rateArray(fieldName) {
+                    return _.map(getData(fieldName), function(item){
+                        return parseRate(item)
+                    })
+                }
+
+                var elementRate = React.createElement(Chart, {
+                    container: 'rate',
+                    options: $.extend({}, baseOptions, {
+                        title: {
+                            text: 'Rate Statistics'
+                        },
+                        tooltip: {
+                            style: {
+                                width: '200px'
+                            },
+                            shared: true,
+                            valueDecimals: 2,
+                            pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}%</b><br/>'
+                        },
+                        yAxis:{
+                            labels: {
+                                formatter: function () {
+                                    return this.value + '%';
+                                }
+                            }
+                        },
+                        series : [
+                            {
+                                name : "delivery rate",
+                                data : rateArray("deliveryRate")
+                            },
+                            {
+                                name : "open rate",
+                                data : rateArray("openRate")
+                            },
+                            {
+                                name : "unopen rate",
+                                data : rateArray("unopenRate")
+                            },
+                            {
+                                name : "click rate",
+                                data : rateArray("clickRate")
+                            }
+                        ]
+                    })
+                });
+
+
+                var containerReportViewElem = $(".partner-dashboard-reportview").get(0)
+                var containerEmailElem = $(".partner-dashboard-email").get(0)
+                var containerUnsubscribeElem = $(".partner-dashboard-unsubscribe").get(0)
+                var containerUserCountElem = $(".partner-dashboard-usercount").get(0)
+                var rateElem = $(".partner-dashboard-rate").get(0)
+                
+                ReactDOM.render(elementReportView, containerReportViewElem);
+                ReactDOM.render(elementUnsubscribe, containerUnsubscribeElem)
+                ReactDOM.render(elementUserCount, containerUserCountElem)
+                ReactDOM.render(elementEmail, containerEmailElem)
+                ReactDOM.render(elementRate, rateElem)
+                
+            }
+        </script>
+    </div>
+{% endblock %}

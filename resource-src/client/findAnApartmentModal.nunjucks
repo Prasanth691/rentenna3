@@ -1,0 +1,15 @@
+{% import 'forms' as forms %}
+{% extends 'modalView' %}
+{% block content %}
+    <div class="main">    
+        <h2>Search for an AddressReport</h2>
+        <p>
+            Enter any street address below to generate its report:
+        </p>
+        <div class="address">
+        </div>
+        <button class="cta">
+            Generate the report!
+        </button>
+    </form>
+{% endblock %}

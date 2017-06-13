@@ -1,0 +1,38 @@
+{% import 'client/credibility.jinja2' as credibility %}
+{% import 'client/features.nunjucks' as features %}
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+
+    <div class="content beef">
+        <h1>
+            {{ heading }}
+        </h1>
+
+        <img src="{{ resource('/image/lappytee.png') }}" class="lappy-tee" />
+
+        <div class="lookup-box">
+            <h2>Which Address?</h2>
+            <p>Which address do you want to know more about?</p>
+
+            <div class="address">
+                {% if mode == 'alert' %}
+                    {{ AddressAutocomplete(action="alert-block") }}
+                {% else %}
+                    {{ AddressAutocomplete(action="report-block") }}
+                {% endif %}
+            </div>
+
+            <button class="cta">
+                See Your Free AddressReport
+            </button>
+
+            {{ features.renderFeatureList(
+                featureList=[feature1, feature2, feature3, feature4],
+                valueProp=valueProp) }}
+        </div>
+    </div>
+
+    {{ JsonPayload(mode=mode) }}
+
+    {{ credibility.render() }}
+{% endblock %}

@@ -1,0 +1,210 @@
+{% macro renderDistrictName(district, extraId) %}
+    {% if district.name %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    This {{district.locationType}} is zoned for
+                </div>
+                <div class="qualitative district-name">
+                    {{ district.name }}
+                </div>
+            </div>
+
+            <button class="drilldown-button" target="district-map{{ extraId }}">
+                <span class="label">
+                    See the District Map
+                </span>
+            </button>
+
+            <div class="district-map map-drilldown drilldown" id="district-map{{ extraId }}">
+                {% if isAddress(target) %}
+                    {{ JsonPayload(
+                        id=district.id,
+                        location=target.location) }}
+                {% else %}
+                    {{ JsonPayload(
+                        id=district.id,
+                        location=target.geometry) }}
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderDistrictSchoolCounts(district, extraId) %}
+    {% if district.counts %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    This school district has
+                </div>
+                <div class="number">
+                    {{ commas(district.counts.total) }}
+                </div>
+                <div class="units">
+                    {{ pluralName(district.counts.total, 'school') }}
+                </div>
+            </div>
+
+            <button class="drilldown-button" target="district-school{{ extraId }}-breakdown-by-level">
+                <span class="label">
+                    See Breakdown by Level
+                </span>
+            </button>
+
+            {% if renderFullReport %}
+                <div class="bar-chart-drilldown drilldown" id="district-school{{ extraId }}-breakdown-by-level">
+                    {{ JsonPayload(
+                        data=district.schoolBreakdownByLevel,
+                        xUnitLabel="Level",
+                        yUnitLabel="Number of Schools") }}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderDistrictRating(district) %}
+    <div class="narrative-box-container">
+        {% if district.website %}
+            <a href="{{ district.website }}" target="_blank">
+                {{ renderDistrictRatingContent(district) }}
+                <button class="drilldown-button-style-only disable-drilldown">
+                    <span class="label">
+                        Visit District Website
+                    </span>
+                </button>
+            </a>
+        {% else %}
+            {{ renderDistrictRatingContent(district) }}
+        {% endif %}
+    </div>
+
+{% endmacro %}
+
+{% macro renderDistrictRatingContent(district) %}
+    {% if district.rating %}
+        <div class="narrative-box neutral">
+            <div class="intro">
+                This school district is rated
+            </div>
+            <div class="qualitative">
+                {{ district.rating }}
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderDistrictStudentCounts(district, extraId) %}
+    {% if district.totalStudents %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There are
+                </div>
+                <div class="number">
+                    {{ commas(district.totalStudents) }}
+                </div>
+                <div class="units">
+                    students enrolled in this district
+                </div>
+            </div>
+
+            {% if district.breakdownByGrade %}
+
+                <button class="drilldown-button" target="district{{ extraId }}-breakdown-by-grade">
+                    <span class="label">
+                        See Breakdown by Grade
+                    </span>
+                </button>
+
+                {% if renderFullReport %}
+                    <div class="bar-chart-drilldown drilldown" id="district{{ extraId }}-breakdown-by-grade">
+                        {{ JsonPayload(
+                            data=district.breakdownByGrade,
+                            xUnitLabel="Grade",
+                            yUnitLabel="Number of Students Enrolled") }}
+                    </div>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderSchoolList(level, qualification, schools) %}
+    {% if schools %}
+        <div class="school-list">
+            <h3 class="content">
+                {{ level }}
+                {{ pluralName(safeLen(schools), "School") }}
+                {{ qualification }}
+            </h3>
+
+            <div class="subsection-row content">
+                {% for school in schools %}
+                    <div class="narrative-box-container">
+                        <div class="narrative-box neutral">
+                            <div class="qualitative">
+                                {{ school.name or school.INSTITUTION_NAME }}
+                            </div>
+                            <div class="units">
+                                {{ getDistance(school.distance) }} away
+                            </div>
+                        </div>
+
+                        <button class="drilldown-button" target="{{ school.obId }}-{{ level }}">
+                            <span class="label">
+                                Get School Info
+                            </span>
+                        </button>
+
+                        <div class="school-info-drilldown multi-drilldown-base drilldown" id="{{ school.obId }}-{{ level }}">
+                            {{ JsonPayload(
+                                enrollment=school.getEnrollment(),
+                                school=school) }}
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    {% endif %}
+{% endmacro %}
+
+<div class="school-report-section report-section">
+    <div class="report-section-header">
+        <h2>School</h2>
+    </div>
+
+    {% if subsections.district %}
+        <div class="district-stats">
+        <h3 class="content">School District</h3>        
+        {% for district in subsections.district %}
+            <div class="subsection-row content">
+                {{ renderDistrictName(district, loop.index0) }}
+                {{ renderDistrictSchoolCounts(district, loop.index0) }}
+                {{ renderDistrictStudentCounts(district, loop.index0) }}
+                {{ renderDistrictRating(district) }}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if subsections.schools %}
+        {% set qualifier = ("Near %s" % (commonName)) %}
+        {{ renderSchoolList(
+            "Elementary",
+            qualifier, 
+            subsections.schools.elementarySchools) }}
+        {{ renderSchoolList(
+            "Middle",
+            qualifier, 
+            subsections.schools.middleSchools) }}
+        {{ renderSchoolList(
+            "High",
+            qualifier, 
+            subsections.schools.highSchools) }}
+    {% endif %}
+</div>

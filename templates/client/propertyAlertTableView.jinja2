@@ -1,0 +1,43 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block body %}
+    <div class="property-alert-table-page">
+        <div class="content">
+            {% if stat %}
+                <h1>Recent {{ topic }} Complaints For {{ address.getShortName() }}</h1>
+                <div class="alert-table">
+                    <div class="pre-stitial"></div>
+                    <table>
+                        <tr>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                        </tr>
+                        {% for incident in stat %}
+                            {% if loop.index < 50 %}
+                                <tr>
+                                    <td>{{ humanDate(incident.created_date) }}</td>
+                                    <td>{{ incident.incident_address or 'At Intersection' }}</td>
+                                    <td>{{ incident.getShortComplaintDescription(topic) }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+                <a href="{{ address.getUrl() }}#local-quality">
+                    <button class="primary">View {{ topic }} Complaints Map</button>
+                </a>
+            {% else %}
+                <h1>
+                    No Recent {{ topic }} Complaints For {{ address.getShortName() }}
+                </h1>
+            {% endif %}
+            <a href="{{ address.getUrl() }}">
+                <button class="primary">View Full Report For {{ address.getShortName() }}</button>
+            </a>
+        </div>
+        {{ JsonPayload(
+            topic=topic,
+        ) }}
+    </div>
+{% endblock %}

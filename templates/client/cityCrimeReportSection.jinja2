@@ -1,0 +1,37 @@
+{% macro risk(name, key, stats) %}
+    <div class="narrative-box-container tall">
+        <div class="narrative-box 
+            {{ iff(stats[key].direction == 'higher', 'negative', 'positive') }}">
+            <div class="intro">
+                Risk of {{ name }}<br/>
+                in this area is
+            </div>
+            <div class="qualitative">
+                {{ percent(stats[key].percent, True) }}
+            </div>
+            <div class="outro">
+                {{ stats[key].direction }} 
+                than the national average
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+<div class="crime-report-section report-section">
+    <div class="report-section-header">
+        <h2>Crime</h2>
+    </div>
+
+    <div class="crime-risks-section content">
+        <h3>Crime Risks</h3>
+
+        <div class="subsection-row">
+            {{ risk('burglary', 'burglary', subsections.risks) }}
+            {{ risk('assault', 'assault', subsections.risks) }}
+            {{ risk('robbery', 'robbery', subsections.risks) }}
+            {{ risk('rape', 'rape', subsections.risks) }}
+            {{ risk('murder', 'murder', subsections.risks) }}
+            {{ risk('car theft', 'gta', subsections.risks) }}
+        </div>
+    </div>
+</div>

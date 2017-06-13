@@ -1,0 +1,6 @@
+<div class="address-autocomplete">
+    <input type="text" placeholder="Type anything (like 45 Wall Street)" />
+    <script type="text/json" name="action">
+        "{{ action }}"
+    </script>
+</div>

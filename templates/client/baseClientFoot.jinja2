@@ -1,0 +1,24 @@
+<div class="footer">
+    <div class="content">
+        <span>AddressReport 2017&copy;</span>
+        {% if not app().suppressArLinks() %}
+            <a href="{{ config()['URL']['BASE'] }}/about/">About AddressReport</a>
+            <a href="{{ config()['URL']['BASE'] }}/blog/">Blog</a>
+        {% endif %}
+        <a href="{{ config()['URL']['BASE'] }}/terms/">Terms of Use</a>
+        {% if not app().suppressArLinks() %}
+            <a href="{{ config()['URL']['BASE'] }}/contact/">Contact Us</a>
+        {% endif %}
+
+        <div class="copyright">
+            <p>
+                AddressReport sources certain information from Onboard Informatics. Such information is
+                Copyright &copy; 2017 Onboard Informatics. Information is deemed reliable but not
+                guaranteed.
+            </p>
+            <p>
+                School information is intended as an unofficial informational reference only. School service areas are subject to change without notice. Contact individual schools and/or districts directly to verify enrollment eligibility.
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,291 @@
+{% import 'base/forms.nunjucks' as forms %}
+
+{% extends 'admin/baseAdmin.jinja2' %}
+
+{% block content %}
+    <div class="content subdomain-form">
+        <div class="breadcrumbs">
+            <div class="content">
+                {% for breadcrumb in breadcrumbs %}
+                    {% if not loop.last %}
+                        <div class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a href="{{ breadcrumb.url }}" itemprop="url">
+                                <span itemprop="title">{{ breadcrumb.title }}</span>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="breadcrumb current">
+                            <span class="name">
+                                {{ breadcrumb.title }}
+                            </span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <h1>
+            {% if parentPartner is none %}
+                Edit partner
+            {% else %}
+                Edit sub partner
+            {% endif %}
+        </h1>
+        {% if parentPartner is none %}
+            <a class="normal primary button bulk-load-btn" href="{{bulkUrl}}">Partner Bulk Load</a>
+        {% endif %}
+        {% if isNew == false %}
+            <a class="normal primary button" href="{{dashboardUrl}}">Partner Dashboard</a>
+            <a class="normal primary button" href="{{exportUrl}}">Partner Export</a>
+        {% endif %}
+        {% if isNew == false and partner.getSetting('createSubPartner') %}
+            <a href="{{ partner.getAdminUrl() }}new/" class="button primary">
+                Create New Sub Partner
+            </a>
+            <div class="sub-partners">
+                {{ forms.select("Edit SubPartner", "editSubPartner", "", descendantNameUrlPairs) }}
+            </div>
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            {% if isNew and parentPartner is not none %}
+                {{ forms.hidden("parentKey", parentPartner.key.urlsafe()) }}
+            {% endif %}
+            <div class="form-fields">
+                {{ forms.text('Name', 'name',
+                    partner.name,
+                    required=True) }}
+                {{ forms.text('Partner Id', 'pid', partner.pid, required=True) }}
+                {{ forms.select('Status', 'status', partner.status, [
+                        ['active', 'Active'],
+                        ['inactive', 'Inactive'],]) }}
+                {% if isNew == false %}
+                    {{ forms.text('Api Key', 'apiKey', partner.apiKey, readonly=True) }}
+                    {{ forms.text('Api Secret', 'apiSecret', partner.apiSecret, readonly=True) }}
+                {% endif %}
+
+                <p><strong>PROTIP:</strong> Multiple domains allowed, comma separate!</p>
+                {{ forms.text('Domains', 'domains',
+                    ",".join(partner.domains)) }}
+                {{ forms.text('Preferred Domain', 'preferredDomain', partner.getPreferredDomain()) }}
+                {{ forms.select('Header', 'headerColor',
+                    partner.getSetting('headerColor'), [
+                        ['light','Light'],
+                        ['dark','Dark'],]) }}
+            </div>
+            <!--
+            <div class="allow-header-display">
+                {{ forms.yesnoSelect('Display Header', 'headerDisplay', partner.getSetting('headerDisplay')) }}
+            </div>
+            -->
+            <div class="allow-create-sub-partner">
+                {{ forms.yesnoSelect('Create SubPartner', 'createSubPartner', partner.getSetting('createSubPartner')) }}
+            </div>
+            <div class="allow-breadcrumbs">
+                {{ forms.yesnoSelect('Breadcrumbs', 'enableBreadcrumbs', partner.getSetting('enableBreadcrumbs')) }}
+            </div>
+            <div class="allow-alerts">
+                {{ forms.yesnoSelect('Alerts', 'alerts', partner.getSetting('alerts')) }}
+            </div>
+            <div class="skip-alert-confirmation">
+                {{ forms.yesnoSelect('Skip Confirmation', 'skipAlertConfirmation', partner.getSetting('skipAlertConfirmation')) }}
+            </div>
+            <div class="allow-users">
+                {{ forms.yesnoSelect('Users', 'users', partner.getSetting('users')) }}
+            </div>
+            <div class="allow-nav">
+                {{ forms.yesnoSelect('Navigation', 'nav', partner.getSetting('nav')) }}
+            </div>
+            <div class="render-full-reports">
+                {{ forms.yesnoSelect('Full Reports', 'renderFullReports', partner.getSetting('renderFullReports')) }}
+            </div>
+            {{ forms.select('Branding Position', 'brandingPosition',
+                    partner.getSetting('branding.position'), [
+                        ['right','Right'],
+                        ['left','Left'],]) }}
+            <div class="allow-cobranding">
+                {{ forms.yesnoSelect('Co-branding', 'cobranding', partner.getSetting('branding.cobranding')) }}
+            </div>
+            <p><strong>Custom Link:</strong></p>
+            {{ forms.text('Link Label', 'customLinkLabel', partner.getSetting('customLinkLabel')) }}
+            {{ forms.text('Link', 'customLink', partner.getSetting('customLink')) }}
+            {{ forms.text('Logo Link', 'logoLink', partner.getSetting('logoLink')) }}
+            <p><strong>Contact:</strong></p>
+            {{ forms.text('First Name', 'contact.firstname', partner.getSetting('contact.firstname')) }}
+            {{ forms.text('Last Name', 'contact.lastname', partner.getSetting('contact.lastname')) }}
+            {{ forms.text('Email', 'contact.email', partner.getSetting('contact.email')) }}
+            {{ forms.text('Phone', 'contact.phone', partner.getSetting('contact.phone')) }}
+            {{ forms.text('License', 'contact.license', partner.getSetting('contact.license')) }}
+            {{ forms.text('Website', 'contact.website', partner.getSetting('contact.website')) }}
+            {{ forms.text('Company', 'contact.company', partner.getSetting('contact.company')) }}
+            {{ forms.text('Office Address', 'contact.office', partner.getSetting('contact.office')) }}
+
+            <p><strong>Notification:</strong></p>
+            {{ forms.text('Email', 'notificationEmail', partner.getSetting('notificationEmail')) }}
+            {{ forms.select(
+                    'Recipient', 
+                    'notificationRecipient',
+                    partner.getSetting('notificationRecipient'), 
+                    [
+                        ['allPartners', 'All partners'],
+                        ['topPartner','Top partner'],
+                        ['subPartners','Sub partners'],
+                    ]
+                )
+            }}
+
+            <p><strong>Lead:</strong></p>
+            <div class="lead-distribution">
+                {{ forms.yesnoSelect('Distribution', 'leadDistribution', partner.getSetting('leadDistribution')) }}
+            </div>
+            <div class="lead-distribution-email">
+                {{ forms.text('Email', 'leadEmail', partner.getSetting('leadEmail')) }}
+            </div>
+            <p><strong>Reply To Email:</strong></p>
+            <div class="enable-reply-to-email">
+                {{ forms.yesnoSelect('Enabled', 'enableReplyTo', partner.getSetting('enableReplyTo')) }}
+            </div>
+            <div class="reply-to-email">
+                {{ forms.text('Email', 'replyToEmail', partner.getSetting('replyToEmail') or partner.getSetting('contact.email')) }}
+            </div>
+            <!--
+            <div class="sender-email">
+                {{ forms.text('Email', 'senderEmail', partner.getSetting('senderEmail')) }}
+            </div>
+            
+            <div class="sender-name">
+                {{ forms.text('Name', 'senderName', partner.getSetting('senderName')) }}
+            </div>
+            -->
+
+            <div class="image-upload">
+                <h3>Image Upload:</h3>
+                <div class="logo-upload">
+                    {% if partner.getSetting('logo') %}
+                        <div class="subdomain-image-container">
+                            <img src="{{ partner.getSetting('logo') }}" alt="">
+                        </div>
+                    {% endif %}
+                    <div class="normal upload">
+                       <i class="fa fa-upload"></i>
+                       Upload Logo
+                       <input type="file" name="file" class="file" />
+                    </div>
+                </div>
+                <div class="contact-logo-upload">
+                    {% if partner.getSetting('contact.photo') %}
+                        <div class="subdomain-image-container">
+                            <img src="{{ partner.getSetting('contact.photo') }}" alt="">
+                        </div>
+                    {% endif %}
+                    <div class="normal upload">
+                       <i class="fa fa-upload"></i>
+                       Upload Contact Profile Image
+                       <input type="file" name="contact.photo" class="file" />
+                    </div>
+                </div>
+            </div>
+            <div class="lead-restrictions">
+                <h3>Lead Restrictions</h3>
+                <div class="form-lead-restrictions">
+                    {% for restriction in leadRestrictions %}
+                        <div class="restriction">
+                            <label>
+                                <input type="checkbox"
+                                    {{ "checked" if restriction.abbr in (partner.getLeadRestrictions() or []) }}
+                                    name="leadRestriction"
+                                    value="{{restriction.abbr}}"
+                                >
+                                {{restriction.name}}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="email-suppressions">
+                <h3>Email Suppressions</h3>
+                <div class="form-email-suppressions">
+                    {% for suppression in emailSuppressions %}
+                        <div class="suppression">
+                            <label>
+                                <input type="checkbox"
+                                    {{ "checked" if suppression.abbr in (partner.getEmailSuppressions() or []) }}
+                                    name="emailSuppression"
+                                    value="{{suppression.abbr}}"
+                                >
+                                {{suppression.name}}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="allowed-states">
+                <h3>Allowed States</h3>
+                <div class="form-states">
+                    <div>
+                        <label>
+                            <input type="checkbox" name="allStates" value="all">
+                            Check all states
+                        </label>
+                    </div>
+                    {% for state in states %}
+                        <div class="subdomain-state">
+                            <label>
+                                <input type="checkbox"
+                                    {{ "checked" if state.abbr in (partner.getAllowedStates() or []) }}
+                                    name="state"
+                                    value="{{state.abbr}}"
+                                >
+                                {{state.name}}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="suppressions">
+                <h3>Suppress Sections:</h3>
+                <div class="form-subsections">
+                    {% for type, sections in subsections %}
+                        <h4>{{ type }}</h4>
+                        {% for sectionName, sectionItems in sections %}
+                            <h5>{{ sectionName }}</h5>
+                            <div class="label-container">
+                                {% for subsection in sectionItems %}
+                                    <label>
+                                        <input type="checkbox"
+                                            {{ "checked" if partner.getSetting(subsection.key) }}
+                                            name="section"
+                                            value="{{ subsection.key }}" />
+                                        {{ subsection.display }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tracking-section">
+                <h3>Quiz Tracking</h3>
+                <p><strong>Header Section:</strong></p>
+                <textarea name="trackingHeaderSection" class="partner-tracking-section">{{ partner.getSetting('trackingHeaderSection')  }}</textarea>
+
+                <p><strong>Footer Section:</strong></p>
+                <textarea name="trackingFooterSection" class="partner-tracking-section">{{ partner.getSetting('trackingFooterSection')  }}</textarea>
+            </div>
+            <button class="normal primary">Save</button>
+        </form>
+        {% if enableFreeTrial == true %}
+            <button class="normal primary freeTrialEmailBtn">Send Free Trial Email</button>
+            <span class="freeTrailNote"></span>
+            <script type="text/javascript">
+                $(".freeTrialEmailBtn").click(function(evt){
+                    $.get("{{trailEmailHandlerUrl}}", function(data){
+                        if (data == 'ok') {
+                            $(".freeTrailNote").html("*Free trial email has been sent.")
+                        } else {
+                            $(".freeTrailNote").html("*Failed to send free trial email.")
+                        }
+                    })
+                })
+            </script>
+        {% endif %}
+    </div>
+{% endblock %}

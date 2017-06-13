@@ -1,0 +1,12 @@
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3J0_sX6Ty6Vwk5NS8nNUnYyInvx_r4bQ&sensor=false&libraries=places"></script>
+
+{% include 'base/analytics.jinja2' %}
+
+<script type="text/javascript" src="{{ versioned('/compiled/client-'+config().tag.level+'-monolith.js') }}"></script>
+<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+{% if not config()['ABTEST']['MOCK'] %}
+    <script type="text/javascript">
+        ***ABTEST***
+    </script>
+{% endif %}

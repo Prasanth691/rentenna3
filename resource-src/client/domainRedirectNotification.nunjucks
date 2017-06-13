@@ -1,0 +1,22 @@
+{% extends 'modalView' %}
+{% block content %}
+    <div class="main domain-redirect-notification">    
+        <h2>Rentenna is now AddressReport!</h2>
+        <p>
+            We’ve changed our name to reflect the fact 
+            that tens of thousands of both renters and 
+            buyers are using the service to look up unbiased,
+            data-rich reports about any address.
+        </p>
+        <p>
+            Before you make any moving decision, come to 
+            AddressReport to get — as one recent subscriber 
+            of ours put it — "a thorough, one-stop overview
+            of the building and neighborhood that you 
+            can't find anywhere else."
+        </p>
+        <button class="cta">
+            Let's See The AddressReport!
+        </button>
+    </form>
+{% endblock %}

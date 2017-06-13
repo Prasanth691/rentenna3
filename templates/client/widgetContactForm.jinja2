@@ -1,0 +1,432 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AddressReport Widget Form Page</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto:400,700" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ versioned('/widget/ar-lc-widget.css') }}" media="all" />
+</head>
+<body class="ar-lc-widget ar-lc-widget-iframe">
+
+    <form class="ar-lc-innerWrap ar-lc-form">
+        <div class="ar-lc-modal">
+            <div class="ar-lc-header-wrap ar-lc-hide">
+                <div class="ar-lc-header"><img class="ar-lc-logo" src="{{ versioned('/image/logoWhite.png') }}" /></div>
+                <div class="ar-lc-tag-line">Get a background check<br />on any address in the US!</div>
+                <div class="ar-lc-map-icon"><img src="{{ versioned('/image/widget/lead-capture/form-map.png') }}" /></div>
+            </div>
+            <div id="ar_lc_result" class="ar-lc-line ar-lc-panel">
+
+                <div class="ar-lc-block-full ar-lc-hide">
+                    <span class="ar-lc-line ar-lc-line-1 ar-lc-title-information">Enter Your Information Below:</span>
+                    <div class="form-group ar-lc-line ar-lc-line-input ar-lc-line-2-col">
+                        <input type="text" name="first_name" id="first_name" value="" class="ar-lc-input" placeholder="Enter your first name" size="50" /><input type="text" name="last_name" id="last_name" value="" class="ar-lc-input" placeholder="Enter your last name" size="50" />
+                    </div>
+                    <div class="form-group ar-lc-line ar-lc-line-input">
+                        <input type="text" name="phone_number" id="phone_number" value="" class="ar-lc-input" placeholder="Enter your phone number (optional)" size="50" />
+                    </div>
+                    <div class="form-group ar-lc-line ar-lc-line-input">
+                        <input type="text" name="current_addr" id="current_addr" value="" class="ar-lc-input" placeholder="Enter your current address" size="50" />
+                    </div>
+                    <div class="form-group ar-lc-line ar-lc-line-input ar-lc-line-csz">
+                        <input type="text" name="current_city" id="current_city" value="" class="ar-lc-input ar-lc-input-city" placeholder="Enter your current city" size="18" /><input type="text" name="current_state" id="current_state" value="" class="ar-lc-input ar-lc-input-state" placeholder="State" size="2" /><input type="text" name="current_zip" id="current_zip" value="" class="ar-lc-input ar-lc-input-zip" placeholder="ZIP / Postal Code" size="5" />
+                    </div>
+                </div>
+
+                <div class="ar-lc-block-default">
+                    <span class="ar-lc-line ar-lc-line-1 ar-lc-title-address">Background Check Address Information:</span>
+                    <div class="form-group ar-lc-line ar-lc-line-input ar-lc-line-address">
+                        <div class="ar-lc-address">
+                            <input type="text" name="address" id="sAddr" value="" class="form-control ar-lc-input" placeholder="Address to Check" size="50" />
+                        </div>
+                        <div class="checkbox ar-lc-same-address">
+                            <label>
+                                <input type="checkbox" name="chkboxSameAddr" id="chkboxSameAddr" /> Same as above
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group ar-lc-line ar-lc-line-input ar-lc-line-email">
+                        <input type="text" name="email" id="eAddr" value="" class="form-control ar-lc-input" placeholder="Email to Send Report" size="50" />
+                    </div>
+                </div>
+
+                <div class="ar-lc-block-enhanced ar-lc-hide">
+                    <div class="form-group ar-lc-line ar-lc-line-input ar-lc-line-movestatus">
+                        <select name="move_status" id="move_status" class="form-control">
+                            <option value="" disabled="disabled" selected="selected">Your Move Status</option>
+                            <option value="own-or-rent">Own or Rent</option>
+                            <option value="looking-to-move">Looking to Move</option>
+                            <option value="visited-property">Visited Property</option>
+                            <option value="application-submitted">Application Submitted</option>
+                            <option value="papers-signed">Papers Signed</option>
+                            <option value="broker-owner-manager">Broker/Owner/Manager</option>
+                        </select>
+                    </div>
+                </div>
+
+                <span class="ar-lc-line ar-lc-line-button">
+                    <button name="btnSubmit" value="submit" id="ar_lc_button" class="ar-lc-button ar-lc-button-simple ar-lc-btn-submit">Get Your Free Report!</button>
+                </span>
+            </div><!-- // end .ar-lc-result -->
+            <span class="ar-lc-line ar-lc-line-terms ar-lc-hide"><a href="#" target="_blank">Terms</a> | <a href="#" target="_blank">Sample Report</a></span>
+        </div><!-- // end .ar-lc-modal -->
+    </form>
+
+    <script src="//code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script>
+    jQuery( function( $ ){
+    //  make a global object to store various data in
+        if( !$.AddressReportObj ){ $.AddressReportObj = {}; }
+        var AddressReportObj = $.AddressReportObj;
+
+    //  figure out some of the settings needed
+        if( !AddressReportObj.settings ){ AddressReportObj.settings = {}; }
+        if( !AddressReportObj.settings.arwid ){ AddressReportObj.error = true; }
+
+        if( qs( 'arwid' ) ){ AddressReportObj.settings.arwid = qs( 'arwid' ); }
+        if( qs( 'arwsc' ) ){ AddressReportObj.settings.arwsc = qs( 'arwsc' ); }
+        if( qs( 'type' ) ){ AddressReportObj.settings.type = qs( 'type' ); }
+        if( qs( 'iab' ) ){ AddressReportObj.settings.iab = qs( 'iab' ); }
+        if( qs( 'address' ) ){ AddressReportObj.settings.address = qs( 'address' ); }
+
+    //  See if the cookie is there and grab the data
+        AddressReportObj.settings.isUser    = readCookie( "ar-lc-data" );
+        AddressReportObj.settings.isUser    = JSON.parse( AddressReportObj.settings.isUser )
+
+    //  pull data from cookie JSON
+        if( AddressReportObj.settings.isUser != null ){
+            var isUser                  = AddressReportObj.settings.isUser;
+            var isUser_email            = returnValueIfExists( isUser.email );
+            var isUser_address          = returnValueIfExists( isUser.address );
+            var isUser_move_status      = returnValueIfExists( isUser.move_status );
+            var isUser_first_name       = returnValueIfExists( isUser.first_name );
+            var isUser_last_name        = returnValueIfExists( isUser.last_name );
+            var isUser_phone_number     = returnValueIfExists( isUser.phone_number );
+            var isUser_current_addr     = returnValueIfExists( isUser.current_addr );
+            var isUser_current_city     = returnValueIfExists( isUser.current_city );
+            var isUser_current_state    = returnValueIfExists( isUser.current_state );
+            var isUser_current_zip      = returnValueIfExists( isUser.current_zip );
+        }else{
+            var isUser_email            = '';
+            var isUser_address          = '';
+            var isUser_move_status      = '';
+            var isUser_first_name       = '';
+            var isUser_last_name        = '';
+            var isUser_phone_number     = '';
+            var isUser_current_addr     = '';
+            var isUser_current_city     = '';
+            var isUser_current_state    = '';
+            var isUser_current_zip      = '';
+        }
+
+    //  load the values into the form fields
+        $( '#eAddr' ).val( isUser_email );
+        $( '#sAddr' ).val( isUser_address );
+        $( '#first_name' ).val( isUser_first_name );
+        $( '#last_name' ).val( isUser_last_name );
+        $( '#phone_number' ).val( isUser_phone_number );
+        $( '#current_addr' ).val( isUser_current_addr );
+        $( '#current_city' ).val( isUser_current_city );
+        $( '#current_state' ).val( isUser_current_state );
+        $( '#current_zip' ).val( isUser_current_zip );
+
+    //  update the select box if this value is set
+        if( isUser_move_status != '' ){
+            $( '#move_status' ).val( isUser_move_status );
+        }
+
+    //  add class of the IAB SIZE (on INLINE) to the BODY tag
+        $( 'body' ).addClass( 'ar-iab-'+AddressReportObj.settings.iab );
+
+    //  show/hide the AR header box
+        if( AddressReportObj.settings.iab == 'inline' ){
+            $( '.ar-lc-header-wrap' ).addClass( 'ar-lc-hide' );
+        }else{
+            $( '.ar-lc-header-wrap' ).removeClass( 'ar-lc-hide' );
+        }
+
+    //  add class for the type of widget
+        $( '.ar-lc-widget' ).addClass( 'ar-lc-widget-'+AddressReportObj.settings.type );
+
+    //  show the "address" if one has been passed in
+        if( AddressReportObj.settings.address != '' ){
+            $( '#sAddr' ).val( AddressReportObj.settings.address );
+        }
+
+    //  show the "move_status" if "enhanced" or "full" form
+        if( AddressReportObj.settings.type == 'enhanced' || AddressReportObj.settings.type == 'full' ){
+            $( '.ar-lc-block-enhanced' ).removeClass( 'ar-lc-hide' );
+        }
+    //  show the "move_status" if "full" form, Add class to FORM if full
+        if( AddressReportObj.settings.type == 'full' ){
+            $( '.ar-lc-form' ).addClass( 'ar-lc-form-full' );
+            $( '.ar-lc-block-full' ).removeClass( 'ar-lc-hide' );
+        }
+    //  Add class to FORM if enhanced
+        if( AddressReportObj.settings.type == 'enhanced' ){
+            $( '.ar-lc-form' ).addClass( 'ar-lc-form-enhanced' );
+        }
+
+    //  pull down the same address
+        $( '#chkboxSameAddr' ).on( 'change', function() {
+            var isChecked = $( this ).is( ':checked' );
+            if( isChecked ){
+                var addrStreet = ( $( '#current_addr' ).val() ? $( '#current_addr' ).val() : '' );
+                var addrCity = ( $( '#current_city' ).val() ? $( '#current_city' ).val() : '' );
+                var addrState = ( $( '#current_state' ).val() ? $( '#current_state' ).val() : '' );
+                var addrZip = ( $( '#current_zip' ).val() ? $( '#current_zip' ).val() : '' );
+                if( addrStreet && addrCity && addrState && addrZip ){
+                    var sameAddress = addrStreet + ', ' + addrCity + ', ' + addrState + ' ' + addrZip;
+                    $( '#sAddr' ).val( sameAddress );
+                }else{
+                    var sameAddress = '';
+                }
+            }else{
+                var sameAddress = '';
+            }
+            $( '#sAddr' ).val( sameAddress );
+            if( sameAddress == '' ){
+            //  uncheck the box
+                $( this ).removeAttr( 'checked' );
+            }
+        });
+
+    //  FIRE WHEN THE button IS PRESSED
+        $( '#ar_lc_button' ).on( 'click', function(evt) {
+            evt.preventDefault();
+            $( 'input' ).css({ 'border-color': '#ECF0F1' });
+            //$( this ).prop( 'disabled', 'disabled' );
+
+            AddressReportObj.error = false;
+        //  main fields
+            AddressReportObj.settings.contact_address   = $( '#sAddr' ).val();
+            AddressReportObj.settings.contact_email     = $( '#eAddr' ).val();
+
+        //  check if email has value -- these fields are required
+            if( !AddressReportObj.settings.contact_address ){ AddressReportObj.error = 'sAddr'; }
+            if( !validateEmail( AddressReportObj.settings.contact_email ) ){ AddressReportObj.error = 'eAddr'; }
+
+        //  enhanced fields
+            if( AddressReportObj.settings.type == 'full' || AddressReportObj.settings.type == 'enhanced' ){
+                AddressReportObj.settings.move_status   = $( '#move_status' ).val();
+            }else{
+                AddressReportObj.settings.move_status   = '';
+            }
+
+        //  full fields
+            if( AddressReportObj.settings.type == 'full' ){
+                AddressReportObj.settings.first_name    = $( '#first_name' ).val();
+                AddressReportObj.settings.last_name     = $( '#last_name' ).val();
+                AddressReportObj.settings.phone_number  = $( '#phone_number' ).val();
+                AddressReportObj.settings.current_addr  = $( '#current_addr' ).val();
+                AddressReportObj.settings.current_city  = $( '#current_city' ).val();
+                AddressReportObj.settings.current_state = $( '#current_state' ).val();
+                AddressReportObj.settings.current_zip   = $( '#current_zip' ).val();
+            }else{
+                AddressReportObj.settings.first_name    = '';
+                AddressReportObj.settings.last_name     = '';
+                AddressReportObj.settings.phone_number  = '';
+                AddressReportObj.settings.current_addr  = '';
+                AddressReportObj.settings.current_city  = '';
+                AddressReportObj.settings.current_state = '';
+                AddressReportObj.settings.current_zip   = '';
+            }
+
+        //  if no error, fire the AJAX
+            if( AddressReportObj.error == false ){
+            //  Fire off the AJAX call to the API
+                var url = '/api/0/create-contact-or-subscribe.json';
+
+                var jsonData    = {
+                    "api_key": AddressReportObj.settings.arwid,
+                    "api_secret": AddressReportObj.settings.arwsc,
+                    "email": AddressReportObj.settings.contact_email,
+                    "firstName" : AddressReportObj.settings.first_name,
+                    "lastName" : AddressReportObj.settings.last_name,
+                    "moveStatus": AddressReportObj.settings.moveStatus,
+                    "address": {
+                        "street": AddressReportObj.settings.current_addr,
+                        "city": AddressReportObj.settings.current_city,
+                        "state": AddressReportObj.settings.current_state,
+                        "zip": AddressReportObj.settings.current_zip    
+                    },
+                    "phone": AddressReportObj.settings.phone_number,
+                    "locationType" : "property",
+                    "property" : {
+                        "query" : AddressReportObj.settings.contact_address  
+                    },
+                    "action" : "email-report"
+                };
+
+            //  AJAX POST for CREATE CONTACT
+            //  AJAX subfire of UPDATE CONTACT, if FULL FORM
+                $.ajax({
+                    method: "POST",
+                    url: url,
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(jsonData)
+                }).done( function( msg ){
+                    var rsltJSON = msg;
+
+                //  if contact exists or the new contact STATUS is OK, then write data to cookie
+                    if( ( rsltJSON.status && rsltJSON.status == 'OK' ) || ( rsltJSON.error && rsltJSON.error.indexOf( 'user exists for the email' ) >= 0 ) ){
+                    //  CONTACT CREATED "OK" write cookie with details
+                        var userData    = {
+                            'email': AddressReportObj.settings.contact_email,
+                            'address': AddressReportObj.settings.contact_address
+                        }
+                        var userDataE   = {
+                            'move_status': AddressReportObj.settings.move_status
+                        }
+                        var userDataF   = {
+                            'first_name': AddressReportObj.settings.first_name,
+                            'last_name': AddressReportObj.settings.last_name,
+                            'phone_number': AddressReportObj.settings.phone_number,
+                            'current_addr': AddressReportObj.settings.current_addr,
+                            'current_city': AddressReportObj.settings.current_city,
+                            'current_state': AddressReportObj.settings.current_state,
+                            'current_zip': AddressReportObj.settings.current_zip
+                        }
+                        if( AddressReportObj.settings.type == 'enhanced' ){
+                            userData = $.extend( userData, userDataE );
+                        }else if( AddressReportObj.settings.type == 'full' ){
+                            userData = $.extend( userData, userDataE, userDataF );
+                        }
+                        console.log( userData );
+                    //  update the window contents
+                        $( '.ar-lc-panel' ).addClass( 'ar-lc-result' );
+                        var completeMsg = 'Thank you! Check your email for your AddressReport.';
+                        if( AddressReportObj.settings.iab != 'inline' ){
+                            completeMsg += '<br />You may close this window now.';
+                        }
+                        $( '.ar-lc-result' ).html( completeMsg );
+                    //  clear the cookie, then write this data to a cookie
+                        eraseCookie( "ar-lc-data" );
+                        createCookie( "ar-lc-data", JSON.stringify( userData ), 90 );
+
+                    }
+
+                }).fail( function(jqXHR) {
+                //  if contact exists and this is the FULL FORM, fire the UPDATE API call
+                    msg = jqXHR.responseJSON;   
+                    if( msg.error && msg.error.indexOf( 'user exists for the email' ) >= 0 && AddressReportObj.settings.type == 'full' ){
+                        fireContactUpdate( jsonData );
+                    }
+    
+                });
+
+            //  method to fire off the update to the contact
+                function fireContactUpdate( jsonData ){
+                    var url = '/api/0/update-contact.json';
+
+                    $.ajax({
+                        method: "POST",
+                        url: url,
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(jsonData)
+                    }).done( function( msg ){
+                        var rsltJSON = msg;
+
+                    //  if contact exists or the new contact STATUS is OK, then write data to cookie
+                        if( rsltJSON.status && rsltJSON.status == 'OK' ){
+                            var contactUpdate = true;
+                            //TODO: where is code to write into cookie?
+                        }
+
+                    });
+                }
+        //  on error for address
+            }else if( !AddressReportObj.error == false ){
+                $( '#'+AddressReportObj.error ).css({ 'border-color': '#AA0000' });
+                $( '#'+AddressReportObj.error ).focus();
+
+            }
+
+        });
+
+    //  TypeAhead Autocomplete
+        $( "#sAddr" ).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    method: "GET",
+                    url: "/service/autocomplete",
+                    dataType: 'json',
+                    data: {
+                        query: $( '#sAddr' ).val()
+                    },
+                    success: function( data ) {
+                        var acResults   = [];
+                        for( var i = 0; i < data['results'].length; i++ ){
+                            if( data['results'][i].type == 'address' ){
+                                acResults.push( data['results'][i]['name'].split('  ').join(' ') );
+                            }
+                        }
+                        response( acResults );
+                    }
+                });
+            },
+            minLength: 3
+        });
+
+    //  Validate Email Address
+        function validateEmail( email ){
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+
+    //  get values from querystring
+        function qs( key ){
+            key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx control chars
+            var match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
+            return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+        }
+
+    //  set value, if passed in item exists or return empty string if not
+        function returnValueIfExists( val ){
+            return ( !val ? '' : val );
+        }
+
+    //  Create cookie
+        function createCookie(name, value, days) {
+            var expires;
+            if( days ){
+                var date = new Date();
+                date.setTime( date.getTime()+( days*24*60*60*1000 ) );
+                expires = "; expires="+date.toGMTString();
+            }else{
+                expires = "";
+            }
+            document.cookie = name+"="+value+expires+"; path=/";
+        }
+
+    //  Read cookie
+        function readCookie( name ){
+            var nameEQ = name + "=";
+            var ca = document.cookie.split( ';' );
+            for( var i=0; i < ca.length; i++ ){
+                var c = ca[i];
+                while( c.charAt(0) === ' ' ){
+                    c = c.substring( 1, c.length );
+                }
+                if( c.indexOf( nameEQ ) === 0 ){
+                    return c.substring( nameEQ.length, c.length );
+                }
+            }
+            return null;
+        }
+
+    //  Erase cookie
+        function eraseCookie( name ){
+            createCookie( name, "", -1 );
+        }
+
+    });
+    </script>
+
+</body>
+</html>

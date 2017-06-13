@@ -1,0 +1,29 @@
+<div class="slide simple-select-slide flow-inline box-large-square credit-score-slide" data-slide="credit-score">
+    <form nosubmit>
+        <h1>
+            Rate Your Credit:
+        </h1>
+        <div class="options">
+            <div class="credit auto-next clickable option-box" id="excellent" data-value="Above 720">
+                <h4>Excellent Credit</h4>
+                <h3>Above 720</h3>
+                <p>My credit history is very strong with only minor or no credit problems. I have no recent late payments, and pay my bills on time.</p>
+            </div>
+            <div class="credit auto-next clickable option-box" id="good" data-value="680 - 720">
+                <h4>Good Credit</h4>
+                <h3>680 - 720</h3>
+                <p>My credit history is good. I tend to pay my bills on time, however I may have a late payments on my credit report.</p>
+            </div>
+            <div class="credit auto-next clickable option-box" id="fair" data-value="620 - 679">
+                <h4>Fair Credit</h4>
+                <h3>620 - 679</h3>
+                <p>The average consumer has fair credit. I tend to pay my bills on time, however I may have a couple of late payments on my credit report.</p>
+            </div>
+            <div class="credit auto-next clickable option-box" id="poor" data-value="Below 620">
+                <h4>Poor Credit</h4>
+                <h3>Below 620</h3>
+                <p>I have poor credit which includes a history of late payments that are consistently 60+ days overdue.</p>
+            </div>
+        </div>
+    </form>
+</div>

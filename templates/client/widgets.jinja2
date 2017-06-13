@@ -1,0 +1,298 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block prehead %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+{% endblock %}
+{% block head %}
+    <link href="/resource/bootstrap-extra.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto:400,700" rel="stylesheet" type="text/css" />
+    <style>
+        body, html {line-height:normal;}
+        .hide { display: none; }
+        .intro { font-family: 'Roboto', sans-serif; font-size: 1.1em; font-weight: 400; }
+        .intro p { margin: 0 0 10px; }
+        form div { margin-bottom: 5px; }
+        form div input { padding: 5px; }
+        form div select { padding: 5px; }
+        form div select option { padding: 5px; }
+        form div textarea { padding: 10px 15px 0px 15px; font-size: 14px; }
+        .widget-form { margin: 50px 0 20px 0; }
+        .create-button { margin: 20px 0; }
+
+        #ar_widget { margin-left:auto; margin-right:auto;}
+        /*form div button { padding: 5px; }*/
+        label { cursor: pointer; }
+        .form-group label { display: none; }
+        .show-labels label { display: initial; }
+        .form-control { border-radius: 14px; }
+        .radio-inline span { display: inline-block; }
+        .type-radio-buttons .radio-inline { width: 31.3%; display: inline-block; }
+        h4 { color: #4F7FFF; text-transform: uppercase; font-size: 0.9em; font-weight: 700; font-family: 'Lato', sans-serif; }
+        .ar-preview-wrap { display:table; background: #EEF3F4; border: 1px dashed #9EA2A2; padding: 10px; min-width: 100%; min-height: 300px; }
+        body.iab-inline .ar-preview-wrap { min-height: inherit; }
+        .preview-start { font-family: Roboto; font-size: 20px; color: #ADADAD; }
+        .ar-preview { display:table-cell; vertical-align:middle; text-align:center; }
+        .ar-preview .ar-lc-widget {margin:0 auto;}
+        .ar-preview img {max-width:100%;}
+        #preview { position:absolute; border:1px solid #ddd; background:#eee;padding:5px; display:none;color:#333; }
+        #preview img { max-width: 300px; }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="content container-fluid">
+
+        <div class="row intro">
+            <h2><p>Create Your Data-Driven Lead Capture Widget</p></h2>
+            <p>This lead capture widget, powered by AddressReport, may be embedded into your website to capture more leads. When clicked, it instantly emails an elegant report to your leads with valuable information on their property of interest.</p>
+            <p>Just a few more steps and you’re ready to go.</p>
+        </div>
+
+        <form>
+            <div class="row user-form widget-form">
+                <div class="col-xs-6">
+                    <div class="row api-credentials">
+                        <h4>Step 1 - Your API Key and Secret</h4>
+                        <div class="form-group">
+                            <label for="api_token">API Key</label>
+                            <input type="text" name="api_token" id="api_token" class="form-control" {{apiKeyReadonly}} value="{{apiKey}}" size="32" placeholder="API Key" />
+                        </div>
+                        <div class="form-group">
+                            <label for="api_secret">API Secret</label>
+                            <input type="text" name="api_secret" id="api_secret" class="form-control" {{apiSecretReadonly}} value="{{apiSecret}}" size="32" placeholder="API Secret" />
+                        </div>
+                    </div>
+                    <div class="row size-select">
+                        <h4>Step 2 - Select your desired widget size</h4>
+                        <div class="form-group">
+                            <label for="">Size</label>
+                            <select name="widget_size" id="widget_size" class="form-control">
+                                <option value="" disabled selected>Size</option>
+                                <option value="square-pop-up">IAB Square Pop-Up (250x250)</option>
+                                <option value="rectangle">IAB Rectangle (180x150)</option>
+                                <option value="full-banner">IAB Full Banner (468x60)</option>
+                                <option value="half-banner">IAB Half Banner (234x60)</option>
+                                <option value="inline">Inline (does not open in modal window)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row type-radio-buttons">
+                        <h4>Step 3 - Select the type of collection form</h4>
+                        <div class="form-group">
+                            <label for="widget_type">Type</label>
+                            <div class="show-labels">
+                                <label for="widget_type_default" class="radio-inline">
+                                    <input type="radio" name="widget_type" id="widget_type_default" value="default" checked="checked" />
+                                    <span>
+                                        Default Form<br />
+                                        <a href="/resource/image/widget/lead-capture/form-preview-map-default.png" class="preview preview-form preview-default" data-type="default">Preview</a>
+                                    </span>
+                                </label>
+                                <label for="widget_type_enhanced" class="radio-inline">
+                                    <input type="radio" name="widget_type" id="widget_type_enhanced" value="enhanced" />
+                                    <span>
+                                        Enhanced Form<br />
+                                        <a href="/resource/image/widget/lead-capture/form-preview-map-enhanced.png" class="preview preview-form preview-enhanced" data-type="enhanced">Preview</a>
+                                    </span>
+                                </label>
+                                <label for="widget_type_full" class="radio-inline">
+                                    <input type="radio" name="widget_type" id="widget_type_full" value="full" />
+                                    <span>
+                                        Full Form<br />
+                                        <a href="/resource/image/widget/lead-capture/form-preview-map-full.png" class="preview preview-form preview-full" data-type="full">Preview</a>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="button" name="btnCreate" id="btnCreate" class="normal primary">Create My Widget</button>
+                    </div>
+                </div>
+                <div class="col-xs-6 widget-preview">
+                    <div class="ar-preview-wrap">
+                        <div id="ar_preview" class="ar-preview"><span class="preview-start">Select options to<br />preview your widget</span></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 code-box">
+                    <div class="row">
+                        <h4>Step 4 - Copy and paste the code below</h4>
+                        <div class="form-group">
+                            <label for="widget_code">Copy and paste code</label>
+                            <textarea name="widget_code" id="widget_code" class="form-control" cols="85" rows="13"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% include 'client/baseClientFoot.jinja2' %}
+
+    <script src="//code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    /*
+    * Image preview script
+    * powered by jQuery (http://www.jquery.com)
+    */
+    this.imagePreview = function(){
+        /* CONFIG */
+        xOffset = 10;
+        yOffset = 30;
+        // these 2 variable determine popup's distance from the cursor
+        // you might want to adjust to get the right result
+        /* END CONFIG */
+        $("a.preview").hover( function(e){
+            this.t = this.title;
+            this.title = "";
+            var c = (this.t != "") ? "<br/>" + this.t : "";
+            $("body").append("<p id='preview'><img src='"+ this.href +"' alt='Image preview' />"+ c +"</p>");     
+            $("#preview")
+            .css("top",(e.pageY - xOffset) + "px")
+            .css("left",(e.pageX + yOffset) + "px")
+            .fadeIn("fast");   
+        }, function(){
+            this.title = this.t;
+            $("#preview").remove();
+        });
+        $("a.preview").mousemove( function(e){
+            $("#preview")
+            .css("top",(e.pageY - xOffset) + "px")
+            .css("left",(e.pageX + yOffset) + "px");
+        });
+    };
+    // starting the script on page load
+    $(document).ready(function(){
+        imagePreview();
+    });
+    </script>
+    <script>
+    jQuery( function( $ ){
+
+    //  prevent loading HREF on preview link
+        $("a.preview").on( 'click', function(evt) {
+            evt.preventDefault();
+        });
+
+    //  select code onMouseOver textarea
+        $( '#widget_code' ).on( 'mouseover', function(evt){
+            evt.preventDefault();
+            if( this.value.length > 0 ){
+                this.select();
+            }
+        });
+    //  deselect when onMouseOut textarea
+        $( '#widget_code' ).on( 'mouseout', function(evt){
+            evt.preventDefault();
+            this.blur();
+        });
+
+    //  fire when the button is clicked
+        $( '#btnCreate' ).on( 'click', function(evt){
+            evt.preventDefault();
+            var apiToken = document.getElementById( 'api_token' ).value;
+
+            if (!apiToken) {
+                return;
+            }
+
+        //  change PREVIEW to wide if SIZE == "inline"
+            var iabSize = $( '#widget_size' ).val();
+            var type = $( 'input[name=widget_type]:checked' ).val();
+            if( iabSize == 'inline' && ( type == 'default' || type == 'enhanced' ) ){
+            //  horizontal
+                $( 'body' ).addClass( 'iab-inline' );
+                $( '.widget-preview' ).removeClass( 'col-xs-6' );
+                $( '.widget-preview' ).addClass( 'col-xs-12' );
+            }else{
+            //  right side
+                $( 'body' ).removeClass( 'iab-inline' );
+                $( '.widget-preview' ).removeClass( 'col-xs-12' );
+                $( '.widget-preview' ).addClass( 'col-xs-6' );
+            }
+
+            var jsonData = { "api_key" : apiToken }
+            $.ajax({
+                method: "POST",
+                url: '/api/0/partner-urls.json',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(jsonData)
+            }).done( function( msg ){
+                var formBaseUrl = msg.formBaseUrl;
+                var resBaseUrl = msg.resBaseUrl;
+                createSnippet(apiToken, resBaseUrl, formBaseUrl);
+            });
+
+        });
+
+        function createSnippet(apiToken, resBaseUrl, formBaseUrl) {
+            $( '#widget_code' ).text( '' );
+        //  $( '.ar-preview' ).empty();
+            $( '.ar-preview-wrap' ).html( '<div id="ar_preview" class="ar-preview"></div>' );
+            window.AddressReportObj = { 'scriptInited': false, 'widgets': [] };
+        //  get the field values
+            var api_token   = $( '#api_token' ).val();
+            var api_secret  = $( '#api_secret' ).val();
+            var widget_size = $( '#widget_size' ).val();
+            var widget_type = '';
+            var typeOptions = $( 'input[name=widget_type]' );
+            if( typeOptions ){
+                for( var i = 0; i < typeOptions.length; i++ ){
+                    if( typeOptions[i].checked ){
+                        widget_type = typeOptions[i].value;
+                    }
+                }
+            }
+
+            if( api_token != '' && api_secret != '' && widget_size != '' ){
+                
+                var widgetJsUrl = resBaseUrl + '/widget/ar-lc-widget.js?version=' + '{{ versionId() }}';
+            //  build out the widget code
+                var widgetCode  = '';
+                widgetCode += "<sc"+"ript>\n";
+                widgetCode += "\tif( !window.AddressReportObj ){\n\t\twindow.AddressReportObj = { 'scriptInited': false, 'widgets': [] };\n\t}\n";
+
+                widgetCode += "\tvar randomID = 'ar_lc_script_' + new Date().getTime();\n";
+                widgetCode += "\tvar thisScript = document.scripts[document.scripts.length - 1];\n";
+                widgetCode += "\tthisScript.id = randomID;\n";
+                widgetCode += "\twindow.AddressReportObj.widgets.push({\n";                
+                widgetCode += "\t\t'settings': {\n";
+                widgetCode += "\t\t\t'arwid': '"+api_token+"',\n";
+                widgetCode += "\t\t\t'arwsc': '"+api_secret+"',\n";
+                widgetCode += "\t\t\t'type': '"+widget_type+"',\n";
+                widgetCode += "\t\t\t'address': '', // pass in target address\n";
+                widgetCode += "\t\t\t'iab': '"+widget_size+"',\n";
+                widgetCode += "\t\t\t'formbaseurl': '"+formBaseUrl+"',\n";
+                widgetCode += "\t\t\t'elemid': randomID\n";
+                widgetCode += "\t\t}\n";
+                widgetCode += "\t});\n";
+
+                widgetCode += "\tif( window.AddressReportObj.scriptInited != true ){\n";
+                widgetCode += "\t\twindow.AddressReportObj.scriptInited = true;\n";
+                widgetCode += "\t\tvar s = do"+"cument.createElement('sc"+"ript');\n"; 
+                widgetCode += "\t\ts.src = '" + widgetJsUrl + "';\n";
+                widgetCode += "\t\ts.async = true;\n";
+                widgetCode += "\t\tvar parent = thisScript.parentElement;\n";
+                widgetCode += "\t\tparent.insertBefore( s, thisScript.nextSibling );\n";
+                widgetCode += "\t}\n";
+                widgetCode += "</sc"+"ript>";
+
+            //  build out the code as it would be in the page and then insert into the div
+                var randomID = new Date().getTime();
+                var temp1  = widgetCode.replace( "<script>", "<script id=\"ar_lc_script_" + randomID + "\">" );
+                var temp2  = temp1.replace( "'ar_lc_script_' + new Date().getTime()", "'ar_lc_script_" + randomID + "'" );
+                var tempX  = temp2.replace( "elemid': randomID", "elemid': 'ar_lc_script_" + randomID + "'" );
+                var previewCode = tempX;
+
+            //  set the textbox with the widget embed code
+                $( '#widget_code' ).text( widgetCode );
+                $( '.ar-preview' ).html( '' );
+                $( '.ar-preview' ).html( previewCode );
+
+            }
+        }
+    });
+    </script>
+{% endblock %}

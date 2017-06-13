@@ -1,0 +1,37 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block body %}
+    <div class="property-directory landing">
+
+       <div class="bannerwrapper">
+            <div class="banner content">
+                <div class="title">
+                    <h1>
+                        {{ title }}
+                    </h1>
+                </div>
+                <a class="button cta inverse" href="{{ reportUrl }}">
+                    View the Full Report
+                </a>
+            </div>
+            <div class="divider"></div>
+        </div>
+
+        <div class="properties-in-city-section report-section">
+            <div class="nearby-properties">
+                <div class="property-list content properties property-results">
+                    {% for property in pageInfo.results %}
+                        <div class="property">
+                            <a href="{{ property.getUrl() }}">
+                                {{ property.shortName }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                    {{ Pager(pageInfo=pageInfo) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% include 'client/baseClientFoot.jinja2' %}
+{% endblock %}

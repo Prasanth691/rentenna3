@@ -1,0 +1,161 @@
+{% extends 'email/baseTemplate2.jinja2' %}
+
+{% block extraCssClasses %}performance-template{% endblock %}
+
+{% block preview %}
+    AddressReport Weekly Performance {{ dateStart }} - {{ dateEnd }}
+{% endblock %}
+
+{% block branding %}
+	<div class="logo without-partnership">
+        <img src="https://www.addressreport.com/resource/image/ar-by-obi-logo.jpg" class="logo-img" />
+    </div>
+{% endblock %}
+
+{% block header %}
+    <div class="header-text white">    
+        <h1>AddressReport Snapshot for<br />{{ contactInfo.company }}</h1>
+        <p class="stats-date-range">Snapshot for {{ dateStart }} - {{ dateEnd }}</p>
+        <!-- <a href="#" title="Link to DASHBOARD" onclick="JavaScript: return false;">
+            <img src="{{ urlJoin( urlBase, '/resource/image/email/dashboard-top-button.png' ) }}" class="img-view-dashboard" />
+        </a> -->
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="section-container cta">
+
+		<div class="section-stats stats-reports cta">
+			<div class="stats-header">
+				Report Views
+				<span class="stats-header-explain">
+					Tells you how many times visitors have<br />
+					looked at a report during this period
+				</span>
+			</div>
+			<div class="stats-content">
+				<div class="stats-box box1 green">
+					<div class="stats-title">Current Views</div>
+					<div class="stats-count">{{ comma(currentReportViews) }}</div>
+					<div class="stats-details">This Week's<br />Total Views</div>
+				</div>
+				<div class="stats-box box2 blue">
+					<div class="stats-title">Previous Views</div>
+					<div class="stats-count">{{ comma(previousReportViews) }}</div>
+					<div class="stats-details">Last Week's<br />Total Views</div>
+				</div>
+				<div class="stats-box box3 {{ trendColorClass(reportViewsTrend) }}">
+					<div class="stats-title">Report Change</div>
+					<div class="stats-count">{{ reportViewsChange }}%</div>
+					<div class="stats-details">Percent Change<br />in Total Views</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section-stats stats-emails cta">
+			<div class="stats-header">
+				Email Views
+				<span class="stats-header-explain">
+					Tells you how emails are<br />
+					performing for the period
+				</span>
+			</div>
+			<div class="stats-content">
+				<div class="stats-box box1 {{ trendColorClass(deliveredTrend) }}">
+					<div class="stats-title">Delivered</div>
+					<div class="stats-count">{{ comma(currentDelivered) }}</div>
+					<div class="stats-details">compared to<br /><span>{{ comma(previousDelivered) }} last week</span></div>
+				</div>
+				<div class="stats-box box2 {{ trendColorClass(openRateTrend) }}">
+					<div class="stats-title">Open Rate</div>
+					<div class="stats-count">{{ currentOpenRate }}%</div>
+					<div class="stats-details">compared to<br /><span>{{ previousOpenRate }}% last week</span></div>
+				</div>
+				<div class="stats-box box3 {{ trendColorClass(clickRateTrend) }}">
+					<div class="stats-title">Click Rate</div>
+					<div class="stats-count">{{ currentClickRate }}%</div>
+					<div class="stats-details">compared to<br /><span>{{ previousClickRate }}% last week</span></div>
+				</div>
+				<!-- <div style="display: block; width: 100%; text-align: center; margin: 0 auto;">
+	    		    <img src="{{ urlJoin( urlBase, '/resource/image/email/top-email-coming-soon.png' ) }}" class="img-top-email" />
+	    		</div> -->
+			</div>
+		</div>
+
+		<div class="section-stats stats-leads cta">
+			<div class="stats-header">
+				Leads
+				<span class="stats-header-explain">
+					Tells you new leads<br />
+					generated for the period
+				</span>
+			</div>
+			<div class="stats-content">
+				<div class="stats-box box1 {{ trendColorClass(leadsTrend) }}">
+					<div class="stats-title">Total Leads</div>
+					<div class="stats-count">{{ currentLeads }}</div>
+					<div class="stats-details">compared to<br /><span>{{ previousLeads }} last week</span></div>
+				</div>
+				<div class="stats-box box2 {{ trendColorClass(usersTrend) }}">
+					<div class="stats-title">Registrations</div>
+					<div class="stats-count">{{ currentUsers }}</div>
+					<div class="stats-details">compared to<br /><span>{{ previousUsers }} last week</span></div>
+				</div>
+				<div class="stats-box box3 {{ trendColorClass(subscribersTrend) }}">
+					<div class="stats-title">Subscriptions</div>
+					<div class="stats-count">{{ currentSubscribers }}</div>
+					<div class="stats-details">compared to<br /><span>{{ previousSubscribers }} last week</span></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section-stats stats-emails cta">
+			<div class="stats-header">
+				New Contacts
+				<span class="stats-header-explain">
+					Tells you who your newest<br />
+					contacts and leads were for the period
+				</span>
+			</div>
+			<div class="stats-content">
+				<div class="stats-table">
+					<table class="data-table">
+			            <thead>
+			                <tr>
+			                	<th>Name</th>
+			                    <th>Email</th>
+			                    <th>Registered</th>
+			                    <th>Partner</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                {% for user in latestUsers %}
+			                    <tr class="{{ oddEvenClass(loop.index) }}">
+			                        <td>{{ user.getName() }}</td>
+			                        <td>{{ user.email }}</td>
+			                        <td>{{ date(user.registered) }}</td>
+			                        <td>{{ partnerTopBottomName(user.getPartner()) }}</td>
+			                    </tr>
+			                {% endfor %}
+			            </tbody>
+			        </table>
+				</div>
+			</div>
+		</div>
+
+		<!-- <div class="stats-footer">
+			<a href="#" title="Link to DASHBOARD" onclick="JavaScript: return false;" style="display: block; width: 90%; text-align: center; margin: 0 auto;">
+    		    <img src="{{ urlJoin( urlBase, '/resource/image/email/dashboard-bottom-button.png' ) }}" class="img-view-dashboard" />
+		    </a>
+		</div> -->
+
+    </div>
+{% endblock %}
+
+{% block footerLinks %}
+    <a href="{{ unsubscribe }}">Unsubscribe</a>
+    <!-- |
+    <a href="https://www.addressreport.com/dashboard/">View your AddressReport Dashboard</a>
+-->
+	<br><br>
+{% endblock %}

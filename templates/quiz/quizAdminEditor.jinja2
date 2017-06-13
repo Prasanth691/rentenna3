@@ -1,0 +1,28 @@
+{% import 'base/forms.nunjucks' as forms %}
+
+{% extends 'admin/baseAdmin.jinja2' %}
+{% block content %}
+    <div class="content quiz-admin">
+        <h1>Edit the Quiz</h1>
+        <form method="POST">
+            <button class="btn btn-primary">
+                Save this Monster
+            </button>
+            {% if error %}
+                <h2>ERROR!</h2>
+                <pre>{{ error }}</pre>
+            {% endif %}
+            {{ forms.text("Slug", 'slug', quiz.slug) }}
+            {{ forms.text("Thankyou", 'thankyou', quiz.thankyou) }}
+            <p><strong> Embedded Url in Thank You Page</strong></p>
+            {{ forms.text("Url Text", "embeddedThankYouUrlText", quiz.embeddedThankYouUrlText) }}
+            {{ forms.text("Url", "embeddedThankYouUrl", quiz.embeddedThankYouUrl) }}
+            <div class="code-mirror">
+                {{ JsonPayload(
+                    mode='text/x-yaml',
+                    name='slides',
+                    src=quiz.slidesYaml) }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

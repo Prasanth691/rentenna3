@@ -1,0 +1,17 @@
+<div class="nearby-properties-section report-section">
+    <div class="report-section-header">
+        <h2>Nearby Properties</h2>
+    </div>
+
+    <div class="nearby-properties property-list">
+        <div class="content">
+            {% for property in subsections.nearby.nearbyProperties %}
+                <div class="property">
+                    <a href="{{ property.getUrl() }}">
+                        {{ property.getShortName() }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

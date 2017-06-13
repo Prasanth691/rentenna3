@@ -1,0 +1,22 @@
+{% import 'web-admin/form.jinja2' as form %}
+
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container nagioz-manage">
+        <h1>Manage Pings</h1>
+
+        <form method="POST">
+            <button class="btn btn-primary">Save Changes</button>
+            <button class="btn btn-default" type="submit" name="action" value="ping">
+                Ping Now
+            </button>
+            <div class="code-mirror">
+                {{ JsonPayload(
+                    name="src",
+                    src=src,
+                    mode='text/x-yaml') }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

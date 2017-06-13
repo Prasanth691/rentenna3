@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title or 'AddressReport' }}</title>
+        <meta name="description" content="{{ metaDescription or 'AddressReport scans millions of public records to reveal the unbiased truth about any address.' }}" />
+        {% block prehead %}
+        {% endblock %}
+        {% include 'client/baseClientHead.jinja2' %}
+        {% block head %}
+        {% endblock %}
+        {% block posthead %}
+        {% endblock %}
+    </head>
+    <body class="client {{ bodyClass }} {{ iff(hideHeader, 'header-hidden', 'header-visible') }}" itemscope itemtype="http://schema.org/WebPage">
+        {% include 'client/gtmContainerTag.jinja2' %}
+
+        {% block header %}
+            {% include 'client/header.jinja2' %}
+        {% endblock %}
+
+        {% block body %}{% endblock%}
+
+        {% include 'client/inspectlet.jinja2' %}
+
+        {{ JsonPayload(
+            clientState=clientState(),
+            allowPromotion=app().allowPromotion(),
+            staticUrl=config()['URL']['STATIC'],
+            reportSimultaneous=config()['report_simultaneous']) }}
+            {# partnerSlug=app().partnerSlug()) }} #}
+
+        {% if city %}
+            {{ JsonPayload(
+                currentCity=city.public()) }}
+        {% endif %}
+
+        {% include 'client/baseClientScripts.jinja2' %}
+
+        {% block postfooter %}
+        {% endblock %}
+    </body>
+</html>

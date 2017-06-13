@@ -1,0 +1,46 @@
+$mobileWidth: 979px
+$mobileContentWidth: 500px
+
+@mixin isMobile ()
+    
+    @media (max-width: $mobileWidth)
+        @content
+
+@mixin keyframe ($animation)
+
+    @-webkit-keyframes #{$animation}
+        @content
+ 
+    @-moz-keyframes #{$animation}
+        @content
+ 
+    @keyframes #{$animation}
+        @content
+
+@mixin animation ($delay, $duration, $animation, $direction:"normal")
+    -webkit-animation-delay: #{$delay}
+    -webkit-animation-duration: #{$duration}
+    -webkit-animation-name: #{$animation}
+    -webkit-animation-fill-mode: forwards
+    -webkit-animation-direction: #{$direction}
+ 
+    -moz-animation-delay: #{$delay}
+    -moz-animation-duration: #{$duration}
+    -moz-animation-name: #{$animation}
+    -moz-animation-fill-mode: forwards
+    -moz-animation-direction: #{$direction}
+ 
+    animation-delay: #{$delay}
+    animation-duration: #{$duration}
+    animation-name: #{$animation}
+    animation-fill-mode: forwards
+    animation-direction: #{$direction}
+
+@mixin leftRightGradient($from, $to)
+    background: -moz-linear-gradient(left,$from,$to)
+    background: -ms-linear-gradient(left,$from,$to)
+    background: -webkit-gradient(linear,0 0,100% 0,from($from),to($to))
+    background: -webkit-linear-gradient(left,$from,$to)
+    background: -o-linear-gradient(left,$from,$to)
+    background: linear-gradient(left,$from,$to)
+    background-color: $from

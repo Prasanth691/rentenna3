@@ -1,0 +1,67 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block prehead %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+{% endblock %}
+{% block head %}
+    <link href="/resource/bootstrap-extra.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto:400,700" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block body %}
+    <div class="content container-fluid">
+        <div class="row intro">
+            <h2><p>OBI PRODUCTS EVALUATION LICENSE AGREEMENT</p></h2>
+        </div>
+        <div class="row center-block">
+            <iframe src="/resource/onboardEvaluationAgreement.htm"/ width="100%" height="480px"></iframe>
+        </div>
+        <form method="POST">
+        	<div class="row user-form sign-up-form">
+                <div class="col-xs-12">
+                    <div class="row col-sm-6">
+                        <div class="checkbox">
+                          <label><input id="acceptCheckbox" name="accepted" type="checkbox" value="true">I Accept</label>
+                        </div>
+		        	</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 sign-up-button">
+                    <button type="submit" name="btnAgreement" id="btnAgreement" class="btn btn-success">SAVE &amp; FINISH</button>
+                    <span class="warning nodisplay">*Please accept the agreement.</span>
+                </div>
+                
+        	</div>
+    	</form>
+	</div>
+
+    {% include 'client/signUpFooter.jinja2' %}
+    {% include 'client/baseClientFoot.jinja2' %}
+
+    <script src="//code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        jQuery( function( $ ){
+        //  add class to BODY so we can target in CSS for white background
+            $( 'body' ).addClass( 'page-sign-up' );
+
+            $("#btnAgreement").click(function(evt){
+            
+                isChecked = $("#acceptCheckbox").is(":checked")
+
+                if (!isChecked) {
+                    $(".warning").removeClass("nodisplay")
+                    evt.preventDefault();
+                    return false
+                }
+
+                $(".warning").addClass("nodisplay")
+                return true;
+            })
+
+
+        });
+    </script>
+{% endblock %}

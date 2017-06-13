@@ -1,0 +1,41 @@
+{% extends 'email/confirmationTemplateBase.jinja2' %}
+
+{% block preview %}
+    {{ commonName }} report is ready to view
+{% endblock %}
+
+{% block header %}
+    <h2>Thanks for requesting a report for<br />{{ commonName }}</h2>
+    <h3>This custom, on-demand report will<br />remain current for up to 15 minutes.</h3>
+{% endblock %}
+
+{% block banner %}
+    <div class="cta-banner report" id="cta-banner">
+        <a href="{{ otuLink('%s?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=report-generated&utm_content=banner-cta' % target) }}">
+            <div class="cta-btn" id="cta-btn">
+                CLICK TO VIEW YOUR REPORT FOR:<br>
+            {{ commonName }}
+            </div>
+        </a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {{ renderGreeting(user) }}
+    <p>
+        I'm so glad to be able to offer you these unique and valuable reports.
+    </p>
+    <p>
+        While AddressReport strives to uncover all the details you want to know about nearly any address in the country, they’re certainly not perfect and are constantly improving.
+    </p>
+    <p>
+        So have a look at your report. Feel free to search other addresses or neighborhoods. And be sure to sign up to receive alerts so you know right away when new information is available.
+    </p>
+    <p>
+        Thanks again and feel free to <strong>{% if contactInfo.email %}<a href="mailto:{{ contactInfo.email }}?Subject=New Report Generated" target="_blank">reach out to me</a>{% else %} reach out to me{% endif %}</strong> anytime with questions or comments.
+    </p>
+    {{ renderContactName(contactInfo) }}
+    <div class="cta-banner" id="cta-banner">
+        {% include 'email/asSeenIn.jinja2' %}
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'email/baseTemplate2.jinja2' %}
+
+{% block extraCssClasses %}confirmation-template{% endblock %}
+
+{% block preview %}
+{% endblock %}
+
+{% block header %}
+    <h1>Cofirmation Required</h1>
+    <h3>Thanks for signing up</h3>
+{% endblock %}
+
+{% block banner %}
+    <a href="{{ subscription.url }}">
+        <div class="cta-btn">
+            CTA
+        </div>
+    </a>
+{% endblock %}
+
+{% block body %}
+    <p>
+        <b>We'll notify you whenever there are important changes affecting 
+            this address like:</b> crime alerts, property value changes, 
+        demographic changes, school zone changes, noise issues, health hazards,
+        building problems, construction &amp; renovation work, local business openings /
+        closings, and more.
+    </p>
+    <p>
+        <b>If you ever have questions, we're always here to help!</b>
+    </p>
+    {{ renderContactName(contactInfo) }}
+    <div class="cta-banner">
+        {% include 'AsSeenIn Template' %}
+    </div>
+{% endblock %}

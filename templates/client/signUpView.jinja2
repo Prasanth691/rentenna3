@@ -1,0 +1,208 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block prehead %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+{% endblock %}
+{% block head %}
+    <link href="/resource/bootstrap-extra.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto:400,700" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block body %}
+    <div class="content container-fluid">
+
+        <div class="row intro">
+            <h2><p>Set Up Your AddressReport Account</p></h2>
+            <p>To get started using your AddressReport Dashboard please review your API and acount information and create
+a password below. Please note that the red asterisk (<span class="asterisk">*</span>) denotes a required field.</p>
+        </div>
+
+        <form>
+        	<div class="row user-form sign-up-form">
+                <div class="col-xs-12">
+	                <h4>STEP 1 of 4 - REVIEW YOUR API &amp; ACCOUNT INFORMATION</h4>
+                    <div class="row api-credentials">
+		                <div class="col-sm-6">
+		                    <div class="form-group">
+		                        <label for="api_token">API Key</label>
+		                        <input type="text" name="api_token" id="api_token" class="form-control required" disabled="disabled" value="" size="32" placeholder="*API Token" />
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="api_secret">API Secret</label>
+		                        <input type="text" name="api_secret" id="api_secret" class="form-control required" disabled="disabled" value="" size="32" placeholder="*API Secret" />
+		                    </div>
+		        		</div>
+		                <div class="col-sm-6">
+		                    <div class="form-group">
+		                        <label for="account_name">Account Name</label>
+		                        <input type="text" name="account_name" id="account_name" class="form-control required" disabled="disabled" value="" size="32" placeholder="*Account Name" />
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="account_id">Your Email Address</label>
+		                        <input type="text" name="account_id" id="account_id" class="form-control required" disabled="disabled" value="" size="32" placeholder="*Account ID" />
+		                    </div>
+		        		</div>
+		        	</div>
+	                <h4>STEP 2 of 4 - CREATE YOUR PASSWORD</h4>
+                    <div class="row account-credentials">
+		                <div class="col-sm-6">
+		                    <div class="form-group">
+		                        <label for="account_pswd"><span class="asterisk">*</span>Password</label>
+		                        <div class="input-group">
+                                    <input type="password" name="account_pswd" id="account_pswd" class="form-control required" value="" size="32" placeholder="*Password" />
+                                    <div class="input-group-addon reveal-pswd">
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="account_pswd_confirm"><span class="asterisk">*</span>Confirm Password</label>
+		                        <div class="input-group">
+                                    <input type="password" name="account_pswd_confirm" id="account_pswd_confirm" class="form-control required" value="" size="32" placeholder="*Confirm Password" />
+                                    <div class="input-group-addon reveal-pswd">
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+		                    </div>
+		        		</div>
+                    </div>
+	        	</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-12 sign-up-button">
+                    <button type="submit" name="btnSignUp" id="btnSignUp" disabled="disabled" class="btn btn-success">SAVE &amp; NEXT</button>
+                    <span class="submit-instructions">Take me to the last step!</span>
+                </div>
+        	</div>
+    	</form>
+
+	</div>
+
+    {% include 'client/signUpFooter.jinja2' %}
+    {% include 'client/baseClientFoot.jinja2' %}
+
+    <script src="//code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    jQuery( function( $ ){
+    //  add class to BODY so we can target in CSS for white background
+        $( 'body' ).addClass( 'page-sign-up' );
+
+    //	prefill the API TOKEN from the URL
+    	var api_token = '{{ request.args.get('api_key') }}';
+        var api_secret = '{{ request.args.get('api_secret') }}';
+        var target_api_token = '{{ request.args.get('target_api_key') }}';
+        $( '#api_token' ).val( 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxx' + api_token.substr( api_token.length - 6 ) );
+        $( '#api_secret' ).val( 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxx' + api_secret.substr( api_secret.length - 6 ) );
+
+        function getPartnerURLs( api_token ){
+
+            if( !api_token ){
+                return;
+            }
+
+            var jsonData = { "api_key" : api_token }
+            $.ajax({
+                method: "POST",
+                url: '/api/0/partner-urls.json',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(jsonData)
+            }).done( function( msg ){
+                console.log( msg );
+                var formBaseUrl = msg.formBaseUrl;
+                var resBaseUrl = msg.resBaseUrl;
+                loadPartnerData( api_token, resBaseUrl, formBaseUrl );
+            });
+
+        }
+        getPartnerURLs( api_token );
+
+        function loadPartnerData( api_token, resBaseUrl, formBaseUrl ){
+
+        //  Fire off the AJAX call to the API
+            var url = '/api/0/get-partner-settings.json';
+
+            var jsonData    = {
+                "api_key" : api_token,
+                "api_secret" : api_secret,
+                "target_api_key" : target_api_token,
+                "infoscope" : "basic"
+            };
+
+        //  AJAX POST for GET PARTNER
+            $.ajax({
+                method: "POST",
+                url: url,
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(jsonData)
+            }).done( function( msg ){
+                var rsltJSON = msg;
+                $( '#account_name' ).val( rsltJSON.name );
+                $( '#account_id' ).val( rsltJSON.pid );
+
+            }).fail( function(jqXHR) {
+                msg = jqXHR.responseJSON;
+                console.log( msg );
+
+            });
+
+        }
+
+
+    //  Confirm the password, return FALSE if failed for match or zero-length
+        function confirmPswd(){
+            var pswdA = $( '#account_pswd' ).val();
+            var pswdB = $( '#account_pswd_confirm' ).val();
+    		if( pswdA != pswdB || pswdA.length < 8 || pswdB.length < 8 ){
+    			return false;
+    		}
+    		return true;
+    	}
+    //	Remove DISABLED or add DISABLED to the submit button
+    	function allowSubmit( test ){
+    		if( test ){
+		    	$( '#btnSignUp' ).removeAttr( 'disabled' );
+		    	$( '.submit-instructions' ).addClass( 'go' );
+                return true;
+    		}else{
+				$( '#btnSignUp' ).attr( 'disabled', 'disabled' );
+		    	$( '.submit-instructions' ).removeClass( 'go' );
+                return false;
+    		}
+    	}
+    //	onChange to the Password and Confirm Password fields
+    	$( '#account_pswd, #account_pswd_confirm' ).bind( 'keyup', function() {
+    		var pswdOK = confirmPswd();
+    		allowSubmit(pswdOK);
+    	});
+    //	onClick of the Submit Button
+    	$( '#btnSignUp' ).on( 'click', function(evt) {
+    		evt.preventDefault();
+    		var pswdOK = confirmPswd();
+    		var canSubmit = allowSubmit(pswdOK);
+            if(canSubmit){
+                window.location.href = '/sign-up/last-step/?api_key=' + api_token + '&api_secret=' + api_secret + '&target_api_key=' + target_api_token;
+            }
+    	});
+
+    //  Show/Obsfucate Pswds
+        $( '.reveal-pswd' ).on( 'click', function() {
+            var eyeType = $( this ).children( 'span' ).hasClass( 'glyphicon-eye-open' );
+            $( '.reveal-pswd' ).each( function() {
+                $( this ).children( 'span' ).removeClass();
+                if( eyeType ){
+                    $( '.reveal-pswd span' ).addClass( 'glyphicon glyphicon-eye-close' );
+                    $( '.reveal-pswd' ).siblings( 'input' ).prop( 'type', 'text' );
+                }else{
+                    $( '.reveal-pswd span' ).addClass( 'glyphicon glyphicon-eye-open' );
+                    $( '.reveal-pswd' ).siblings( 'input' ).prop( 'type', 'password' );
+                }
+            });
+
+        });
+
+    });
+    </script>
+{% endblock %}

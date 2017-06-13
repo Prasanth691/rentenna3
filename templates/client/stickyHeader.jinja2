@@ -1,0 +1,11 @@
+<div class="sticky-header">
+    <div class="report-sections">
+        <div class="links">
+            {% for section in sections %}
+                <a href="#{{ section.key }}">
+                    {{ section.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

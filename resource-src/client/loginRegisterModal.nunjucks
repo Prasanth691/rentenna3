@@ -1,0 +1,109 @@
+{% import 'forms' as forms %}
+{% extends 'modalView' %}
+{% block content %}
+    <form class="login-register-modal main">
+        {% if title %}
+            <h2>{{ title }}</h2>
+        {% elif mode == 'register' %}
+            <h2>Join AddressReport to Unlock Full Reports</h2>
+        {% elif mode == 'subscribe' %}
+            <h2>Get alerts for this address</h2>
+        {% else %}
+            <h2>Login to AddressReport</h2>
+        {% endif %}
+
+        {% if mode == 'login' %}
+
+            {{ forms.text('Email', 'email', '',
+                type='email', 
+                placeholder='example@addressreport.com',
+                required=1) }}
+            {{ forms.text('Password', 'password', '',
+                type='password', 
+                placeholder='Enter your password',
+                required=1,
+                pattern=".{8,}",
+                title="8 characters minimum") }}
+
+        {% elif emailOnly %}
+
+            {{ forms.text('Email', 'email', '',
+                type='email', 
+                placeholder='example@addressreport.com',
+                required=1) }}
+
+        {% else %}
+        
+            {{ forms.text('Email', 'email', '',
+                type='email', 
+                placeholder='example@addressreport.com',
+                required=1) }}
+            {{ forms.text('Password', 'password', '',
+                type='password', 
+                placeholder='Create a new password',
+                required=1,
+                pattern=".{8,}",
+                title="8 characters minimum") }}
+            {{ forms.text('Move Date', 'move-date', '',
+                type='date',
+                placeholder='Expected Move Date (MM/DD/YYYY)') }}
+                
+        {% endif %}
+
+        {{ forms.select('Status', 'status', '', [
+            ['', 'Status of Housing Search'],
+            ['own-or-rent', 'I own or rent at this address'],
+            ['looking-to-move', 'Looking to move but haven\'t visited any properties'],
+            ['visited-property', 'Visited a property but haven\'t submitted an application'],
+            ['application-submitted', 'Submitted an application, waiting to hear back'],
+            ['papers-signed', 'Papers signed, waiting to move'],
+            ['broker-owner-manager', 'I\'m a broker / landlord / manager']]) }}
+
+        <div class="error wrong-password hidden">
+            That password is wrong, but we recognize the email.
+        </div>
+
+        <div class="error in-use hidden">
+            That email is already in use.
+            Are you sure you don't want to 
+            <a href="#" class="login-alt">login instead?</a>
+        </div>
+
+        <div class="error no-email hidden">
+            We don't recognize that email.
+            Are you sure you don't want to 
+            <a href="#" class="register-alt">register instead?</a>
+        </div>
+
+        <div class="error unknown hidden">
+            Something went wrong, but we don't knows what. Maybe try again?
+        </div>
+
+        <button class="cta">
+            <span class="message">
+                {% if buttonText %}
+                    {{ buttonText }}
+                {% elif mode == 'register' %}
+                    Register
+                {% elif mode == 'subscribe' %}
+                    Subscribe
+                {% else %}
+                    Login
+                {% endif %}
+            </span>
+            <img src="{{ resource('/image/loading-256-white-on-primary.gif') }}" class="loading" />
+        </button>
+        
+        {% if mode != 'subscribe' %}
+            <div class="actions">
+                {% if mode == 'register' %}
+                    <a href="#" class="login-alt">Already registered?</a>
+                {% else %}
+                    <a href="#" class="register-alt">Need to register?</a>
+                    <a href="#" class="forgot">Forgot Password?</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    
+    </form>
+{% endblock %}

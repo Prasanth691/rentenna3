@@ -1,0 +1,26 @@
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container report-info status-{{ report.getStatus().status }}">
+        <h1>{{ report.reportName }}</h1>
+        <p>{{ report.reportInfo }}</p>
+        <p>Report ID: {{ report.reportId }}</p>
+        <p>Pipeline ID: {{ report.pipelineId }}</p>
+        <p>Run date: {{ humanDate(report.run) }}</p>
+        <div class="pipeline-progress">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 0%">
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <a class="btn btn-primary" href="{{ report.getDownloadUrl() }}" disabled="disabled">
+                Download
+            </a>
+            <a class="btn btn-default" href="{{ report.getPreviewUrl() }}" disabled="disabled">
+                Preview
+            </a>
+        </div>
+        {{ JsonPayload(reportKey=report.key.urlsafe()) }}
+    </div>
+{% endblock %}

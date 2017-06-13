@@ -1,0 +1,14 @@
+<div class="report-loading">
+    <div class="loading-interim property-interim-view content">
+        <img src="{{ resource('/image/loading-256-dark-on-background.gif') }}" class="loading-r" />
+        <h1>Generating AddressReport...</h1>
+        <div class="loading">
+            <div class="progress progress-striped active">
+                <div class="progress-bar">
+                </div>
+            </div>
+        </div>
+        <div class="loading-message">
+        </div>
+    </div>
+</div>

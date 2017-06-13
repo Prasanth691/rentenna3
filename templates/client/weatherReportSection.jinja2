@@ -1,0 +1,192 @@
+{% macro risk(name, key, stats) %}
+    <div class="narrative-box-container tall">
+        <div class="narrative-box
+                {% if stats[key] == 'low' %}
+                    positive
+                {% elif stats[key] == 'mild' %}
+                    neutral
+                {% else %}
+                    negative
+                {% endif %}
+            ">
+            <div class="intro">
+                Risk of {{ name }}<br/>
+                in this area is
+            </div>
+            <div class="qualitative">
+                {{ stats[key] }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+<div class="weather-section report-section">
+    <div class="report-section-header">
+        <h2>Weather &amp; Natural Disasters</h2>
+    </div>
+
+    {% if subsections.weather %}
+        <div class="weather-subsection content">
+            <h3>Weather</h3>
+
+            <div class="subsection-row">
+                <div class="narrative-box-container">
+                    <div class="narrative-box neutral">
+                        <div class="intro">
+                            The average temperature in this area during the winter is
+                        </div>
+                        <div class="number">
+                            {{ commas(subsections.weather.winterTemperatures.average) }}&#176;F
+                        </div>
+                    </div>
+                </div>
+                <div class="narrative-box-container">
+                    <div class="narrative-box neutral">
+                        <div class="intro">
+                            The average temperature in this area during the summer is
+                        </div>
+                        <div class="number">
+                            {{ commas(subsections.weather.summerTemperatures.average) }}&#176;F
+                        </div>
+                    </div>
+                </div>
+                {% if subsections.weather.annualRainfall %}
+                    <div class="narrative-box-container">
+                        <div class="narrative-box neutral">
+                            <div class="intro">
+                                The average rainfall in this area is
+                            </div>
+                            <div class="number">
+                                {{ commas(subsections.weather.annualRainfall) }}
+                            </div>
+                            <div class="unit">
+                                inches annually
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if subsections.weather.annualSnow %}
+                    <div class="narrative-box-container">
+                        <div class="narrative-box neutral">
+                            <div class="intro">
+                                The average snow in this area is
+                            </div>
+                            <div class="number">
+                                {{ commas(subsections.weather.annualSnow) }}
+                            </div>
+                            <div class="unit">
+                                inches annually
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if subsections.breezometer %}
+        <div class="breezometer-subsection content" id="air-quality">
+            <h3>Current Air Quality</h3>
+
+            <div class="left-column">
+
+                <div class="quality">
+                    <div class="elephant-scale">
+                        <img src="{{ resource('/image/breezometer/scale.png') }}" class="scale" />
+                        <img src="{{ resource('/image/breezometer/feet.png') }}" class="feet" />
+                        <img src="{{ resource('/image/breezometer/trunk.gif') }}" class="trunk" style="transform: rotate({{ subsections.breezometer.rotation }}deg)"/>
+                        <div class="top-number">100</div>
+                        <div class="bottom-number">0</div>
+                    </div>
+                    <div class="aqi">
+                        <h4>Air Quality Index</h4>
+                        <div class="score">
+                            {{ subsections.breezometer.breezometer_aqi }}
+                        </div>
+                        <h5>{{ subsections.breezometer.breezometer_description }}</h5>
+                    </div>
+                    <div class="powered">
+                        Updated {{ humanDateTime(now(), brief=True) }}<br/>
+                        Powered by Breezometer
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="recommendations">
+                <div class="recommendation">
+                    <div class="breezometer-badge" style="background-color: {{ subsections.breezometer.breezometer_color }}">
+                        <img src="{{ resource('/image/breezometer/kids.png') }}" />
+                    </div>
+                    <h4>Children under the age of 14</h4>
+                    <p>{{ subsections.breezometer.random_recommendations.children }}</p>
+                </div>
+                <div class="recommendation">
+                    <div class="breezometer-badge" style="background-color: {{ subsections.breezometer.breezometer_color }}">
+                        <img src="{{ resource('/image/breezometer/sport.png') }}" />
+                    </div>
+                    <h4>Sports and Recreation</h4>
+                    <p>{{ subsections.breezometer.random_recommendations.sport }}</p>
+                </div>
+                <div class="recommendation">
+                    <div class="breezometer-badge" style="background-color: {{ subsections.breezometer.breezometer_color }}">
+                        <img src="{{ resource('/image/breezometer/health.png') }}" />
+                    </div>
+                    <h4>Health and Safety</h4>
+                    <p>{{ subsections.breezometer.random_recommendations.health }}</p>
+                </div>
+                <div class="recommendation">
+                    <div class="breezometer-badge" style="background-color: {{ subsections.breezometer.breezometer_color }}">
+                        <img src="{{ resource('/image/breezometer/home.png') }}" />
+                    </div>
+                    <h4>Indoor Considerations</h4>
+                    <p>{{ subsections.breezometer.random_recommendations.inside }}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if subsections.disasters %}
+        <div class="disaster-subsection content">
+            <h3>Natural Disasters</h3>
+            <div class="subsection-row">
+                {{ risk('storms', 'storm', subsections.disasters) }}
+                {{ risk('earthquakes', 'earthquake', subsections.disasters) }}
+                {{ risk('hurricanes', 'hurricane', subsections.disasters) }}
+                {{ risk('tornadoes', 'tornado', subsections.disasters) }}
+                {{ risk('hailstorms', 'hail', subsections.disasters) }}
+                {{ risk('windstorms', 'wind', subsections.disasters) }}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if subsections.floodZone %}
+        <div class="flood-zone-subsection">
+            <h3 class="content">Flood Zone Map</h3>
+            <div class="flood-zone-map map-drilldown" id="flood-zone-map">
+                {{ JsonPayload(
+                    floodZone=subsections.floodZone.floodZoneName,
+                    location=target.location,
+                    building=target.getShortName()) }}
+
+                <div class="key">
+                    <h4>Flood Zones</h4>
+                    <svg width="350" height="50">
+                        <defs>
+                            <linearGradient id="flood-gradient">
+                                <stop class="green" offset="0%" />
+                                <stop class="yellow" offset="33%" />
+                                <stop class="red" offset="100%" />
+                            </linearGradient>
+                        </defs>
+
+                        <rect id="flood-scale" x="10" y="10" rx="10" ry="10" width="280" height="20" fill="url(#flood-gradient)" />
+                        <text x="0" y="45">Low Risk</text>
+                        <text x="250" y="45">High Risk</text>
+                    </svg>
+                </div>
+            </div>
+        </rect>
+    {% endif %}
+
+</div>

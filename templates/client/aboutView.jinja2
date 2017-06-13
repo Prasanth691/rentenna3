@@ -1,0 +1,78 @@
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+    <div class="about">
+        <div class="static-banner">
+            <div class="static-header">
+                <div class="main-header">
+                    <h1>AddressReports reveal the truth behind the listing</h1>
+                </div>
+                <h4 class="sub-header">
+                    "I'd never move in without seeing the AddressReport."
+                </h4>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <img src="{{ resource('/image/about-pic1.png') }}" />
+                <h4>We're out to stop the classic city dweller's moving horror story</h4>
+                <p>
+                    The listing sounded amazing. The area felt safe on a sunny day. 
+                    And your standard 15 minute tour of the building didn't turn 
+                    up anything obviously worrisome. 
+                </p>
+                <p>
+                    But shortly after you move in the elevator goes out, 
+                    the "up-and-coming" block feels menacing when you walk 
+                    home at night, and you hear a family of rats scurrying 
+                    about inside the walls.
+                </p>
+            </div>
+            <div class="section">
+                <img src="{{ resource('/image/about-pic2.png') }}" />
+                <h4>How does this even happen?</h4>
+                <p>
+                    Overworked and constantly rushed, apartment hunters 
+                    resort to cramming their search in between the more 
+                    pressing responsibilities of their day.
+                </p>
+                <p>
+                    Busy movers find themselves at the mercy of real 
+                    estate professionals, management companies, co-op 
+                    boards, owners, and even potential roommates 
+                    whose economic incentive may be to hold back 
+                    unflattering information that could cause an apartment 
+                    hunter to ask too many questions or possibly 
+                    reject an apartment. 
+                </p>
+                <p>
+                    This creates an information gap that so often 
+                    leads to moving horror stories and mover’s remorse.
+                </p>
+            </div>
+            <div class="section">
+                <img src="{{ resource('/image/about-pic1.png') }}" />
+                <h4>How AddressReport helps prevent mover's remorse</h4>
+                <p>
+                    AddressReport scans and interprets hundreds of 
+                    millions of data points to generate gorgeous, 
+                    easy-to-read, detailed reports that reveal 
+                    the positives and red flags for any address -- 
+                    eliminating the information gap and giving busy 
+                    apartment-hunters the insights they need to make 
+                    a better-informed moving decision.
+                </p>
+                <p>
+                    Enter any address below and we’ll expose what the 
+                    broker, owner, or management may not be 
+                    telling you:
+                </p>
+                <p>
+                    {{ AddressAutocomplete() }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {% include 'client/baseClientFoot.jinja2' %}
+{% endblock %}

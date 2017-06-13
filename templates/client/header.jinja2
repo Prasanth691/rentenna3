@@ -1,0 +1,175 @@
+{% if not headerOptions %}
+    {% set headerOptions = {} %}
+{% endif %}
+
+{% if(headerOptions.suppressLogoLink) %}
+    {% set logoTag = 'span' %}
+{% else %}
+    {% set logoTag = 'a' %}
+{% endif %}
+
+{% if headerOptions.light %}
+    {% set light = True %}
+{% else %}
+    {% set light = (app().headerStyle() == 'light') %}
+{% endif %}
+
+{% if headerOptions.suppressNav %}
+    {% set suppressNav = True %}
+{% else %}
+    {% set suppressNav = app().suppressNav() %}
+{% endif %}
+
+{% set partnerLogo = app().partnerLogo() %}
+
+{% set contactInfo = app().getContactInfo() %}
+
+{% set partnerLogo = photoServingUrl(partnerLogo, 200) %}
+
+{% set brandingPositionClass = iff( app().brandingPosition() == 'left', 'branding-left', 'branding-right' ) %}
+{% set cobrandingClass = iff( app().cobranding(), 'with-cobranding', 'without-cobranding' ) %}
+{% set customLink = app().settings().get('customLink') %}
+{% set customLinkLabel = app().settings().get('customLinkLabel') %}
+{% set logoLink = app().settings().get('logoLink') %}
+
+{% macro renderPartnerLogo() %}
+    {% if logoLink %}
+        <a href="{{ logoLink }}#external" target="_blank">
+            <div class="partner-logo" style="background-image:url({{ partnerLogo }})"></div>
+        </a>
+    {% else %}
+        <div class="partner-logo" style="background-image:url({{ partnerLogo }})"></div>
+    {% endif %}
+{% endmacro %}
+
+{% if app().displayHeader() %}
+<div class="header {{ iff(light, 'light') }}">
+    <div class="content {{ brandingPositionClass }} {{ cobrandingClass }}">
+
+        <div class="logo-wrap-all">
+            <div class="logo-wrap">
+                {% if cobrandingClass == 'with-cobranding' %}
+                <div class="logo-space {{ iff(partnerLogo, 'with-partner') }}">
+                    <{{ logoTag }} href="/" class="logo">
+                        {% if light %}
+                            <img src="{{ resource('/image/logoBlack.png') }}" alt="AddressReport" />
+                        {% else %}
+                            <img src="{{ resource('/image/logoWhite.png') }}" alt="AddressReport" />
+                        {% endif %}
+                    </{{ logoTag }}>
+
+                    {% if partnerLogo %}
+                        <div class="partnership-note">
+                            in partnership with
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% if partnerLogo %}
+                    {{ renderPartnerLogo() }}
+                {% endif %}
+            </div>
+
+            {% if contactInfo %}
+                <div class="contact-info {{ iff( contactInfo.photo, 'with-contact-photo', 'without-contact-photo' ) }}">
+                    <div class="contact-details">
+                        <div class="contact-detail-content">
+                            <div class="name">
+                                {{ contactInfo.name }}
+                            </div>
+                            {% if contactInfo.company %}
+                                <div class="company">
+                                    {{ contactInfo.company }}
+                                </div>
+                            {% endif %}
+                            {% if contactInfo.phone %}
+                                <div class="phone">
+                                    {{ contactInfo.phone }}
+                                </div>
+                            {% endif %}
+                            {% if contactInfo.license %}
+                                <div class="license">
+                                    License #: {{ contactInfo.license }}
+                                </div>
+                            {% endif %}
+                            {% if contactInfo.email or contactInfo.website %}
+                                <div class="link-me">
+                                    {% if contactInfo.email %}
+                                        <a href="mailto:{{ contactInfo.email }}" target="_blank">Email me</a>
+                                    {% endif %}
+                                    {% if contactInfo.email and contactInfo.website %}
+                                        or
+                                    {% endif %}
+                                    {% if contactInfo.website %}
+                                        <a href="{{ contactInfo.website }}" target="_blank">Visit Our Website</a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {% if customLink %}
+                                <div class="custom-link">
+                                    <a href="{{ customLink }}#external" target="_blank">{{ customLinkLabel }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="contact-details-toggle">
+                            <i class="fa fa-chevron-down"></i>
+                            <i class="fa fa-chevron-up"></i>
+                        </div>
+                    </div>
+                    {% if contactInfo.photo %}
+                        <div style="background-image:url({{ photoServingUrl(contactInfo.photo, 96) }})" class="contact-photo" /></div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+        {% if (not suppressNav) %}
+            <div class="expand">
+                <i class="fa fa-bars"></i>
+            </div>
+            <div class="close">
+                <img src="{{ resource('/image/xIconOnDarker.png') }}" />
+            </div>
+        {% endif %}
+
+        {% if not headerOptions.suppressAddressAutocomplete %}
+            {{ AddressAutocomplete() }}
+        {% endif %}
+
+        {% if not headerOptions.suppressNav %}
+            <div class="nav">
+                <div class="top-nav">
+                    <div class="close">
+                        <img src="{{ resource('/image/xIconOnDark.png') }}" />
+                    </div>
+
+                    <div class="user-nav">
+                        {% if user().status == 'guest' %}
+                            <a href="#" class="register-button">Sign Up</a>
+                            <a href="#" class="login-button">Log In</a>
+                        {% else %}
+                            <a href="/profile/">Your Profile</a>
+                            <a href="/log-out/" class="logout-button">Log Out</a>
+                        {% endif %}
+                    </div>
+
+                    <a href="/about/">About Us</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/contact/">Contact</a>
+                    <a href="/terms/">Terms of Use</a>
+
+                </div>
+                <div class="main-nav">
+                    <h3 class="state-header">Browse By City</h3>
+                    {% for city in cities() %}
+                        <a href="{{ city.getUrl() }}">
+                            {{ city.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

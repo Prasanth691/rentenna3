@@ -1,0 +1,46 @@
+{% extends 'email/baseTemplate2.jinja2' %}
+
+{% block extraCssClasses %}partner-template{% endblock %}
+
+{% block preview %}
+   Free Trial Url
+{% endblock %}
+
+{% block branding %}
+	<div class="logo without-partnership">
+        <img src="https://www.addressreport.com/resource/image/ar-by-obi-logo.jpg" class="logo-img" />
+    </div>
+{% endblock %}
+
+{% block header %}
+    <div class="header-text white">    
+        <h1>Free Trial<br />{{ contactInfo.company }}</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="section-container cta">
+
+      {{ partnerEmailGreeting(partner) }},
+    
+      <p>Thank you for signing up for a free trial of Data-Driven Lead Generation from Onboard Informatics.</p>
+      <p>To start your Free Trial, follow these simple steps:</p>
+      <p>Step 1: Go to <a target="_blank" href="{{ freeTrialUrl }}"><strong>this page</strong></a>.</p>
+      <p>Step 2: Verify your email address.</p>
+      <p>Step 3: Agree to the terms & conditions.</p>
+      <p>Step 4: Choose how you want to display our lead capture widget on your pages.  We offer a variety of designs to choose from.</p>
+      <p>Step 5: Copy the code and paste it into the desired pages on your website.</p>
+      
+      <p>Once you add the code, our lead capture widget will appear on your pages.  When visitors come to your page and click the widget for a complimentary AddressReport, you will instantly receive their contact information and they will get a robust report delivered to their email.</p>
+
+      <p>If you have any questions don’t hesitate to reach out to <a href="mailto:support@onboardinformatics.com">support@onboardinformatics.com</a>.</p>
+
+      <p>Thanks!</p>
+
+      <p>The Onboard Team</p>
+    </div>
+{% endblock %}
+
+{% block footerLinks %}
+    
+{% endblock %}

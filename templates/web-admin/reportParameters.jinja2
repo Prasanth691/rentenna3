@@ -1,0 +1,32 @@
+{% import 'web-admin/form.jinja2' as form %}
+
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container report-parameters">
+        <h1>Report: `{{ reportName }}` Parameters</h1>
+        <form method="POST" class="col-md-6" action="/web-admin/reports/run/{{ reportName }}/with-params/">
+            {% for parameter in parameters %}
+                {% if parameter.type == 'date' %}
+                    {{ form.text(
+                        parameter.field, 
+                        computerDate(parameter.default), 
+                        parameter.name, 
+                        type="date") }}
+                {% elif parameter.type == 'select' %}
+                    {{ form.select(
+                        parameter.field,
+                        parameter.default,
+                        parameter.name,
+                        parameter.options) }}
+                {% elif parameter.type == 'bool' %}
+                    {{ form.checkbox(
+                        parameter.field,
+                        False,
+                        parameter.name) }}
+                {% endif %}
+            {% endfor %}
+            <button class="btn btn-primary">Run Report</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% macro render(emails) %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Partner</th>
+                <th>Template</th>
+                <th>Suppressed</th>
+                <th>Preview</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for email in emails %}
+                <tr>
+                    <td>{{ humanDateTime(email.date, brief=True) }}</td>
+                    <td>
+                        {{ partnerTopBottomName(email.getPartner()) }}
+                    </td>
+                    <td>
+                        {{ email.template }}
+                    </td>
+                    <td>{{ iff(email.suppressed, 'Yes', 'No') }}</td>
+                    <td>
+                        <a href="{{ email.getAdminLink() }}" class="btn btn-default btn-xs" target="_blank">
+                            View Content
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}

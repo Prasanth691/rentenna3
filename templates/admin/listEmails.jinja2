@@ -1,0 +1,18 @@
+{% import 'admin/emailTable.jinja2' as emailTable %}
+{% extends 'admin/baseAdmin.jinja2' %}
+{% block content %}
+    <div class="container list-events">
+        <h1>
+            Recent Emails
+        </h1>
+
+        {{ emailTable.render(emails) }}
+
+        {% set prevDisabled = '' if page > 1 else 'disabled' %}
+        {% set nextDisabled = '' if hasNext else 'disabled' %}
+        <div class="pagination">
+            <a href="?page={{ page-1 }}" class="btn btn-default" {{ prevDisabled }}>Previous Page</a>
+            <a href="?page={{ page+1 }}" class="btn btn-default" {{ nextDisabled }}>Next Page</a>
+        </div>
+    </div>
+{% endblock %}

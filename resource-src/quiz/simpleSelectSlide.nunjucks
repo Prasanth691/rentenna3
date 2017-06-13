@@ -1,0 +1,29 @@
+<div class="slide simple-select-slide flow-{{ flow }} box-{{ box }}">
+    <form nosubmit>
+        <h1>
+            {{ question }}
+        </h1>
+        <div class="options">
+            {% for option in options %}
+                <div 
+                        class="
+                            auto-next 
+                            clickable 
+                            option-box 
+                            {% if not option.faIcon %}text-only-option{% endif %}
+                            {% if option.color %}has-color {% endif %}
+                        " 
+                        data-value="{{ option.value }}"
+                        {% if option.color %}
+                            style="background-color: {{ option.color }}"
+                        {% endif %}
+                    >
+                    <h4>{{ option.title }}</h4>
+                    {% if option.faIcon %}
+                        <i class="fa fa-{{ option.faIcon }} fa-fw fa-4x"></i>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+</div>

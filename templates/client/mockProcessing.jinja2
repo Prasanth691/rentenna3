@@ -1,0 +1,41 @@
+{% import 'base/forms.nunjucks' as forms %}
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+    <div class="mock-processing content">
+        {{ JsonPayload(
+            type=type,
+            target=target,
+            commonName=commonName) }}
+
+        {% include 'client/mockLoading.nunjucks' %}
+
+        <div class="email-block content">
+            <h1>
+                Tell us where to email the report for
+                {{ commonName }}
+            </h1>
+            <form class="email-form" nosubmit>
+                {{ forms.text('Email', 'email', user().email,
+                    type='email',
+                    placeholder='example@addressreport.com',
+                    required=True) }}
+
+                <button class="cta">
+                    <i class="fa fa-bell"></i>
+                    Send me my report for {{ commonName }}
+                </button>
+            </form>
+        </div>
+
+        <div class="dead-end content">
+            <h1>
+                <i class="fa fa-envelope-o"></i>
+                Final step: Check your Inbox...
+            </h1>
+            <h2>
+                Please check your email inbox to get your free report for
+                {{ commonName }}.
+            </h2>
+        </div>
+    </div>
+{% endblock %}

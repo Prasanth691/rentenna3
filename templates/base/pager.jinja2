@@ -1,0 +1,9 @@
+<div class="pager">
+    {% for page in pages %}
+        <div class="page {{ iff(page.current, 'active') }}">
+            <a href="{{ page.link }}">
+                {{ page.page }}
+            </a>
+        </div>
+    {% endfor %}
+</div>

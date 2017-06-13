@@ -1,0 +1,196 @@
+{% import 'client/mapLegend.jinja2' as legend %}
+{% import 'client/upgradeCta.jinja2' as upgradeCta %}
+
+{% macro renderDemolitions(stats) %}
+    {% if not isMissing(stats.demolitions) %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There 
+                    {{ pluralName(stats.demolitions.count, 'has', 'have') }}
+                    been
+                </div>
+                <div class="number">
+                    {{ stats.demolitions.count }}
+                </div>
+                <div class="units">
+                    {{ pluralName(stats.demolitions.count, 'demolition') }}
+                    in the last year
+                    {{ target.getCity().getDistance('reasonableTravel')['description'] }}
+                </div>
+            </div>
+            
+            <button class="drilldown-button" target="demolition-map">
+                <span class="label">
+                    See the Demolition Map
+                </span>
+            </button>
+
+            {% if renderFullReport %}
+                <div class="demolition-map drilldown map-drilldown" id="demolition-map">
+                    {{ JsonPayload(
+                        location=target.location) }}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderNewBuildings(stats) %}
+    {% if not isMissing(stats.newBuildings) %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There 
+                    {{ pluralName(stats.newBuildings.count, 'has', 'have') }}
+                    been
+                </div>
+                <div class="number">
+                    {{ stats.newBuildings.count }}
+                </div>
+                <div class="units">
+                    {{ pluralName(stats.newBuildings.count, 'new building') }}
+                    in the last year
+                    {{ target.getCity().getDistance('reasonableTravel')['description'] }}
+                </div>
+            </div>
+
+            <button class="drilldown-button" target="new-building-map">
+                <span class="label">
+                    See the New Building Map
+                </span>
+            </button>
+
+            {% if renderFullReport %}
+                <div class="new-building-map drilldown map-drilldown" id="new-building-map">
+                    {{ JsonPayload(
+                        location=target.location) }}
+                </div>
+            {% else %}
+                {{ upgradeCta.render('new-building-map',
+                    heading="Upgrade to see the map of new buildings in the area",
+                    description="""
+                        A lot of new buildings can mean major changes in store for a neighborhood, both positive and negative. They can be a sign of a rapidly developing (and safer) area about to experience a surge in popularity or of an overheated market flooded with an oversupply of new housing.
+                    """) }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderJobs(stats) %}
+    {% if not isMissing(stats.buildingJobsCount) %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There 
+                    {{ pluralName(stats.buildingJobsCount, 'has', 'have') }}
+                    been
+                </div>
+                <div class="number">
+                    {{ stats.buildingJobsCount }}
+                </div>
+                <div class="units">
+                    {{ pluralName(stats.buildingJobsCount, 'construction project') }}
+                    in this building since 2003
+                </div>
+            </div>
+
+            {% if stats.buildingJobs %}
+                {{ renderJobsDrilldown(stats.buildingJobs) }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderJobsDrilldown(jobs) %}
+    <button class="drilldown-button" target="jobs-table">
+        <span class="label">
+            See the History of Projects
+        </span>
+    </button>
+
+    {% if renderFullReport %}
+        <div class="jobs-table table drillable-table drilldown content" id="jobs-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in jobs %}
+                        <tr class="row">
+                            <td>{{ date(job.getDate(), '%B %d, %Y') }}</td>
+                            <td>{{ job.getType() }}</td>
+                        </tr>
+                        <tr class="sub-row">
+                            <td colspan="999">
+                                <div class="full-description">
+                                    {% if job.JobDescription %}
+                                        {{ job.JobDescription }}
+                                    {% else %}
+                                        This job had no description associated with it.
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderScaffolds(stats) %}
+    {% if not isMissing(stats.scaffolds) %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There 
+                    {{ pluralName(stats.scaffolds.count, 'has', 'have') }}
+                    been
+                </div>
+                <div class="number">
+                    {{ stats.scaffolds.count }}
+                </div>
+                <div class="units">
+                    {{ pluralName(stats.scaffolds.count, 'scaffold') }}
+                    installed in the last 90 days
+                    {{ target.getCity().getDistance('area')['description'] }}
+                </div>
+            </div>
+
+            <button class="drilldown-button" target="scaffold-map">
+                <span class="label">
+                    See the Scaffold Map
+                </span>
+            </button>
+
+            {% if renderFullReport %}
+                <div class="scaffold-map drilldown map-drilldown" id="scaffold-map">
+                    {{ JsonPayload(
+                        location=target.location) }}
+                    {{ legend.render([
+                        "Scaffold", "Sidewalk Shed"
+                    ])}}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+<div class="construction-report-section report-section">
+    <div class="report-section-header">
+        <h2>Construction</h2>
+    </div>
+    <div class="quick-stats">
+        <div class="subsection-row content">
+            {{ renderJobs(subsections.construction) }}
+            {{ renderScaffolds(subsections.construction) }}
+            {{ renderDemolitions(subsections.construction) }}
+            {{ renderNewBuildings(subsections.construction) }}
+        </div>
+    </div>
+
+</div>

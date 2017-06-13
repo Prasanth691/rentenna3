@@ -1,0 +1,205 @@
+{% import 'client/upgradeCta.jinja2' as upgradeCta %}
+
+{% macro renderMaritalStatus(quickStats) %}
+    {% if quickStats.maritalStatusPercent %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    The percent of people in this area who are married is
+                </div>
+                <div class="number">
+                    {{ percent(quickStats.maritalStatusPercent) }}
+                </div>
+            </div>
+            {% if quickStats.householdStats %}
+                <button class="drilldown-button" target="census-household-stats">
+                    <span class="label">
+                        See more household stats
+                    </span>
+                </button>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderPopulationStats(quickStats) %}
+    {% if subsections.quickStats.medianAge %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    The median age is
+                </div>
+                <div class="number">
+                    {{ commas(quickStats.medianAge) }}
+                </div>
+                <div class="units">
+                    Years Old
+                </div>
+            </div>
+            
+            {% if quickStats.populationStats %}
+                <button class="drilldown-button" target="census-population-stats">
+                    <span class="label">
+                        See more population stats
+                    </span>
+                </button>
+                {{ renderPopulationStatsDrilldown(quickStats) }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderPopulationStatsDrilldown(quickStats) %}
+    {% if renderFullReport %}
+        <div class="census-population-stats multi-drilldown-base drilldown" id="census-population-stats">
+            {{ JsonPayload(
+                stats=quickStats.populationStats) }}
+        </div>
+    {% else %}
+        {{ upgradeCta.render('census-population-stats',
+            heading="Upgrade to see detailed census data",
+            description="""
+                Is the neighborhood around this building filled with the
+                post-college party crowd, overrun with young parents and strollers, or
+                more senior-friendly? Is it a wealthier area, an up-and-coming
+                neighborhood, or a bit on the grittier side?
+            """) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro renderWorkStats(quickStats) %}
+    {% if quickStats.mostCommonEducation %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral education-level">
+                <div class="intro">
+                    The most common education level in this area is
+                </div>
+                <div class="qualitative">
+                    {{ quickStats.mostCommonEducation }}
+                </div>
+            </div>
+            {% if quickStats.workStats %}
+                <button class="drilldown-button" target="census-work-stats">
+                    <span class="label">
+                        See more work &amp; school stats
+                    </span>
+                </button>
+                {{ renderWorkStatsDrilldown(quickStats) }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderWorkStatsDrilldown(quickStats) %}
+    {% if renderFullReport %}
+        <div class="census-work-stats multi-drilldown-base drilldown" id="census-work-stats">
+            {{ JsonPayload(
+                stats=quickStats.workStats) }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderHouseholdStats(quickStats) %}
+    {% if quickStats.childrenPercent %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    Households with children are
+                </div>
+                <div class="number">
+                    {{ percent(quickStats.childrenPercent) }}
+                </div>
+                <div class="unit">
+                    of all households in this area
+                </div>
+            </div>
+            
+            {% if quickStats.householdStats %}
+                <button class="drilldown-button" target="census-household-stats">
+                    <span class="label">
+                        See more household stats
+                    </span>
+                </button>
+                {{ renderHouseholdStatsDrilldown(quickStats) }}
+            {% endif %}
+        
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderHouseholdStatsDrilldown(quickStats) %}
+    {% if renderFullReport %}
+        <div class="census-household-stats multi-drilldown-base drilldown" id="census-household-stats">
+            {{ JsonPayload(
+                stats=quickStats.householdStats) }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderVoterRegistrations(voters, context, contextId) %}
+    {% if voters %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    {{ context }} is
+                </div>
+                <div class="number">
+                    {{ percent(voters.maxPercent) }}
+                </div>
+                <div class="units">
+                    registered {{ voters.maxKey }}
+                </div>
+            </div>
+
+            <button class="drilldown-button" target="voter-{{ contextId }}-stats">
+                <span class="label">
+                    See the breakdown
+                </span>
+            </button>
+            {{ renderVoterRegistrationsDrilldown(voters, contextId) }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderVoterRegistrationsDrilldown(voters, contextId) %}
+    {% if renderFullReport %}
+        <div class="voter-stats multi-drilldown-base drilldown" id="voter-{{ contextId }}-stats">
+            {{ JsonPayload(
+                stats=voters.breakdown) }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+<div class="demographics-report-section report-section">
+    <div class="report-section-header">
+        <h2>Demographics</h2>
+    </div>
+
+    {% if subsections.quickStats %}
+        <div class="quick-stats">
+            <h3 class="content">Census at a Glance</h3>
+            
+            <div class="subsection-row content">        
+                {{ renderPopulationStats(subsections.quickStats) }}
+                {{ renderWorkStats(subsections.quickStats) }}
+                {{ renderHouseholdStats(subsections.quickStats) }}
+                {{ renderMaritalStatus(subsections.quickStats) }}   
+            </div>
+        </div>
+    {% endif %}
+
+    {% if subsections.politics %}
+        <div class="politics-stats">
+            <h3 class="content">Political</h3>
+            
+            <div class="subsection-row content">     
+                {{ renderVoterRegistrations(
+                    subsections.politics.inBuilding,
+                    "This Building", 'building') }} 
+                {{ renderVoterRegistrations(
+                    subsections.politics.nearby,
+                    "The Area", 'area') }}
+            </div>
+        </div>
+    {% endif %}
+</div>

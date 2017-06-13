@@ -1,0 +1,44 @@
+{% extends 'email/alertTemplateBase.jinja2' %}
+
+{% block extraCssClasses %}alert-base homesales-alert{% endblock %}
+
+{% block preview %}
+     See the latest new businesses in your {{ recentPois.region }}
+{% endblock %}
+
+{% block alerts %}
+    <div class="header-text no-margin" id="header-text">
+        <h1>There may be some new businesses nearby</h1>
+    </div>
+    {{ renderGreeting(user) }}
+    <p>
+        According to our analysis there may be some new businesses you'd like to know about in <strong>{{ recentPois.name }}</strong>.
+    </p>
+        {% if recentPois.pois %}
+            <div class="section-heading">
+                SOME OF THE NEW BUSINESSES NEARBY
+            </div>
+            <div class="section-container recent-businesses">
+                {% for poi in recentPois.pois %}
+                <div class="section {{ iff(loop.last, 'last-section') }}">
+                        {{ poi.BUSNAME }}
+                    <div class="small light">
+                        <i>
+                            {{ poi.STREET }}
+                        </i>
+                    </div>
+                </div>
+                {% endfor %}
+                <a href="{{ otuLink('%s?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=property-recent-opened-businesses&utm_content=amenity-link' % property.getUrl(True)) }}#nearby-amenities">
+                    <div class="all-amenities">
+                        See All New Nearby Businesses
+                    </div>
+                </a>
+            </div>
+        {% endif %}
+    <p>
+        New business information is updated each month and may be delayed by a few weeks from initial opening.
+        We do our best to keep on top of everything going on in your neighborhood but please feel free to <strong>{% if contactInfo.email %}<a href="mailto:{{ contactInfo.email }}?subject=New Nearby Businesses around {{ property.shortName }}" target="_blank">reach out to me</a>{% else %} reach out to me{% endif %}</strong> if there's other information you're searching for.
+    </p>
+    {{ renderContactName(contactInfo) }}
+{% endblock %}

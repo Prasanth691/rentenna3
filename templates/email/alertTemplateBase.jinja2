@@ -1,0 +1,53 @@
+{% extends 'email/baseTemplate2.jinja2' %}
+
+{% block extraCssClasses %}alert-base{% endblock %}
+
+{% block logoExtra %}
+    <span class="alert-date">
+        {{ humanDate(now(), brief=True) }} Alert
+    </span>
+{% endblock %}
+
+
+{% block header %}
+    <img src="https://www.addressreport.com/resource/image/alerts-symbol-blue.png" />
+    <div class="header-text">
+        <h1>{{ humanDate(now(), brief=True ) }} ALERT FOR:</h1>
+        <h2>{{ property.shortName }}</h2>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% block alerts %}
+    {% endblock %}
+
+    <div class="section-container cta">
+        <a href="{{ otuLink('%s?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=alerts&utm_content=bottom-cta' % property.getUrl(True) ) }}">
+            <div class="content cta-btn">
+                Read the Full Report for: <br>
+                {{ property.shortName }}
+            </div>
+        </a>
+        <a href="{{ otuLink('https://www.addressreport.com/quiz/new_alert/?&utm_source=automation-email&utm_medium=email&utm_campaign=alerts&utm_content=add-alert-button') }}{{ iff(user.partner, '&partner=%s' % user.partner)|safe }}">
+            <div class="content cta-btn blue">
+                Add Alert for a Different Address
+            </div>
+        </a>
+        {% if user.partner == 'MOVOTO' %}
+            <a href="http://www.movoto.com/">
+                <div class="content cta-btn">
+                    Find more listings on Movoto
+                </div>
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block asSeenIn %}
+{% endblock %}
+
+{% block footerLinks %}
+    <a href="{{ otuLink('https://www.addressreport.com/unsubscribe-alert/?property=%s' % property.key.id()) }}">Unsubscribe From This Alert</a>    |
+    <a href="{{ unsubscribe }}">Unsubscribe From Everything</a>    |
+    <a href="https://www.addressreport.com/profile/">Update Your Account</a><br><br>
+{% endblock %}

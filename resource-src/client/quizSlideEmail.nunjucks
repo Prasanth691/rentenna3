@@ -1,0 +1,28 @@
+{% import 'forms' as forms %}
+
+<div class="slide email-slide single-textbox-slide" data-slide="email">
+    <h1>
+        {% if quizData.street and quizData.streetNumber %}  
+            Tell us where to email the report for {{ quizData.streetNumber }} {{ quizData.street }}
+        {% else %}
+            Tell us where to email your report
+        {% endif %}
+    </h1>
+
+    <form class="email-form" nosubmit>
+        {{ forms.text('Email', 'email', email,
+            type='email', 
+            placeholder='example@addressreport.com',
+            required=True) }}
+
+        <button class="cta">
+            <i class="fa fa-bell"></i>
+            {% if quizData.street and quizData.streetNumber %}  
+                Send me my report for {{ quizData.streetNumber }} {{ quizData.street }}
+            {% else %}
+                Send me my report
+            {% endif %}
+        </button>
+    </form>
+
+</div>

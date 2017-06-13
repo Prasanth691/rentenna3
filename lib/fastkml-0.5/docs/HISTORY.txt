@@ -1,0 +1,44 @@
+
+Changelog
+=========
+
+0.5 (2013/10/23)
+-----------------
+
+- handle big files with huge_tree for lxml [Egil Moeller]
+- bugfixes
+
+
+0.4 (2013/09/05)
+-----------------
+
+- adds the ability to add untyped extended data / named value pairs [Denis Krienbühl]
+
+0.3 (2012/11/15)
+-----------------
+
+- specify minor python versions tested with Travis CI
+- add support for tesselation, altitudeMode and extrude to Geometries
+- move implementation of geometry from kml.Placemark to geometry.Geometry
+- add support for heterogenous GeometryCollection
+- python 3 compatible
+- fix test for python 3
+- change license to LGPL
+- register namespaces for a more pleasant, human readable xml output
+
+0.2 (2012/07/27)
+-----------------
+
+- remove dependency on shapely
+- add more functionality
+
+
+0.1.1 (2012/06/29)
+------------------
+
+- add MANIFEST.in
+
+0.1 (2012/06/27)
+----------------
+
+- initial release

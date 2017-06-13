@@ -1,0 +1,26 @@
+{% macro nav(back = false, next = false, skip = false, widget = false) %}
+    <div class="slide-nav">
+        {% if back %}
+            <button class="btn-outline back" type="button">
+                Back
+            </button>
+        {% endif %}
+        {% if next %}
+            <button class="next-btn" data-value="None" type="submit">
+                Next Step
+            </button>
+        {% endif %}
+        {% if skip %}
+            <button class="btn-outline skip" type="button">
+                Skip
+            </button>
+        {% endif %}
+        {% if widget %}
+            <a href="/open-a-franchise/franchise-non-matches/">Skip To Franchise Selection</a>
+        {% endif %}
+    </div>
+    <div class="stupid-links">
+        <a href='/' class="left">Home</a> |
+        <a href='/terms-privacy' class="right">Privacy Policy</a>
+    </div>
+{% endmacro %}

@@ -1,0 +1,13 @@
+{% macro render(keys) %}
+    <div class="key">
+        {% for key in keys %}
+            <div class="key-entry {{ key|lower|replace(" / ", "-")|replace(" ", "-")}}">
+                <div class="dot"></div>
+                {{ key }}
+            </div>
+        {% endfor %}
+        <p class="fine-print">
+            (Map will refresh as you pan. Locations are approximate.)
+        </p>
+    </div>
+{% endmacro %}

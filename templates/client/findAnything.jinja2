@@ -1,0 +1,75 @@
+{% import 'base/forms.nunjucks' as forms %}
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+    <div class="find-anything landing selected-{{ type }}">
+        <div class="bannerwrapper">
+            <div class="banner content">
+                <div class="title">
+                    <h1>
+                        Sorry, we had trouble locating that {{ type }}
+                    </h1>
+                    <p>
+                        Sometimes we have trouble finding things, and it
+                        helps to break it out into individual components.
+                        Try filling out the form below so we can try again.
+                    </p>
+                </div>
+                <div class="finders">
+                    <div class="finder-type">
+                        <button class="cta inverse address" data-type="address">
+                            Address
+                        </button>
+                        <button class="cta inverse city" data-type="city">
+                            City
+                        </button>
+                        <button class="cta inverse neighborhood" data-type="neighborhood">
+                            Neighborhood
+                        </button>
+                        <button class="cta inverse zipcode" data-type="zipcode">
+                            Zipcode
+                        </button>
+                    </div>
+                    <div class="address-form finder">
+                        <form action="/find-address/" method="GET">
+                            <input type="hidden" name="require" value="{{ require }}" />
+                            {{ forms.text("House Number", 'streetNumber', components.streetNumber,
+                                required=True) }}
+                            {{ forms.text("Street Name", 'street', components.street,
+                                required=True) }}
+                            {{ forms.text("City", 'city', components.city) }}
+                            {{ forms.select('State', 'state', components.state, stateOptions) }}
+                            {{ forms.text("Zip Code", 'zip', components.zip) }}
+                            <button class="cta inverse">Search Again</button>
+                        </form>
+                    </div>
+                    <div class="city-form finder">
+                        <form action="/find-city/" method="GET">
+                            <input type="hidden" name="require" value="{{ require }}" />
+                            {{ forms.text("City", 'city', components.city) }}
+                            {{ forms.select('State', 'state', components.state, stateOptions) }}
+                            {{ forms.text("Zip Code", 'zip', components.zip) }}
+                            <button class="cta inverse">Search Again</button>
+                        </form>
+                    </div>
+                    <div class="neighborhood-form finder">
+                        <form action="/find-neighborhood/" method="GET">
+                            <input type="hidden" name="require" value="{{ require }}" />
+                            {{ forms.text("Neighborhood", 'neighborhood', components.neighborhood) }}
+                            {{ forms.text("City", 'city', components.city) }}
+                            {{ forms.select('State', 'state', components.state, stateOptions) }}
+                            {{ forms.text("Zip Code", 'zip', components.zip) }}
+                            <button class="cta inverse">Search Again</button>
+                        </form>
+                    </div>
+                    <div class="zipcode-form finder">
+                        <form action="/find-zipcode/" method="GET">
+                            <input type="hidden" name="require" value="{{ require }}" />
+                            {{ forms.text("Zip Code", 'zip', components.zip) }}
+                            <button class="cta inverse">Search Again</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% import 'client/mapLegend.jinja2' as legend %}
+{% import 'client/upgradeCta.jinja2' as upgradeCta %}
+
+{% macro renderDemolitions(stats) %}
+    {% if not isMissing(stats.demolitions) %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There 
+                    {{ pluralName(stats.demolitions.count, 'has', 'have') }}
+                    been
+                </div>
+                <div class="number">
+                    {{ stats.demolitions.count }}
+                </div>
+                <div class="units">
+                    {{ pluralName(stats.demolitions.count, 'demolition') }}
+                    in the last year in
+                    {{ target.name }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderNewBuildings(stats) %}
+    {% if not isMissing(stats.newBuildings) %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There 
+                    {{ pluralName(stats.newBuildings.count, 'has', 'have') }}
+                    been
+                </div>
+                <div class="number">
+                    {{ stats.newBuildings.count }}
+                </div>
+                <div class="units">
+                    {{ pluralName(stats.newBuildings.count, 'new building') }}
+                    built in the last year in
+                    {{ target.name }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderScaffolds(stats) %}
+    {% if not isMissing(stats.scaffolds) %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There 
+                    {{ pluralName(stats.scaffolds.count, 'has', 'have') }}
+                    been
+                </div>
+                <div class="number">
+                    {{ stats.scaffolds.count }}
+                </div>
+                <div class="units">
+                    {{ pluralName(stats.scaffolds.count, 'scaffold') }}
+                    installed in the last 90 days in 
+                    {{ target.name }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+<div class="construction-report-section report-section">
+    <div class="report-section-header">
+        <h2>Construction</h2>
+    </div>
+    <div class="quick-stats">
+        <div class="subsection-row content">
+            {{ renderScaffolds(subsections.quickStats) }}
+            {{ renderDemolitions(subsections.quickStats) }}
+            {{ renderNewBuildings(subsections.quickStats) }}
+        </div>
+    </div>
+
+</div>

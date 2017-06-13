@@ -1,0 +1,65 @@
+{% import 'client/upgradeCta.jinja2' as upgradeCta %}
+
+<div class="listing-history-report-section report-section">
+    <div class="report-section-header">
+        <h2>Listing History</h2>
+    </div>
+
+    {% if subsections.propertyListings %}
+        {% if renderFullReport %}
+            <div class="property-listings">
+                <div class="content">
+                    <h3>Historical Listings in this Property</h3>
+                    <div class="listings">
+                        <table class="paginated-table">
+                            <thead>
+                                <th>Discovered</th>
+                                <th>Unit Number</th>
+                                <th>Size</th>
+                                <th>Number Baths</th>
+                                <th>Monthly Rent</th>
+                            </thead>
+                            <tbody>
+                                {% for listing in subsections.propertyListings.listings %}
+                                    <tr>
+                                        <td>{{ date(listing.open, '%B %d, %Y') }}</td>
+                                        <td>{{ listing.unit or '--' }}</td>
+                                        <td>
+                                            {% if listing.beds == '0' %}
+                                                Studio
+                                            {% else %}
+                                                {{ listing.beds }}-bedroom
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ listing.baths }}</td>
+                                        <td>{{ money(listing.price, cents=False) }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="upgrade-cta upgrade-listing-history">
+                <div class="call">
+                    <h3>
+                        Register to know you’re getting a fair deal
+                    </h3>
+                    <p>
+                        See 
+                        {{ safeLen(subsections.propertyListings.listings) }} 
+                        listings for 
+                        {{ target.getShortName() }} 
+                        dating back to 
+                        {{ date(subsections.propertyListings.listings[-1].open, '%B %d, %Y') }}, so you have the knowledge and confidence to negotiate a
+                        fair price or walk away from an unfair deal.
+                    </p>
+                    <button class="cta inverse upgrade-button" stat="listing-history">
+                        Register Now
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>

@@ -1,0 +1,39 @@
+{% extends 'email/alertTemplateBase.jinja2' %}
+
+{% block preview %}
+    We've just discovered 
+    {{ plural(total, "new complaint") }} 
+    reported near 
+    {{ property.shortName }} 
+    within the last week
+{% endblock %}
+
+{% block alerts %}
+    {% set target = property.getUrl(True) + "alert-table/" %}
+    {% set tracking = "?utm_source=automation-email&utm_medium=email&utm_campaign=property-alerts-311" %}
+    <div class="section-container no-detail {{ iff(filth==0,'positive-stat','negative-stat') }}">
+        {{ plural(filth, 'Filth Complaint') }}
+        <a href="{{ otuLink('%sfilth/%s&utm_content=filth-link' % (target, tracking)) }}">
+            See Complaints >>
+        </a>
+    </div>
+    <div class="section-container no-detail {{ iff(noise==0,'positive-stat','negative-stat') }}">
+        {{ plural(noise, 'Noise Complaint') }}
+        <a href="{{ otuLink('%snoise/%s&utm_content=noise-link' % (target, tracking)) }}">
+            See Complaints >>
+        </a>
+    </div>
+    <div class="section-container no-detail {{ iff(rodent==0,'positive-stat','negative-stat') }}">
+        {{ plural(rodent, 'Rodent Complaint') }}
+        <a href="{{ otuLink('%srodent/%s&utm_content=rodent-link' % (target, tracking)) }}">
+            See Complaints >>
+        </a>
+    </div>
+
+    <div class="section-container no-detail {{ iff(street==0,'positive-stat','negative-stat') }}">
+        {{ plural(street, 'Street Complaint') }}
+        <a href="{{ otuLink('%sstreet/%s&utm_content=street-link' % (target, tracking)) }}">
+            See Complaints >>
+        </a>
+    </div>
+{% endblock %}

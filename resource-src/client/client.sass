@@ -1,0 +1,3898 @@
+@import "web-base.sass"
+@import "base.sass"
+@import "quiz.sass"
+
+#flood-gradient
+
+    .green
+        stop-color: $keyColor5
+
+    .yellow
+        stop-color: $keyColor4
+
+    .red
+        stop-color: $keyColor7
+
+.about
+    background-color: $white
+    padding-bottom: 100px
+
+    .content
+        padding-bottom: 40px
+
+        .address-autocomplete
+            padding-left: 320px
+            @include isMobile()
+                padding-left: 0
+
+            input
+                background-color: $background
+
+        .section
+            overflow: hidden
+            border-bottom: 1px solid $lightDark
+            padding: 60px 100px 50px 20px
+            @include isMobile()
+                padding: 60px 20px
+
+            img
+                width: 300px
+                @include isMobile()
+                    width: 460px
+
+            p, h4
+                margin-bottom: 10px
+
+        .section:nth-of-type(2n)
+            img
+                float: right
+                @include isMobile()
+                    float: none
+
+            p, h4
+                padding-right: 320px
+                @include isMobile()
+                    padding-right: 0
+
+        .section:nth-of-type(2n+1)
+
+            img
+                float: left
+                @include isMobile()
+                    float: none
+
+            p, h4
+                padding-left: 320px
+                @include isMobile()
+                    padding-left: 0
+
+.address-flow-landing
+    background-color: $white
+    background-color: $primaryDark
+    background-image: resource('/image/buildingTile2.png')
+    background-size: 150px 86px
+    min-height: 100%
+
+    h1
+        margin: 50px 0 50px 0
+        text-align: center
+
+    h1, h2, h3, h4, p
+        color: $white
+
+    .beef
+        overflow: hidden
+        padding-bottom: 80px
+
+        .lappy-tee
+            width: 480px
+            float: left
+            margin-top: 50px
+
+            @include isMobile()
+                display: none
+
+        .lookup-box
+            float: right
+
+            @include isMobile()
+                margin: 0 auto
+                float: none
+
+.lookup-box
+    background-color: $white
+    border-radius: 10px
+    text-align: center
+    width: 480px
+    padding-bottom: 30px
+    overflow: hidden
+
+    &.embed
+        margin: auto
+        opacity: 0.85
+
+    &.lookup-modal
+        width: inherit
+        margin: auto
+
+        .feature-list
+            margin: auto
+
+    &.quiz-modal
+        width: inherit
+        margin: auto
+
+        .cta
+            margin-top: 10px
+
+        .feature-list
+            margin: auto
+
+    h2
+        color: #fff
+        border-radius: 10px 10px 0 0
+        padding: 10px
+        margin: 0
+        background-color: $dark
+
+    p
+        color: $dark
+        margin-top: 20px
+
+    .address
+        padding: 0 20px
+
+    .address-autocomplete
+        margin: 20px 0 10px 0
+
+        input
+            border: 1px solid $primary
+
+    .feature-list
+        width: 480px
+        color: $white
+        text-align: left
+        padding: 0 20px
+
+        h4
+            margin: 20px 0 10px 0
+            color: $dark
+            font-size: 18px
+
+        .feature
+            font-size: 16px
+            margin: 10px 0 0 0
+            width: 220px
+            float: left
+            color: $dark
+
+.mock-processing
+
+    .email-block
+        padding-top: 100px
+        text-align: center
+        width: 700px
+        display: none
+
+        @include isMobile()
+            width: 480px
+
+        button
+            margin: 0 auto
+
+        h1
+            font-size: 26px
+
+        .form-field
+            height: 60px
+            line-height: 60px
+            label
+                font-size: 26px
+                line-height: 60px
+            input
+                font-size: 26px
+
+    .dead-end
+        display: none
+        padding-top: 100px
+        text-align: center
+        width: 600px
+
+        @include isMobile()
+            width: 480px
+
+        h2
+            font-size: 20px
+            width: 480px
+            margin: 0 auto
+
+    .loading-interim
+        display: block
+
+.badge
+    @include circle(80px)
+    background-color: $background
+    padding: 10px
+
+    .badge-image
+        height: 60px
+        width: 60px
+
+.bar-chart
+
+    background-color: $white
+
+    .axis
+        text
+            font-size: 10px
+            font-family: "jaf-bernino-sans-condensed"
+            font-weight: 400
+
+        path, line
+            fill: none
+            stroke: $dark
+            shape-rendering: crispEdges
+
+    .bar
+        fill: $dark
+
+    .unit-label, .chart-title
+        font-family: "jaf-bernino-sans-condensed"
+        font-weight: 400
+        text-anchor: middle
+
+.bar-chart-drilldown
+    padding: 10px 0
+
+.bar-chart-drilldown-viz
+    background-color: $white
+    border-radius: 5px
+    height: 445px
+    margin: 0 auto
+    width: 980px
+    padding: 10px
+
+    @include isMobile()
+        width: 500px
+
+.blog
+    background-color: $white
+    padding-bottom: 100px
+
+    h1, h2
+        font-size: 24px
+        text-align: center
+        font-family: "jaf-bernino-sans-condensed"
+        margin-bottom: 5px
+        a
+            color: $darkDark
+            text-decoration: none
+
+    .blog-content
+        margin-top: 50px
+
+        h2
+            font-size: 20px
+            font-weight: 700
+
+        h3
+            font-size: 16px
+            font-weight: 700
+
+        p
+            margin-bottom: 30px
+            color: $mutedFont
+            font-size: 16px
+
+        ul li
+            line-height: 40px
+            color: $mutedFont
+            font-size: 16px
+            margin-bottom: 10px
+
+        img
+            max-width: 100%
+            width: auto
+            height: auto
+
+        img.size-full
+            display: block
+            margin: 10px auto
+
+    .blog-meat
+        position: absolute
+        top: 152px
+        left: 340px
+        right: 0
+        bottom: 0
+        overflow: auto
+        background-color: $background
+
+        @include isMobile()
+            position: static
+
+    .blog-entry
+        border-bottom: 1px solid $border
+        width: 640px
+        margin: 0 auto
+        padding: 50px 0 20px 0
+        position: relative
+
+        @include isMobile()
+            width: 480px
+
+        .date
+            color: $mutedFont
+            font-family: "jaf-bernino-sans-condensed"
+            text-align: center
+            font-size: 20px
+
+    .ad-header
+        background-color: $background
+        padding: 20px 0
+        width: 100%
+
+        .insurent-banner
+            display: block
+            margin: 0 auto
+            width: 640px
+
+            @include isMobile()
+                width: 480px
+
+    .insurent-sidebar
+        position: absolute
+        bottom: 50px
+        right: -320px
+
+        @media (max-width: 1300px)
+            position: static
+            bottom: auto
+            right: auto
+
+    .shameless
+        position: absolute
+        top: 152px
+        left: 0
+        bottom: 0
+        width: 340px
+        background-color: $dark
+        color: $white
+        padding: 20px
+
+        @include isMobile()
+            display: none
+
+        h2
+            color: $white
+            font-size: 22px
+            margin-bottom: 10px
+
+        p
+            margin-bottom: 10px
+
+        ul
+            margin-top: 0
+
+        .address-autocomplete
+            margin-bottom: 20px
+            color: $dark
+
+            input
+                font-size: 13px
+
+    .social
+        margin-top: 10px
+        text-align: center
+
+        a
+            text-decoration: none
+
+            img
+                height: 32px
+                width: 32px
+
+.breadcrumbs
+    padding: 10px 10px
+
+    .breadcrumb
+        background-color: $dark
+        border-radius: 5px
+        display: inline
+        color: $white
+        margin-right: 5px
+        transition: background-color 0.5s
+
+        a, .name
+            text-decoration: none
+            color: $white
+            padding: 2px 5px
+            display: inline-block
+
+        &.current, &:hover
+            background-color: $primary
+
+.building-report-section
+
+    .report-section-header
+        background-image: resource('/image/headerBand/buildingReportSectionBand.jpg')
+
+    .building-info
+        text-align: center
+        @include isMobile()
+            text-align: left
+
+
+        .building-fact
+            @include circle(160px)
+            background-color: $white
+            padding-top: 52px
+            font-family: "jaf-bernino-sans-condensed"
+            display: inline-block
+            margin-right: 20px
+            vertical-align: bottom
+
+            @include isMobile()
+                @include circle(200px)
+                text-align: center
+                margin: 5px 20px
+
+            &:last-of-type
+                margin-right: 0
+
+                @include isMobile()
+                    margin: 5px 20px
+
+            &.insurent-check
+                position: relative
+
+            .explain
+                color: $light
+                cursor: pointer
+                font-size: 18px
+                position: absolute
+                bottom: 1px
+                left: 50%
+                @include transform(translate(-50%,-50%))
+
+
+            .label
+                color: $mutedFont
+                text-transform: uppercase
+                font-size: 14px
+                font-weight: 700
+
+                @include isMobile()
+                    font-size: 18px
+                    font-weight: 700
+
+            .data
+                font-size: 28px
+                margin-top: 5px
+
+                @include isMobile()
+                    font-size: 42px
+                    margin-top: 5px
+
+    .complaints-stats
+        margin-top: 40px
+
+        .caveat
+            margin-top: -20px
+            margin-bottom: 34px
+            color: $mutedFont
+            font-size: 12px
+            text-align: right
+            width: 600px
+            float: right
+
+            @include isMobile()
+                width: auto
+                float: none
+                text-align: center
+
+    .drillable-table
+
+        .sub-row
+
+            .full-description
+                margin-left: 25px
+
+    .elevators
+        margin-top: 80px
+
+        .elevator-direction
+            overflow: hidden
+            width: 474px
+            float: left
+            margin: 0 7px
+
+            .direction-label
+                text-align: center
+                font-size: 12px
+                padding-top: 3px
+                border-top: 1px solid $mutedFont
+                border-right: 1px solid $mutedFont
+                border-left: 1px solid $mutedFont
+                color: $mutedFont
+                height: 20px
+                margin-bottom: 20px
+
+            .wait
+                margin-left: 0
+
+            .travel
+                margin-right: 0
+
+    .table
+
+        margin: 0 auto
+        padding: 20px 0
+        width: 980px
+
+        @include isMobile()
+            width: $mobileContentWidth
+            // height: 500px
+            overflow-x: hidden
+            overflow-y: scroll
+            padding: 0
+            top: 50%
+            bottom: -50%
+
+            table
+                margin: 0 auto
+
+.cash-meter .mask
+    background-image: resource('/image/cashMeter.png')
+    background-size: 49px 38px
+    background-position: 5px 0
+
+.city-map
+    height: 600px
+
+.clearfix
+    overflow: hidden
+
+.contact
+
+    .contactMap
+        bottom: 0px
+        position: absolute
+        width: 100%
+        border-top: 10px solid $white
+
+    .info
+        height: 170px
+        overflow: hidden
+        width: 250px
+
+        p
+            font-size: 12px
+            color: $fontOnWhite
+
+.credibility
+    background-color: $white
+    overflow: hidden
+    text-align: center
+
+    .content
+        position: relative
+
+    .logos
+        border-top: 2px solid $lightBorder
+        overflow: hidden
+        padding: 15px 0
+
+        h3
+            float: left
+            margin-top: 15px
+            text-align: left
+            color: $dark
+
+        .logo
+            display: inline-block
+            margin: 2px 43px 2px 6px
+            vertical-align: middle
+
+            @include isMobile()
+                margin-right: 10px
+
+            img
+                height: 35px
+
+            // And now, for the great hard-coding of logo sizes!!!
+            .wsj
+                height: 25px
+            .curbed
+                height: 40px
+            .villagevoice
+                height: 45px
+            .dailynews
+                height: 50px
+            .inman
+                height: 30px
+            .agbeat
+                height: 40px
+            .bostoninno
+                height: 20px
+            .gothamist
+                height: 60px
+            .n
+                height: 60px
+            .thrillist
+                height: 40px
+            .stanford
+                height: 50px
+            .webby
+                height: 50px
+
+.crime-map
+    .key
+        .grand-larceny .dot
+            background-color: $keyColor1
+        .robbery .dot
+            background-color: $keyColor2
+        .assault .dot
+            background-color: $keyColor3
+        .burglary .dot
+            background-color: $keyColor4
+        .grand-theft-auto .dot
+            background-color: $keyColor5
+        .rape .dot
+            background-color: $keyColor6
+        .murder .dot
+            background-color: $keyColor7
+
+.crime-report-section
+
+    .report-section-header
+        background-image: resource('/image/headerBand/crimeReportSectionBand.jpg')
+
+    .quick-stats
+        margin-top: 40px
+
+.compare-to-parent-box
+    float: left
+    text-align: center
+    margin-right: 26px
+    width: 280px
+
+    .child
+        cursor: pointer
+        text-align: left
+        background-color: $white
+        border-radius: 5px
+        color: $mutedFont
+        font-family: "jaf-bernino-sans-condensed"
+        position: relative
+        padding: 32px 22px 0 22px
+        height: 110px
+        margin-top: 14px
+
+        .label
+            font-weight: bold
+            font-size: 14px
+            width: 120px
+
+        .number
+            color: $font
+            font-size: 48px
+            position: absolute
+            right: 22px
+            top: 26px
+            line-height: 1
+
+    .drilldown-button
+        margin-top: 12px
+
+    .parent
+        text-align: left
+        background-color: $lightDark
+        border-bottom-left-radius: 5px
+        border-bottom-right-radius: 5px
+        color: $white
+        font-family: "jaf-bernino-sans-condensed"
+        padding: 34px 22px 34px 22px
+        margin-top: 0
+        position: relative
+
+        .compare
+            position: absolute
+            top: -19px
+            height: 38px
+            left: 50%
+            width: 116px
+            margin-left: -58px
+            border-radius: 5px
+            color: $white
+            text-align: center
+            line-height: 38px
+            font-weight: 300
+            font-family: "jaf-bernino-sans"
+
+            &.positive
+                background-color: $success
+
+            &.negative
+                background-color: $danger
+
+            &.neutral
+                background-color: $primary
+
+        .label
+            font-size: 13px
+            line-height: 1
+            width: 90px
+
+        .number
+            font-size: 28px
+            position: absolute
+            right: 22px
+            top: 32px
+            line-height: 1
+
+    &.tall
+        width: 155px
+        margin: 0 4px
+
+        @include isMobile()
+            margin: 0 3px 30px 3px
+
+        .child
+            height: 160px
+            padding: 26px 22px 0 22px
+            text-align: center
+
+            .label
+                width: auto
+                margin-bottom: 10px
+
+            .number
+                position: static
+                font-size: 54px
+
+        .parent
+            height: 100px
+            text-align: center
+
+            .label
+                width: auto
+                margin-bottom: 10px
+
+            .number
+                position: static
+
+.construction-report-section
+
+    .report-section-header
+        background-image: resource('/image/headerBand/constructionHeaderBand.jpg')
+
+    .demolition-map
+        .map-canvas .map-dot
+            border-radius: 0
+            background-color: none
+            background-image: resource('/image/noun-project/explosion.svg')
+            background-size: 50px 50px
+            width: 50px
+            height: 50px
+
+    .jobs-table
+        padding: 10px 0
+
+    .new-building-map
+        .map-canvas .map-dot
+            border-radius: 0
+            background-color: none
+            background-image: resource('/image/noun-project/building.svg')
+            background-size: 50px 50px
+            width: 50px
+            height: 50px
+
+    .scaffold-map
+
+        .key-entry.scaffold .dot
+            background-color: #35495d
+
+        .key-entry.sidewalk-shed .dot
+            background-color: #9a5cb4
+
+.demographics-report-section
+
+    .report-section-header
+        background-image: resource('/image/headerBand/demographicsReportSectionBand.jpg')
+
+    .education-level
+        .qualitative
+            font-size: 30px
+
+    .quick-stats
+        margin-bottom: 40px
+
+    .quick-stats .multi-drilldown-base
+        padding: 10px 0
+        position: relative
+
+        @include isMobile()
+            position: absolute
+
+    .xxx
+        height: 400px
+
+.directory-view
+
+    .banner
+        background-image: resource('/image/buildingTile2.png')
+        background-size: 150px 86px
+        position: relative
+        padding: 0 0 80px 0
+
+        h1
+            text-align: center
+            color: $white
+
+        .address-autocomplete
+            margin: 0 auto
+            width: 800px
+
+            @include isMobile()
+                width: 480px
+
+            input
+                height: 60px
+                border-radius: 60px
+                font-size: 24px
+
+        .blurb
+            text-align: center
+            color: $white
+            width: 480px
+            margin: 0 auto 20px auto
+
+        .input-sample-report
+            color: white
+            margin-top: 15px
+            text-align: center
+
+            a
+                color: white
+                font-weight: 700
+
+    .directory-list
+        padding: 30px 0 70px
+
+        .sub-neighborhood-list
+            margin-top: 20px
+
+.domain-redirect-notification.main
+
+    padding: 45px 50px
+
+    @media (max-width: $mobileWidth)
+        padding: 60px 20px 60px 20px
+
+    button
+        margin-top: 10px
+
+    h2
+        margin-bottom: 10px
+
+    p
+        color: $mutedFont
+        margin: 20px auto 10px auto
+        font-size: 16px
+        width: 480px
+
+.drillable-table
+
+    .drill
+        cursor: pointer
+        text-decoration: underline
+
+    .drill-col
+        width: 100px
+
+        button
+            text-align: center
+            width: 100px
+
+    .sub-row
+        display: none
+
+.drilldown
+    display: none
+
+    @include isMobile()
+        @include transform(translate(-50%,-50%))
+        position: absolute
+        left: 50%
+        top: 50%
+        z-index: 950
+
+    &.expanded
+        display: block
+
+.drilldown-area
+    background-color: $primary
+    margin-top: 20px
+
+    @include isMobile()
+        display: none
+        margin-top: 0
+        position: fixed
+        top: 0
+        bottom: 0
+        left: 0
+        right: 0
+        z-index: 940
+
+    .drilldown-close
+        display: none
+        @include isMobile()
+            position: absolute
+            top: 0
+            right: 0
+            cursor: pointer
+            display: block
+            z-index: 1000
+
+.drilldown-button, .drilldown-button-style-only
+    background-color: $primary
+    color: $white
+    height: 36px
+    text-transform: uppercase
+    font-family: "jaf-bernino-sans-condensed"
+    font-weight: 700
+    border-radius: 36px
+    font-size: 11px
+    padding: 0 18px 0 34px
+    background-image: resource('/image/drilldownIconArrow.png')
+    background-size: 15px auto
+    background-repeat: no-repeat
+    background-position: 12px center
+
+    &:hover, &:active
+        color: $white
+
+    &.expanded
+        background-image: resource('/image/xIconOnTransparent.png')
+        background-position: 10px center
+        padding-left: 18px
+
+        .label
+            display: none
+
+.elevator-time-by-floor
+    padding: 10px 0
+
+.exit-intent.background-check
+
+    border-radius: 10px
+    z-index: -1
+    color: #374a5d
+
+    span
+        width: 500px
+        float: right
+
+        @include isMobile()
+            width: 600px
+            float: none
+            margin: auto
+
+    .banner
+        background-color: #bfbebe
+        font-style: italic
+        height: 40px
+
+        span
+            margin-top: 10px
+
+    .bullets
+        background-color: #eaeaea
+        padding: 5px
+
+        ul
+            list-style-type: none
+            margin: 0px
+
+            li
+                display: inline-block
+                width: 200px
+                margin: 8px 5px
+
+                .fa-check-circle-o
+                    color: #62be7b
+
+    .lookup
+
+        background-color: #3f99d4
+        border-radius: 0px 0px 10px 10px
+        padding: 10px
+        text-align: center
+
+        button
+            background-color: #efc22e
+            margin-top: 5px
+
+            @include isMobile()
+                height: 60px
+
+.faq
+    background-color: $white
+    overflow: hidden
+
+    .content
+
+        .question
+            float: left
+            margin: 20px
+            width: 450px
+
+            h3,
+            p
+                color: $fontOnWhite
+
+.filth-complaint-map.map-drilldown
+    .key
+        padding: 10px 18px
+
+        .key-entry
+            width: 155px
+        .air-quality .dot
+            background-color: $keyColor1
+        .litter-clutter .dot
+            background-color: $keyColor2
+        .sewer .dot
+            background-color: $keyColor3
+        .graffiti .dot
+            background-color: $keyColor4
+        .urinating-in-public .dot
+            background-color: $keyColor5
+        .street-filth .dot
+            background-color: $keyColor6
+        .hazardous-materials .dot
+            background-color: $keyColor7
+        .industrial-waste .dot
+            background-color: $keyColor8
+
+.financial-report-section
+
+    .report-section-header
+        background-image: resource('/image/headerBand/financialReportSectionBand.jpg')
+        background-position: center 75%
+
+    .expenses
+        margin-top: 80px
+        display: block
+        position: static
+        transform: none
+        -webkit-transform: none
+        -ms-transform: none
+
+        .drilldown-button-space
+            text-align: center
+
+        .expand-expense-meters
+            margin: 20px auto
+
+        .expense-meters
+            position: relative
+            padding-top: 20px
+            max-height: 110px
+            overflow: hidden
+            transition: max-height 1s
+
+            &:after
+                content: " "
+                border-left: 1px dashed $dark
+                position: absolute
+                top: 25px
+                bottom: 0
+                left: 50%
+                width: 1px
+                z-index: 10
+
+            .national-average
+                position: absolute
+                top: 0
+                left: 50%
+                width: 200px
+                margin-left: -100px
+                font-size: 14px
+                font-weight: 700
+                font-family: jaf-bernino-sans-condensed
+                text-align: center
+
+        &.expanded
+            .expense-meters
+                max-height: 1100px
+
+        .expense
+            position: relative
+            margin-bottom: 25px
+            padding-bottom: 15px
+            border-bottom: 1px solid $border
+
+            .masked-meter
+                margin-top: 10px
+
+            .statistical
+                position: absolute
+                right: 20px
+                top: 0
+                font-size: 16px
+                font-family: jaf-bernino-sans-condensed
+
+                .extra
+                    @include isMobile()
+                        display: none
+
+            &.higher
+                .fill
+                    background-color: $danger
+
+            &.lower
+                .fill
+                    background-color: $success
+
+    .incomes
+        margin-top: 40px
+
+        .number
+            font-size: 48px
+
+    .nearby-sales
+        margin-top: 40px
+        overflow: hidden
+
+        .sale
+            width: 470px
+            margin: 5px 10px
+            background-color: $white
+            border-radius: 5px
+            float: left
+            overflow: hidden
+
+            .address
+                width: 50%
+                float: left
+                padding: 5px 10px
+                min-height: 65px
+                border-left: 1px solid $border
+                text-align: right
+
+                .street-address
+                    font-family: jaf-bernino-sans-condensed
+                    font-weight: bold
+                    font-size: 18px
+
+                    a
+                        color: $dark
+
+            .property-info
+                overflow: hidden
+                padding: 10px
+
+                .fact
+                    float: left
+                    width: 33%
+                    text-align: center
+                    padding: 0 5px 5px 5px
+
+                    .key
+                        font-weight: bold
+                        font-family: jaf-bernino-sans-condensed
+
+            .sale-info
+                width: 50%
+                float: left
+                padding: 5px 10px
+
+                .sale-price
+                    font-size: 36px
+                    color: $primary
+                    line-height: 1
+
+            .sale-header
+                overflow: hidden
+                border-bottom: 1px solid $border
+
+    .property-value
+        margin-top: 80px
+        overflow: hidden
+
+        .caveat
+            margin-top: 50px
+            color: $mutedFont
+            font-size: 12px
+            text-align: right
+            width: 600px
+            float: right
+
+            @include isMobile()
+                width: auto
+                float: none
+                text-align: center
+
+        .value-bar
+            background-color: $light
+            height: 60px
+            border-radius: 10px
+            box-shadow: inset -1px 1px 3px rgba(0,0,0,0.2)
+            position: relative
+
+            .property-value-bar
+                height: 58px
+                position: absolute
+                left: 25%
+                right: 25%
+                top: 1px
+                font-family: jaf-bernino-sans-condensed
+                font-weight: 700
+
+                @include isMobile()
+                    left: 15%
+                    right: 15%
+
+                .indicated-value
+                    @include leftRightGradient(#0074e4, #c00)
+                    box-shadow: 1px 1px 3px rgba(0,0,0,0.2)
+                    border-radius: 10px
+                    position: absolute
+                    top: 0
+                    left: 0
+                    right: 0
+                    bottom: 0
+                    text-align: center
+                    line-height: 58px
+                    font-size: 38px
+                    color: #fff
+
+                .low-value, .high-value
+                    text-align: center
+                    width: 100px
+                    position: absolute
+                    top: 70px
+                    font-size: 16px
+
+                .high-value
+                    right: -20px
+                    color: #c00
+
+                .low-value
+                    left: -20px
+                    color: #0074e4
+
+                .low-line, .high-line
+                    position: absolute
+                    width: 1px
+                    top: -8px
+                    bottom: -8px
+
+                .low-line
+                    background-color: #0074e4
+                    left: 30px
+
+                .high-line
+                    background: #c00
+                    right: 30px
+
+    .rent-v-own
+        @include isMobile()
+            margin-top: 40px
+
+    .smart-asset
+        margin-top: 40px
+
+        iframe
+            height: 400px
+
+            @include isMobile()
+                height: 900px
+
+    .taxes
+        margin-top: 40px
+
+.find-anything.landing
+
+    &.selected-address
+        button.address
+            background-color: $primary
+            color: $white
+        .address-form.finder
+            display: block
+
+    &.selected-city
+        button.city
+            background-color: $primary
+            color: $white
+        .city-form.finder
+            display: block
+
+    &.selected-neighborhood
+        button.neighborhood
+            background-color: $primary
+            color: $white
+        .neighborhood-form.finder
+            display: block
+
+    &.selected-zipcode
+        button.zipcode
+            background-color: $primary
+            color: $white
+        .zipcode-form.finder
+            display: block
+
+    .bannerwrapper .banner
+        padding: 50px 0 60px 0
+
+    .finders
+        @include override-form-label-width(150px, 200px)
+        margin: 0 auto
+        width: 480px
+
+        .finder
+            display: none
+
+        .finder-type
+            margin-bottom: 20px
+
+            button
+                padding: 0 12px
+                height: 45px
+                line-height: 45px
+                margin: 0 2px
+
+    .bannerwrapper .banner .title
+        padding-bottom: 20px
+
+.full-badge
+
+    overflow: hidden
+
+    .badge
+        float: left
+
+    .badge-info
+        padding: 2px 0 0 120px
+
+        p
+            color: $lightDark
+
+.half-subsection-row
+
+    width: 50%
+    float: left
+
+    @include isMobile()
+        width: auto
+        float: none
+
+.hellobar
+    background-color: #e8562a
+    color: #fff
+    padding: 10px
+    font-size: 16px
+    text-align: center
+
+    @include isMobile
+        font-size: 15px
+        padding: 15px
+
+    a
+        color: #fff
+
+.histogram
+
+    .axis
+        stroke: $light
+        stroke-width: 1
+
+    .bar
+
+        &.group-1
+            fill: $breakdownColor1
+
+        &.group-2
+            fill: $breakdownColor2
+
+        &.group-3
+            fill: $breakdownColor3
+
+        &.group-4
+            fill: $breakdownColor4
+
+    .heading
+        font-family: "jaf-bernino-sans-condensed"
+        font-weight: 700
+
+        &.bisection.group-1
+            text-anchor: end
+
+        &.group-1
+            fill: $breakdownColor1
+
+        &.group-2
+            fill: $breakdownColor2
+
+        &.group-3
+            fill: $breakdownColor3
+
+        &.group-4
+            fill: $breakdownColor4
+
+        &.major
+            text-anchor: middle
+            font-weight: 400
+
+        &.subheading
+            font-weight: 400
+            font-size: 14px
+            text-anchor: end
+
+    .subaxis
+        stroke: $light
+        stroke-dasharray: 1,1
+
+.landing
+
+    .bannerwrapper
+        background-color: $primaryDark
+        background-image: resource('/image/buildingTile2.png')
+        background-size: 150px 86px
+        position: relative
+
+        .divider
+            bottom: 0px
+            background-image: resource('/image/whiteFence.png')
+            height: 8px
+            position: absolute
+            width: 100%
+
+        .banner
+            margin: 0 auto
+            padding: 100px 0 140px 0
+            text-align: center
+
+            @include isMobile()
+                padding: 20px 0 40px 0
+
+            .address-autocomplete
+                margin: 0 auto
+                width: 800px
+
+                @include isMobile()
+                    width: 480px
+
+                input
+                    height: 60px
+                    border-radius: 60px
+                    font-size: 24px
+
+            .input-sample-report
+                color: white
+                margin-top: 15px
+                text-align: center
+
+                a
+                    color: white
+                    font-weight: 700
+
+            .title
+                margin: 0 auto
+                padding-bottom: 70px
+
+                h1
+                    color: $white
+                    margin: 0 auto 20px auto
+                    width: 500px
+
+                    @include isMobile()
+                        width: 480px
+
+                h2
+                    color: $white
+                    font-size: 30px
+                    margin: 0 auto 20px auto
+                    width: 500px
+
+                    @include isMobile()
+                        width: 480px
+
+                p
+                    color: $white
+                    width: 440px
+                    margin: 0 auto
+                    font-size: 18px
+
+                .subtitle
+                    color: $white
+                    font-weight: 200
+
+    .city-list
+        padding: 30px 0 30px
+
+    .explanation
+        background-color: $white
+
+        .blurb
+            overflow: hidden
+            padding: 20px 0
+
+            @include isMobile()
+                text-align: center
+
+            h3
+                color: $dark
+
+            p
+                color: $lightDark
+                padding-bottom: 30px
+
+            .snippet
+                height: 380px
+                width: 380px
+
+            .text
+                padding-top: 100px
+                @include isMobile()
+                    padding-top: 30px
+                    width: 400px
+
+        .blurb:nth-of-type(2n)
+            .snippet
+                float: left
+                @include isMobile()
+                    float: none
+            .text
+                margin-left: 480px
+                @include isMobile()
+                    margin-left: 0
+                    margin: 0 auto
+
+        .blurb:nth-of-type(2n+1)
+            .snippet
+                float: right
+                @include isMobile()
+                    float: none
+
+            .text
+                margin-right: 480px
+                @include isMobile()
+                    margin-right: 0
+                    margin: 0 auto
+
+        .secrets
+            padding: 50px 0
+            background: resource('/image/secrets.png')
+            background-repeat: repeat-x
+            background-position: center center
+
+            h4
+                background-color: $white
+                color: $dark
+                margin: 0 auto
+                text-align: center
+                width: 500px
+
+                @include isMobile()
+                    width: 380px
+
+    .state-list
+        padding: 0 0 30px 0
+
+    .testimonials
+        margin: 10px 0
+
+        h1
+            margin-top: 20px
+            text-align: center
+
+        .testimonial
+            margin: 35px 0
+            overflow: hidden
+
+            .info
+                color: $mutedFont
+                font-family: "jaf-bernino-sans-condensed"
+                line-height: 1
+                text-transform: uppercase
+
+            .profile
+                @include circle(120px)
+
+                @include isMobile()
+                    @include circle(110px)
+
+            .quote
+                color: $dark
+                font-size: 20px
+
+        .testimonial:nth-of-type(2n)
+            .profile
+                float: left
+                @include isMobile()
+                    margin: 0 10px
+            .quote, .info
+                margin-left: 150px
+                @include isMobile()
+                    margin: 0 auto
+
+        .testimonial:nth-of-type(2n+1)
+            .profile
+                float: right
+                @include isMobile()
+                    margin: 0 10px
+            .quote, .info
+                margin-right: 150px
+                @include isMobile()
+                    margin: 0 auto
+
+.landing.landing-page
+
+    .bannerwrapper .banner
+        padding-bottom: 30px
+        padding-top: 30px
+
+        button
+            margin: 30px 0 50px 0
+
+        .title
+            padding-bottom: 20px
+
+            h1
+                width: 860px
+
+                @include isMobile
+                    width: 495px
+
+    .feature-list
+        text-align: left
+        overflow: hidden
+        width: 700px
+        margin: 0 auto 30px auto
+
+        @include isMobile
+            width: 495px
+
+        .feature
+            width: 50%
+            float: left
+            font-size: 18px
+            color: #fff
+            margin-bottom: 10px
+            padding-right: 10px
+
+            @include isMobile
+                width: auto
+                float: none
+                text-align: center
+
+    .use-cases
+        margin-top: 30px
+
+.landing.private-pilot
+    .bannerwrapper
+        .banner
+            padding: 100px 0 40px 0
+        .divider
+            background-image: resource('/image/backgroundFence.png')
+
+.landing.root
+
+    .blurb .cta
+        @include isMobile
+            margin-bottom: 30px
+
+    .iphone-button
+        display: none
+
+.life-browser
+    height: 600px
+    position: relative
+
+    @include isMobile()
+        height: 510px
+
+    .category-selector
+        overflow: hidden
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        height: 60px
+        background-color: rgba(58,153,216,0.95)
+        transition: height 0.5s ease
+        z-index: 7
+
+        &.expanded
+            height: 100%
+            box-sizing: content-box
+            -mox-box-sizing: content-box
+            padding-bottom: 60px
+
+        .categories
+            width: 980px
+            margin: 10px auto
+            position: relative
+
+            @include isMobile()
+                width: 500px
+
+            h3
+                color: #fff
+                font-size: 40px
+                font-weight: 300
+                font-family: jaf-bernino-sans
+                width: 500px
+                margin: 0 auto
+                position: absolute
+                top: 60px
+                left: 20px
+                transition: top 0.5s cubic-bezier(.80, 0, .20, 1)
+
+            .category-list
+                position: absolute
+                top: 60px
+                left: 250px
+                transition: top 0.5s cubic-bezier(.80, 0, .20, 1)
+
+                .category
+                    font-size: 36px
+                    font-weight: 700
+                    color: #fff
+                    opacity: 0.6
+                    transition: opacity 0.5s
+                    cursor: pointer
+
+                    &.active
+                        opacity: 1
+
+                    &.hidden
+                        opacity: 0
+
+                    .go-back-text
+                        font-size: 24px
+                        margin-left: 20px
+                        &.active
+                            opacity: 1
+                        &.hidden
+                            opacity: 0
+
+            .yelp-logo
+                position: absolute
+                top: 0px
+                right: 20px
+                height: 42px
+
+    .results
+        padding-top: 60px
+        overflow: hidden
+        height: 100%
+        display: none
+        background-color: #333
+        box-sizing: content-box
+        -mox-box-sizing: content-box
+
+        &.active
+            display: block
+
+        .result
+            float: left
+            background-size: cover
+            background-position: 50% 50%
+            width: 300px
+            height: 300px
+            position: relative
+            z-index: 5
+            cursor: pointer
+            box-shadow: inset 3px 3px 3px rgba(0,0,0,0.4)
+
+            &:hover
+                .info
+                    padding-bottom: 20px
+
+            @include isMobile()
+                height: 170px
+                width: 250px
+
+            .info
+                position: absolute
+                bottom: 0
+                left: 0
+                right: 0
+                padding: 10px
+                background-color: rgba(53,73,93,0.9)
+                color: #fff
+                box-shadow: 2px -2px 3px rgba(0,0,0,0.4)
+                border-right: 1px solid rgba(0,0,0,0.4)
+                padding-bottom: 10px
+                transition: padding-bottom 0.2s ease
+
+                .distance
+                    position: absolute
+                    top: 10px
+                    right: 10px
+
+                .name
+                    font-family: jaf-bernino-sans-condensed
+                    font-weight: 700
+                    margin-bottom: 5px
+                    margin-right: 90px
+
+                .rating
+                    img
+                        width: 100px
+
+                .review-count
+                    position: absolute
+                    top: 30px
+                    right: 10px
+
+.life-report-section.report-section
+
+    padding-bottom: 60px
+
+    .report-section-header
+        background-image: resource('/image/headerBand/lifeReportSectionBand.jpg')
+        margin-bottom: 0
+
+.listing-history-report-section.report-section
+    padding-bottom: 0
+
+    .property-listings
+        margin: 54px 0 120px 0
+
+    .report-section-header
+        background-image: resource('/image/headerBand/listingHistoryReportSectionBand.jpg')
+        margin-bottom: 0
+
+    .upgrade-listing-history
+        background-image: resource('/image/listingHistoryTeaser.jpg')
+
+.loading-interim
+
+    h1
+        text-align: center
+        font-size: 32px
+
+    .loading-message
+        text-align: center
+
+    .loading-r
+        display: block
+        height: 128px
+        margin: 100px auto 20px auto
+
+    .progress
+        margin-bottom: 10px
+
+.local-quality-report-section
+
+    .quick-stats
+        .caveat
+            margin-top: -20px
+            margin-bottom: 34px
+            color: $mutedFont
+            font-size: 12px
+            text-align: right
+            width: 600px
+            float: right
+
+            @include isMobile()
+                width: auto
+                float: none
+                text-align: center
+
+    .report-section-header
+        background-image: resource('/image/headerBand/localQualityReportSectionBand.jpg')
+
+    .rodent-sightings
+        margin-top: 40px
+
+        .drilldown-button
+            display: block
+            margin: auto
+
+        .heading
+            overflow: hidden
+
+            h3
+                float: left
+
+        .rodent-section
+            margin: 30px 0
+
+    .street-trees
+        margin-top: 40px
+
+        .drilldown-button
+            display: block
+            margin: auto
+
+        .street-tree-meter
+            margin-left: 20px
+
+            .mask
+                background-image: resource('/image/treeMeter.png')
+                background-size: 40px 38px
+
+            .empty, .fill, .mask
+                right: 20px
+
+        .street-tree-section
+            margin: 30px 0
+
+.location-report-section.report-section
+
+    padding-bottom: 0
+
+    .drilldown-close
+        cursor: pointer
+        position: fixed
+        top: 70px
+        right: 0
+        z-index: 10
+
+    .location-report-map
+        height: 450px
+        z-index: 1
+
+        &.mobile-expand
+            height: 100%
+            position: fixed !important
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+
+        @include isMobile()
+            height: 200px
+
+            img
+                display: block
+                margin: 0 auto
+
+.login-register-modal
+    @include override-form-label-width(120px, 160px)
+
+    .cta
+        .message
+            display: block
+        .loading
+            display: none
+            height: 36px
+
+    .disabled &
+        .cta
+            .message
+                display: none
+            .loading
+                display: block
+
+    .move-date
+        display: none
+
+
+    .status
+        @include isMobile()
+            display: none
+
+.map-canvas
+    height: 450px
+
+    @include isMobile()
+        height: 100%
+
+    .loading-popup
+        @include transform(translate(-50%,-50%))
+        background-color: $white
+        border-radius: 10px
+        padding: 20px
+        left: 50%
+        position: absolute
+        text-align: center
+        top: 50%
+        width: 200px
+        z-index: 10
+
+        .loading-message
+
+            img
+                display: block
+                margin: 0 auto
+                height: 64px
+
+    .loading-overlay
+        background-color: #000
+        height: 100%
+        opacity: 0.5
+        transition: display 0.5s
+        width: 100%
+
+.map-drilldown
+    padding: 10px 0
+    position: relative
+
+    &.expanded
+        @include isMobile()
+            position: absolute
+            bottom: -50%
+            top: 50%
+            left: 50%
+            width: 100%
+
+    .key
+        background-color: $white
+        position: absolute
+        bottom: 30px
+        right: 20px
+        width: 350px
+        z-index: 9
+        border-radius: 5px
+        padding: 10px 20px
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2)
+
+        .key-entry
+            display: inline-block
+            width: 150px
+
+        .dot
+            @include circle(10px)
+            display: inline-block
+            background-color: #000000
+            margin-right: 10px
+
+        .fine-print
+            margin-top: 3px
+            font-size: 12px
+
+.masked-meter
+    height: 38px
+    margin-top: 25px
+    overflow: hidden
+    position: relative
+
+    .empty
+        background-color: $white
+        position: absolute
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+        z-index: 0
+
+    .fill
+        background-color: $dark
+        position: absolute
+        top: 0
+        left: 0
+        bottom: 0
+        z-index: 1
+
+        &.dull
+            background-color: $lightDark
+
+    .mask
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        z-index: 2
+
+    &.centered.higher
+        .fill
+            left: 50%
+            right: auto
+
+    &.centered.lower
+        .fill
+            right: 50%
+            left: auto
+
+.multi-drilldown-base
+    margin: 0 auto
+    width: 980px
+    padding: 10px 0
+
+    @include isMobile()
+        width: $mobileContentWidth
+
+    .multi-drilldown-stats-container
+        height: 445px
+        width: 980px
+        margin: 0 auto
+        background-color: $white
+        border-radius: 5px
+        overflow: hidden
+        position: relative
+
+        @include isMobile()
+            width: 100%
+
+        .stats-nav
+            border-right: 1px solid $lightBorder
+            height: 100%
+            width: 280px
+            z-index: 10
+
+            @include isMobile()
+                font-size: 15px
+                height: 30px
+                margin: 8px
+                position: absolute
+                width: auto
+
+            .nav-item
+                height: 60px
+                line-height: 60px
+                font-size: 18px
+                cursor: pointer
+                padding-left: 30px
+                border-bottom: 1px solid $lightBorder
+                position: relative
+
+                &:hover, &.active
+                    background-color: $dark
+                    color: $white
+
+        .stats-viz
+            position: absolute
+            top: 0
+            right: 0
+
+            @include isMobile()
+                position: inherit
+                margin-top: 20px
+
+        .map-canvas
+            border-top-right-radius: 5px
+            border-bottom-right-radius: 5px
+
+.multi-plan-overlay
+    background-color: $successDark
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 950
+    text-align: center
+
+    h1
+        color: $white
+
+    p
+        color: $white
+        margin-bottom: 10px
+
+        @include isMobile()
+            display: none
+
+    .content
+        margin-top: 100px
+        width: 480px
+
+        @include isMobile()
+            margin-top: 40px
+
+    .modal-close
+        position: absolute
+        top: 0
+        right: 0
+        cursor: pointer
+
+    .plan
+        display: inline-block
+        margin: 20px 10px
+        position: relative
+        vertical-align: middle
+
+        @include isMobile()
+            display: block
+            margin: 0
+
+        &:hover
+            .plan-info
+                background-color: $primary
+                .plan-name, .plan-time, .plan-price
+                    color: $white
+
+        .plan-info
+            background-color: $white
+            border-radius: 5px
+            color: $mutedFont
+            cursor: pointer
+            font-family: "jaf-bernino-sans-condensed"
+            padding: 24px 5px 31px 5px
+            text-align: center
+            line-height: 1
+            font-size: 14px
+            position: relative
+            text-transform: uppercase
+            height: 205px
+            width: 230px
+            position: relative
+            transition: 0.5s background-color
+
+            @include isMobile()
+                height: auto
+                width: auto
+                margin: 0
+                border-radius: 0
+                border-bottom: 1px solid $dark
+
+            .plan-name, .plan-time, .plan-price
+                transition: 0.25s color
+
+            &.active
+                height: 230px
+
+                @include isMobile()
+                    height: auto
+
+                .plan-time
+                    font-size: 60px
+
+            .plan-name
+                color: $dark
+                font-size: 20px
+                margin-bottom: 20px
+
+                @include isMobile()
+                    margin-bottom: 5px
+
+            .plan-time
+                color: $primary
+                font-size: 40px
+                margin-bottom: 20px
+
+                @include isMobile()
+                    margin-bottom: 5px
+
+            .plan-price
+                font-size: 16px
+
+        .tagging
+            position: absolute
+            // top: 180px
+            left: 0
+            right: 0
+            bottom: 0
+            background-color: $dark
+            color: $white
+            padding: 5px 0 5px 0
+            border-bottom-left-radius: 5px
+            border-bottom-right-radius: 5px
+            font-weight: bold
+            height: 27px
+            // z-index: 1
+
+            @include isMobile()
+                display: none
+
+    .plans
+        margin-top: 50px
+
+        @include isMobile()
+            margin-top: 10px
+
+.narrative-box
+    background-color: $white
+    border-radius: 5px
+    color: $mutedFont
+    cursor: pointer
+    font-family: "jaf-bernino-sans-condensed"
+    padding: 24px 5px 31px 5px
+    text-align: center
+    line-height: 1
+    font-size: 14px
+    position: relative
+    text-transform: uppercase
+    height: 190px
+    width: 230px
+
+    &.valenced
+        color: $white
+
+        &.positive
+            background-color: $success
+
+        &.negative
+            background-color: $danger
+
+    &.positive
+        .number, .qualitative
+            color: $success
+
+    &.negative
+        .number, .qualitative
+            color: $danger
+
+    .tall &
+        width: 155px
+        margin-bottom: 10px
+
+        .number, .qualitative
+            padding: 0 10px
+
+    .comparison
+        font-weight: bold
+
+    .intro
+        margin: 0 5px
+
+    .number, .qualitative
+        margin-bottom: 5px
+        color: $primary
+        font-family: "jaf-bernino-sans"
+        margin-top: 25px
+        padding: 0 20px
+
+    .number
+        font-size: 58px
+        letter-spacing: -5px
+
+    .qualitative
+        font-size: 30px
+
+    .units
+        font-size: 14px
+
+    .outro
+        position: absolute
+        bottom: 16px
+        right: 20px
+        left: 20px
+
+.narrative-box-container
+
+    float: left
+    margin: 0 7px
+    text-align: center
+    width: 230px
+
+    @include isMobile()
+        margin: 0 6px 10px 6px
+
+    &:hover > .narrative-box, &:hover > a > .narrative-box
+        background-color: #F5F7F7
+
+    &:hover > .drilldown-button, &:hover > a > .drilldown-button-style-only
+        background-color: $primaryDark
+
+    &.tall
+        width: 155px
+        margin: 0 3px
+
+    a
+        text-decoration: none
+
+    .drilldown-button, .drilldown-button-style-only
+        margin-top: 12px
+
+.neighborhood-view
+
+    .city-map
+        border-bottom: 0
+        height: 500px
+
+    .property-list
+        padding-bottom: 100px
+
+.noise-complaint-map
+    .key
+        padding: 10px 8px
+
+        .key-entry
+            width: 165px
+
+        .loud-music-party .dot
+            background-color: $keyColor1
+        .construction .dot
+            background-color: $keyColor2
+        .loud-talking-yelling .dot
+            background-color: $keyColor3
+        .car-truck .dot
+            background-color: $keyColor4
+        .dog-barking .dot
+            background-color: $keyColor5
+        .industrial-machinery .dot
+            background-color: $keyColor6
+        .alarm .dot
+            background-color: $keyColor7
+        .other .dot
+            background-color: $keyColor8
+        .helicopter .dot
+            background-color: $keyColor9
+
+.partners
+    width: 640px
+    margin: 0 auto
+    text-align: center
+    padding: 50px 0px
+
+    @include isMobile()
+        width: 480px
+
+    h2, h3
+        line-height: 1.5em
+        padding: 10px
+
+    .partner-list
+        list-style-type: none
+        padding: 0
+
+        .partner
+            padding: 5px 0
+
+            h4
+                font-family: "jaf-bernino-sans"
+
+    .partner-contact
+        text-decoration: none
+
+.poi-map-drilldown
+    padding: 10px 0
+
+    @include isMobile
+        bottom: -50%
+
+    .map-canvas
+        margin: 0 10px 0 400px
+
+        @include isMobile()
+            height: 100%
+            margin-left: 220px
+            width: 280px
+
+        .map-dot
+            @include circle(21px)
+            text-align: center
+            color: $white
+            padding-top: 2px
+
+            &.highlight
+                border: 2px solid $dark
+                padding-top: 0
+
+
+    .results
+        background-color: $white
+        width: 380px
+        margin-left: 10px
+        float: left
+        overflow-x: hidden
+        overflow-y: scroll
+        height: 450px
+
+        @include isMobile()
+            height: 100%
+            width: 200px
+
+        .result
+            border-bottom: 1px solid $primary
+            cursor: pointer
+            line-height: 36px
+            padding: 10px 10px
+
+            &.highlight
+                border: 1px solid $dark
+
+            img
+                float: left
+                margin: 0 10px 0 0
+                height: 36px
+                width: 36px
+
+            .total
+                @include circle(21px)
+                background-color: $keyColor3
+                color: $white
+                display: inline-block
+                margin-right: 5px
+                padding: 2px
+                position: relative
+                text-align: center
+                vertical-align: middle
+
+                .number
+                    @include transform(translate(-50%,-50%))
+                    position: absolute
+                    top: 50%
+                    left: 50%
+
+.pre-stitial.modal
+
+    color: white
+    text-align: center
+    font-size: 20px
+
+    .counter
+        text-align: right
+
+    .modal-content
+        background-color: transparent
+        cursor: pointer
+
+    @include isMobile()
+
+        img
+            width: 100%
+            min-width: 450px
+            display: block
+            margin: auto
+
+        .modal-content
+            padding: 20px
+
+        .modal-cover
+            display: block
+
+.profile
+    h2
+        font-size: 22px
+        margin: 20px 0 10px 0
+
+    .edit-profile
+        border-right: 1px solid $light
+        float: left
+        padding: 20px
+        width: 50%
+
+        @include isMobile
+            float: none
+            width: 100%
+            border-right: none
+
+        form
+            margin-bottom: 40px
+
+        .passwords
+            @include override-form-label-width(180px)
+
+        .profile
+            @include override-form-label-width(160px)
+
+            .profile-image
+                margin-bottom: 15px
+
+        .profile-preview
+            overflow: hidden
+
+            button, .button
+                margin-bottom: 5px
+
+            .profile-image
+                float: left
+                margin-right: 20px
+
+            .upload
+                position: relative
+
+                input.file
+                    position: absolute
+                    top: 0
+                    left: 0
+                    right: 0
+                    bottom: 0
+                    padding: 0
+                    font-size: 20px
+                    opacity: 0
+                    cursor: pointer
+
+    .subscriptions
+        float: right
+        padding: 20px
+        width: 50%
+
+        @include isMobile
+            float: none
+            width: 100%
+
+        .current-status
+            font-size: 16px
+            margin-bottom: 10px
+            &.not-subscribed
+                color: $danger
+            &.subscribed
+                color: $success
+
+        .reasons
+            margin: 20px 0 10px 0
+
+    .transaction-history
+        margin-top: 40px
+
+.property-alert-table-page
+
+    text-align: center
+
+    a
+        text-decoration: none
+
+    button
+        margin: 10px
+        height: auto
+        font-size: 30px
+
+    h1
+        text-align: center
+        margin: 30px
+
+.property-list
+
+    background-color: $background
+    overflow: hidden
+
+    .pager
+        margin-top: 40px
+
+    .properties
+        overflow: hidden
+
+    .property
+        border: 2px solid $border
+        background-color: $white
+        border-radius: 10px
+        float: left
+        padding: 20px
+        width: 470px
+        margin: 5px 10px
+
+        a
+            text-decoration: none
+            color: $darkDark
+            font-size: 36px
+
+.quiz-landing-page
+
+    .quiz-content
+
+        .slide
+
+            h4
+                color: $dark
+
+            .option-box
+                background-color: $lightLight
+                border-color: $lightDark
+
+                &:hover
+                    background-color: $lightDark
+
+            &.credit-score-slide
+
+                h2
+                    margin-bottom: 10px
+
+                h3
+                    font-size: 24px
+                    font-weight: 700
+                    margin: 10px
+
+                p
+                    color: #8a8a8a
+                    font-size: 12px
+
+                #excellent h3
+                    color: #3bb064
+
+                #good h3
+                    color: #e3ca3d
+
+                #fair h3
+                    color: #f58f35
+
+                #poor h3
+                    color: #e34945
+
+            &.phone-slide
+
+                .tcpa-warning
+                    font-size: 11px
+                    text-align: left
+                    margin: 40px auto 0px auto
+                    max-width: 700px
+                    font-weight: 300
+                    color: $dark
+
+                    @include isMobile()
+                        padding: 20px
+
+                    .tcpa-partner-link
+                        text-decoration: none
+
+            &.single-textbox-slide
+
+                .form-field.text
+                    margin: 20px auto 0 auto
+                    height: 60px
+                    width: 600px
+
+                    @include isMobile
+                        width: 480px
+
+                    label
+                        font-size: 26px
+                        line-height: 60px
+                        padding: 0 10px
+
+                    input
+                        font-size: 24px
+                        line-height: 60px
+
+                button
+                    display: block
+                    margin: 20px auto
+
+            &.processing-slide
+
+                .progress
+                    margin: 50px auto
+                    width: 80%
+
+    .quiz-progress
+        padding: 20px
+
+        .label
+            float: left
+            margin-right: 20px
+            font-weight: 700
+
+        .progress
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.2)
+            border: 1px solid rgba(0,0,0,0.2)
+
+    .little-links
+        color: white
+        text-align: right
+        padding: 5px 10px 10px 10px
+
+        a
+            text-decoration: none
+
+.quiz-thank-you
+
+    text-align: center
+
+    a
+        cursor: pointer
+    h1
+        margin-top: 40px
+
+    .phone-copy
+        color: red
+        margin: 40px 5px
+
+    .phone-form
+        width: 300px
+        margin: 20px auto
+
+        .form-field
+            height: 60px
+
+        .input-space
+            left: 10px
+
+            input
+                font-size: 24px
+
+.report-loading
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 2000
+    background-color: $background
+
+.report-page
+
+    background-color: $background
+
+    .back-to-top
+        position: fixed
+        transition: bottom 1s
+        right: 20px
+        z-index: 100
+
+        &.bottom
+            bottom: 35px
+
+            @include isMobile()
+                bottom: 60px
+
+        &.hidden
+            bottom: -50px
+
+        &.stuck
+            cursor: pointer
+            position: fixed
+            bottom: 10px
+
+    .breadcrumbs
+        background-color: $white
+
+    .summary
+        background-color: $white
+        padding: 20px 0
+
+        @include isMobile()
+            padding: 20px 0 0 0
+
+            h1
+                margin: 10px 0 0 0
+
+            .content
+                width: 500px
+
+
+        h1
+            color: $fontOnWhite
+            font-size: 40px
+            text-align: center
+
+        h2.aka
+            color: $light
+            font-size: 18px
+            font-family: "jaf-bernino-sans"
+            font-weight: 300
+            width: 600px
+            margin: 0 auto
+            position: relative
+            text-align: center
+            @include sexy-border($lightDark, $white)
+
+            @include isMobile()
+                width: 480px
+
+            .explain
+                cursor: pointer
+
+            .name
+                font-weight: 400
+
+        .alert-cta
+            margin-top: 30px
+
+            button
+                width: 100%
+
+                &.unsubscribe
+                    background-color: $success
+
+                .check
+                    margin-right: 10px
+
+
+        .summary-content
+            overflow: hidden
+            margin-top: 64px
+
+            @include isMobile()
+                margin-top: 10px
+
+            .at-a-glance
+                float: left
+                width: 400px
+
+                h3
+                    margin-bottom: 20px
+
+                .full-badge
+                    margin: 0 0 10px 0
+
+                @include isMobile()
+                    float: none
+                    margin: 0 auto
+                    width: 480px
+
+                    h3
+                        display: none
+
+                    .full-badge
+                        margin: 0 0 10px 0
+
+            .rentenna-review
+                padding-bottom: 102px
+                float: right
+                width: 520px
+
+                .word-bubble
+                    background-color: rgba(236, 240, 241, 0.7)
+                    border-radius: 10px
+                    padding: 18px 22px 1px 22px
+                    position: relative
+
+                    p
+                        font-size: 18px
+                        font-weight: 300
+                        margin-bottom: 20px
+                        line-height: 1.4
+
+                    &:after
+                        content: " "
+                        position: absolute
+                        top: 100%
+                        left: 75px
+                        background-image: resource('/image/wordBubbleBottom.png')
+                        width: 124px
+                        height: 102px
+
+                    .full-description
+                        margin: 0 0 10px 0
+
+                @include isMobile()
+                    float: none
+                    margin: 0 auto
+                    padding-bottom: 0
+                    width: auto
+
+                    .word-bubble
+                        border-radius: 0
+                        padding: 10px 20px
+                        margin: 20px 0 0 0
+                        position: static
+
+                        &:after
+                            display: none
+
+.report-section
+    padding-bottom: 120px
+
+    h3
+        font-size: 24px
+        margin-bottom: 34px
+
+.report-section-header
+    background-position: center
+    background-repeat: no-repeat
+    background-size: cover
+    background-color: $darkDark
+    padding: 52px 0 52px 0
+    margin-bottom: 54px
+
+    h2
+        color: $white
+        text-shadow: 1px 1px rgba(0, 0, 0, 0.75)
+        font-size: 36px
+        text-align: center
+
+    p
+        color: $white
+        text-shadow: 1px 1px rgba(0, 0, 0, 0.75)
+        font-size: 16px
+        text-align: center
+        margin: 25px auto 0 auto
+        width: 720px
+        opacity: 0.9
+        font-weight: 300
+
+        @include isMobile()
+            width: 480px
+
+.reset-password
+    margin: 100px auto
+    width: 500px
+
+    @include override-form-label-width(170px)
+
+.rodent-complaint-map
+    .key
+        padding: 10px 8px
+
+        .key-entry
+            width: 215px
+        .condition-attracting-rodents .dot
+            background-color: $keyColor1
+        .rat-sighting .dot
+            background-color: $keyColor2
+        .mouse-sighting .dot
+            background-color: $keyColor3
+        .signs-of-rodents .dot
+            background-color: $keyColor4
+        .rodent-bite .dot
+            background-color: $keyColor5
+
+.rodent-meter .mask
+    background-image: resource('/image/ratMeter.png')
+    background-size: 80px 38px
+    background-position: 20px 0
+
+.school-report-section
+
+    .report-section-header
+        background-image: resource('/image/headerBand/schoolReportBand.jpg')
+
+    .district-name
+        font-size: 24px
+
+    .school-list
+        margin-top: 40px
+
+        .qualitative
+            font-size: 24px
+            margin-top: 0
+
+.social-proof
+    overflow: hidden
+    margin-top: 60px
+    text-align: center
+    max-width: 700px
+
+    .tweet
+        width: 50%
+        float: left
+
+        @include isMobile()
+            width: auto
+            float: none
+
+.static-banner
+    background-color: $background
+    width: 100%
+
+    .static-header
+        margin: 0 auto
+        width: 980px
+        text-align: center
+
+        @include isMobile()
+            width: 480px
+
+        .main-header
+            @include sexy-border($light, $background)
+
+            h1
+                font-size: 34px
+                max-width: 700px
+                display: inline-block
+                font-weight: 400
+                margin: 50px 0 40px 0
+                text-align: center
+
+        .sub-header
+            padding-bottom: 90px
+
+.sticky-footer
+    background-color: blue
+    border-top: 5px solid #2f81b7
+    position: fixed
+    left: 0
+    right: 0
+    bottom: 0
+    text-align: center
+    z-index: 100
+
+    a
+        color: $white
+
+    h3
+        margin: 20px 0
+
+
+    &.upgrade-cta
+        .call
+            padding: 20px 0
+
+    .drilldown-close,
+    .fa-plus
+        cursor: pointer
+        position: absolute
+        top: 0
+        right: 0
+
+    .fa-plus
+        display: none
+        font-size: 2em
+        color: $white
+        top: 5px
+        right: 5px
+
+.sticky-header
+    position: relative
+
+    .report-sections
+        background-color: $darkDark
+        opacity: 0.9
+        text-align: center
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        z-index: 10
+
+        &.sticky
+            position: fixed
+
+        a
+            color: #95a5a6
+            display: inline-block
+            padding: 24px 10px
+            font-size: 16px
+            font-family: "jaf-bernino-sans-condensed"
+            font-weight: 400
+            text-decoration: none
+            text-transform: uppercase
+            border-bottom: 4px solid $darkDark
+            margin-right: -4px
+
+            -webkit-transition: color 0.25s, border-bottom-color 0.5s
+
+            &.active, &:hover
+                color: $white
+                border-bottom: 4px solid $primary
+
+    @include isMobile()
+        display: none
+
+.street-complaint-map
+    .key
+        padding: 10px 10px
+
+        .key-entry
+            width: 162px
+        .street-light .dot
+            background-color: $keyColor1
+        .road-condition .dot
+            background-color: $keyColor2
+        .scaffold-safety .dot
+            background-color: $keyColor3
+        .dead-tree .dot
+            background-color: $keyColor4
+        .sidewalk-condition .dot
+            background-color: $keyColor5
+        .broken-parking-meter .dot
+            background-color: $keyColor6
+
+.subsection-row
+    overflow: hidden
+
+.subway-line
+    color: $white
+    font-size: 23px
+    line-height: 45px
+    text-align: center
+    height: 45px
+    margin-left: 3px
+    width: 45px
+    display: inline-block
+    border-radius: 50px
+    position: relative
+
+    &[city="boston-ma"]
+
+        &[line="Blue"]
+            background-color: #2f5da6
+
+        &[line="Green"]
+            background-color: #008150
+
+        &[line="Orange"]
+            background-color: #fd8a03
+
+        &[line="Red"]
+            background-color: #fa2d27
+
+        &[line="Silver"]
+            background-color: #9a9c9d
+
+    &[city="chicago-il"]
+
+        &[line="Red"]
+            background-color: #c60c30
+
+        &[line="Blue"]
+            background-color: #00a1de
+
+        &[line="Brown"]
+            background-color: #62361b
+
+        &[line="Green"]
+            background-color: #009b3a
+
+        &[line="Orange"]
+            background-color: #f9461c
+
+        &[line="Purple"]
+            background-color: #522398
+
+        &[line="Pink"]
+            background-color: #e27ea6
+
+        &[line="Yellow"]
+            background-color: #f9e300
+            color: #000
+
+    &[city="brooklyn-ny"], &[city="manhattan-ny"], &[city="queens-ny"], &[city="staten-island-ny"], &[city="bronx-ny"]
+
+        &[line="A"], &[line="C"], &[line="E"]
+            background-color: #2f81b7 // official: #2850AD
+
+        &[line="B"], &[line="D"], &[line="F"], &[line="M"]
+            background-color: #f39c13 // official: #FF6319
+
+        &[line="G"]
+            background-color: #6CBE45 // official: #6CBE45
+
+        &[line="J"], &[line="Z"]
+            background-color: #996633
+
+        &[line="L"]
+            background-color: #95a5a6 // official: #A7A9AC
+
+        &[line="N"], &[line="Q"], &[line="R"]
+            background-color: $keyColor4 // official: #FCCC0A
+            color: #000000
+
+        &[line="S"]
+            background-color: #95a5a6 // official: #808183
+
+        &[line="1"], &[line="2"], &[line="3"]
+            background-color: $keyColor7 // official: #EE352E
+
+        &[line="4"], &[line="5"], &[line="6"], &[line="6 Express"]
+            background-color: $keyColor5 // official: #00933C
+
+        &[line="7"], &[line="7 Express"]
+            background-color: $keyColor1 // official: #B933AD
+
+        &[line="7 Express"]:after, &[line="6 Express"]:after
+            content: "EXPRESS"
+            position: absolute
+            bottom: -4px
+            width: 38px
+            left: 4px
+            font-size: 10px
+            line-height: 15px
+            text-align: center
+            font-family: "jaf-bernino-sans-condensed"
+            border-radius: 4px
+
+        &[line="6 Express"]:after
+            background-color: #30ad63
+
+        &[line="7 Express"]:after
+            background-color: #68327e
+
+.tag-link
+    display: inline-block
+    background-color: $dark
+    color: $white
+    padding: 5px 10px
+    margin: 2px 0
+    border-radius: 5px
+    font-size: 14px
+    text-decoration: none
+    font-weight: 700
+
+    @include isMobile
+        line-height: 40px
+
+    &:hover
+        background-color: $primary
+        color: $white
+
+.taxis-by-hour
+    padding: 10px 0
+
+.terms
+    background-color: $white
+
+    .terms-content
+        padding: 40px 0
+        margin: 0 auto
+        width: 700px
+        @include isMobile()
+            width: 480px
+
+        h2, h3, p
+            color: $fontOnWhite
+
+        h2
+            font-size: 28px
+            margin-top: 20px
+
+        p
+            margin-top: 10px
+
+        .agreement
+            margin: 70px 0px
+
+        .exclusions
+            margin-bottom: 125px
+
+            p
+                margin-bottom: 30px
+
+            ul
+                margin-left: -40px
+
+        .privacy
+            margin-bottom: 30px
+
+.transportation-report-section
+
+    #upgrade-commute-optimizer
+        margin-top: 80px
+
+    .citibike-map .map-canvas .map-dot
+        border-radius: 0
+        background-color: none
+        background-image: resource('/image/noun-project/bike.svg')
+        background-size: 50px 35px
+        width: 50px
+        height: 35px
+
+    .citibike-nearest .qualitative
+        font-size: 26px
+
+    .commute-optimizer
+        margin-top: 80px
+
+        .travel-modes
+            float: left
+
+        .travel-mode
+            img
+                width: 28px
+                height: 28px
+                margin-top: 6px
+  
+            color: $white
+            cursor: pointer
+            font-size: 23px
+            line-height: 45px
+            text-align: center
+            height: 40px
+            width: 40px
+            margin-top: 2px
+            margin-left: 3px
+            display: inline-block
+            position: relative
+            
+        .travel-mode.active
+            border-radius: 50px
+            background-color: #2f81b7
+            
+        .destination
+            height: 70px
+            margin-top: 8px
+            border-bottom: 1px solid $border
+            overflow: hidden
+            position: relative
+
+            @include isMobile()
+                height: auto
+
+            .nickname
+                float: left
+                color: $neutral
+                font-family: "jaf-bernino-sans-condensed"
+                font-size: 20px
+                text-align: left
+                min-width: 200px
+                line-height: 60px
+
+                @include isMobile()
+                    float: none
+
+                .remove
+                    @include circle(30px)
+                    color: $danger
+                    border: 3px solid $danger
+                    display: inline-block
+                    margin-right: 5px
+                    line-height: 24px
+                    text-align: center
+                    cursor: pointer
+
+                    &:hover
+                        color: $dangerDark
+                        border: 3px solid $dangerDark
+
+                    &.hidden
+                        display: none
+
+            .steps
+                float: right
+                margin-top: 5px
+
+                @include isMobile()
+                    float: none
+
+                .step
+                    height: 65px
+                    display: inline-block
+                    text-align: center
+                    width: 80px
+
+                    img
+                        vertical-align: top
+                        height: 32px
+
+                    .subway-line
+                        vertical-align: top
+                        line-height: 33px
+                        height: 32px
+                        width: 32px
+
+                    .step-time
+                        margin-top: 5px
+                        color: $lightDark
+
+            .time
+                display: inline-block
+                margin-left: 20px
+                font-family: "jaf-bernino-sans-condensed"
+                font-size: 20px
+                line-height: 60px
+
+                @include isMobile()
+                    display: block
+                    position: absolute
+                    top: 0
+                    right: 0
+
+        .edit-locations
+            margin-top: 20px
+
+        .new-location
+            background-color: $lightLight
+            border-radius: 5px
+            display: none
+            padding: 20px
+            overflow: hidden
+
+            .actions
+                float: right
+
+            .address
+                float: left
+                width: 620px
+
+                @include isMobile()
+                    float: none
+                    width: auto
+
+            .name
+                float: left
+                margin-right: 10px
+                width: 310px
+
+                @include isMobile()
+                    float: none
+                    margin-right: 0
+                    width: auto
+
+    .commute-stats
+        margin-top: 80px
+
+    .report-section-header
+        background-image: resource('/image/headerBand/transportationReportSectionBand.jpg')
+        background-position: right
+
+    .taxi-stats
+        margin-top: 80px
+
+    .subway
+
+        .subway-entrance
+            height: 70px
+            margin-top: 8px
+            position: relative
+            border-bottom: 1px solid $border
+
+            @include isMobile()
+                height: auto
+
+            .lines
+                position: absolute
+                right: 0
+                top: 0
+
+                @include isMobile()
+                    position: static
+
+                    .subway-line
+                        margin-bottom: 10px
+
+            .name
+                color: $neutral
+                font-family: "jaf-bernino-sans-condensed"
+                font-size: 20px
+                line-height: 60px
+
+            .distance
+                display: inline-block
+                margin-left: 20px
+                font-family: "jaf-bernino-sans-condensed"
+                font-size: 20px
+                line-height: 60px
+
+                @include isMobile()
+                    position: absolute
+                    top: 0
+                    right: 0
+
+                .walking
+                    margin-right: 5px
+                    vertical-align: middle
+
+    .time-leaving-for-work-narrative-box
+        .qualitative
+            font-size: 34px
+
+.upgrade-cta
+    background-color: $primary
+    background-position: top center
+    background-repeat: no-repeat
+
+    .call
+        padding: 80px 0
+        text-align: center
+        color: $white
+
+        h3
+            color: $white
+            line-height: 1
+            margin-bottom: 16px
+            text-shadow: 1px 1px rgba(0, 0, 0, 0.3)
+
+        p
+            width: 600px
+            margin: 0 auto 45px auto
+            font-weight: 300
+            font-size: 16px
+            text-shadow: 1px 1px rgba(0, 0, 0, 0.3)
+
+        @include isMobile()
+            padding: 20px 0
+            p
+                width: 480px
+
+.use-cases
+    overflow: hidden
+    margin-bottom: 40px
+
+    .use-case
+        float: left
+        margin: 0 20px
+        text-align: center
+        width: 205px
+
+        h3
+            color: $white
+
+        p
+            color: $white
+            font-weight: 300
+
+        img
+            width: 60px
+
+.video-landing-page
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background-color: #000
+    background: resource('/image/videoStill.jpg')
+    background-size: cover
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    background-position: 33% 50%
+    z-index: -100
+    min-height: 55em
+
+    h1
+        font-family: "proxima_novathin", Helvetica, Arial, sans-serif
+        font-weight: 100
+        font-size: 50px
+        color: #fff
+        text-align: center
+        margin-bottom: 10px
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8)
+
+        @include isMobile()
+            font-size: 30px
+
+    h2
+        font-family: "proxima_novathin", Helvetica, Arial, sans-serif
+        font-weight: 100
+        font-size: 36px
+        color: #fff
+        text-align: center
+        margin-top: 0
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8)
+
+        @include isMobile()
+            font-size: 22px
+
+    p
+        font-family: "proxima_novathin", Helvetica, Arial, sans-serif
+        font-weight: 100
+        font-size: 22px
+        color: #fff
+        text-align: center
+        width: 480px
+        margin: 0 auto
+
+    .credibility-footer
+        background-color: $darkDark
+        position: fixed
+        bottom: 0
+        right: 0
+        left: 0
+        padding: 10px 0 0 0
+        z-index: 1000
+
+        .notice
+            font-family: jaf-bernino-sans-condensed
+            font-weight: 700
+            text-align: center
+            margin-bottom: 10px
+            color: #fff
+
+        .logos
+            text-align: center
+            img
+                height: 24px
+                margin: 0 20px 20px 20px
+
+    .main
+        background-color: rgba(0,0,0,0)
+        position: absolute
+        top: 200px
+        left: 0
+        right: 0
+        z-index: 101
+
+        @include isMobile()
+            top: 80px
+
+    .search
+        width: 700px
+        margin: 50px auto 0 auto
+        position: relative
+
+        @include isMobile()
+            width: 480px
+
+        button
+            color: #ffffff
+            font-size: 15px
+            background: #ff7011
+            background-repeat: repeat-x
+            border: none
+            transition: background 0.3s
+            font-family: "proxima_nova_rgregular", Helvetica, Arial, sans-serif
+            line-height: 20px
+            text-align: center
+            vertical-align: middle
+            cursor: pointer
+            background-repeat: repeat-x
+            border-radius: 4px
+            transition: background 0.3s
+            border: none
+            position: absolute
+            top: 10px
+            right: 10px
+            line-height: 45px
+            height: auto
+
+        input
+            width: auto
+            font-size: 24px
+            height: auto
+            line-height: 40px
+            font-family: "proxima_novalight_italic", Helvetica, Arial, sans-serif
+            padding: 10px 80px 10px 50px
+            color: #545454
+            border-radius: 4px
+            vertical-align: middle
+            background-color: #ffffff
+            border: 1px solid #e3e3e3
+            transition: border linear 0.2s, box-shadow linear 0.2s
+            width: 100%
+
+            &:focus
+                border-color: #ff6c00
+                outline: 0
+                box-shadow: inset 0 1px 1px rgba(255, 222, 123, 0.8), 0 0 5px rgba(255, 92, 3, 0.8)
+
+    video
+        position: absolute
+        right: 0
+        bottom: 0
+        min-width: 100%
+        min-height: 100%
+        width: auto
+        height: auto
+        z-index: -99
+        background-size: cover
+
+.weather-section
+
+    .report-section-header
+        background-image: resource('/image/headerBand/floodZoneReportSectionBand.jpg')
+
+    .breezometer-subsection
+        margin-top: 40px
+        overflow: hidden
+
+        .left-column
+            float: left
+            width: 460px
+
+            @include isMobile()
+                float: none
+                margin: 0 auto 20px auto
+
+        .dominant-pollutant
+            background-color: $white
+            border-radius: 5px
+            padding: 10px
+            margin-top: 10px
+
+        .quality
+            height: 250px
+            position: relative
+            background-color: rgba(0,0,0,0.05)
+            border-radius: 5px
+
+            .aqi
+                width: 200px
+                text-align: center
+                position: absolute
+                right: 8px
+                top: 50px
+
+                h5
+                    margin: 0
+
+                .score
+                    color: $primary
+                    font-size: 64px
+
+            .elephant-scale
+                position: absolute
+                width: 230px
+                height: 230px
+                top: 0
+                left: 20px
+
+                @include isMobile()
+                    float: none
+                    margin: 0 auto 0 auto
+
+                img
+                    position: absolute
+
+                .bottom-number
+                    position: absolute
+                    left: 141px
+                    color: $lightDark
+                    top: 195px
+
+                .top-number
+                    position: absolute
+                    left: 132px
+                    top: 5px
+                    color: $lightDark
+
+                .feet
+                    bottom: 0
+                    left: 0
+                    height: 100px
+                    z-index: 2
+
+                .scale
+                    top: 0
+                    left: 70px
+                    height: 215px
+                    z-index: 0
+
+                .trunk
+                    bottom: 64px
+                    left: 60px
+                    height: 170px
+                    -webkit-transform-origin: 40% 85%
+                    -ms-transform-origin: 40% 85%
+                    -o-transform-origin: 40% 85%
+                    transform-origin: 40% 85%
+                    z-index: 1
+
+            .powered
+                position: absolute
+                bottom: 5px
+                right: 10px
+                color: $lightDark
+
+        .recommendations
+            height: 400px
+            float: right
+            width: 490px
+
+            .recommendation
+                margin-bottom: 10px
+                min-height: 80px
+
+                h4
+                    padding-top: 5px
+                    padding-left: 100px
+
+                p
+                    padding-left: 100px
+
+                .breezometer-badge
+                    width: 77px
+                    height: 77px
+                    border-radius: 77px
+                    float: left
+
+    .disaster-subsection
+        margin-top: 40px
+
+    .flood-zone-map
+        padding: 0
+        border-top: 10px solid $primary
+        border-bottom: 10px solid $primary
+
+        .key
+            @include isMobile()
+                display: none
+
+        .map-canvas
+            height: 420px
+
+        .zone-info
+            width: 415px
+
+            @include isMobile()
+                background-color: $white
+                border-radius: 10px
+                color: $fontOnWhite
+                font-size: 20px
+                margin: 20px auto
+                padding: 3px
+                width: $mobileContentWidth
+
+            .zone
+                background-color: #f39c13
+                color: white
+                float: left
+                font-size: 30px
+                font-family: "jaf-bernino-sans-condensed"
+                height: 100px
+                line-height: 100px
+                margin: 5px
+                text-align: center
+                width: 120px
+
+                @include isMobile()
+                    float: none
+                    height: auto
+                    position: absolute
+                    top: 0
+                    bottom: 0
+
+            .zone-description
+                margin-left: 150px
+                width: 240px
+
+                @include isMobile()
+                    width: auto
+
+                p
+                    padding: 5px 0
+
+                strong
+                    display: block
+                    padding-top: 10px
+
+    .flood-zone-subsection
+        margin-top: 40px

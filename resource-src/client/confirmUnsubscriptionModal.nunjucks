@@ -1,0 +1,14 @@
+{% extends 'modalView' %}
+
+{% block content %}
+    <div class="main">    
+        <h2>Unsubscribe</h2>
+        <p>Are you sure you wish to unsubscribe from this alert?</p>
+        <button class="button cta yes-unsubscribe">
+            Yes
+        </button>
+        <button class="button cta no-unsubscribe">
+            No
+        </button>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'client/baseClientView.jinja2' %}
+{% import 'client/genericHeader.jinja2' as genericHeader %}
+{% block body %}
+    <div class="state-view directory-view">
+        <div class="banner">
+            <div class="breadcrumbs">
+                <div class="content">
+                    <div class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a href="/" itemprop="url">
+                            <span itemprop="title">AddressReport</span>
+                        </a>
+                    </div>
+                    
+                    <div class="breadcrumb current">
+                        <span class="name">
+                            {{ state.name }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {{ genericHeader.render("AddressReport: %s" % state.name ) }}
+        </div>
+        <div class="directory-list content">
+            <h2>Cities in {{ state.name }}</h2>
+            {% for city in citiesInState %}
+                <a href="{{ city.getUrl() }}" class="tag-link">
+                    {{ city.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'client/baseClientFoot.jinja2' %}
+{% endblock %}

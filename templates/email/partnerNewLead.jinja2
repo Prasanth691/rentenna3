@@ -1,0 +1,112 @@
+{% extends 'email/baseTemplate2.jinja2' %}
+
+{% block extraCssClasses %}partner-template{% endblock %}
+
+{% block preview %}
+    New Lead Notification
+{% endblock %}
+
+{% block branding %}
+	<div class="logo without-partnership">
+        <img src="https://www.addressreport.com/resource/image/ar-by-obi-logo.jpg" class="logo-img" />
+    </div>
+{% endblock %}
+
+{% block header %}
+    <div class="header-text white">    
+        <h1>New Lead Notification<br />{{ contactInfo.company }}</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="section-container cta">
+
+  		<table class="data-table">
+  			<tr>
+  				<td class="key">Contact Name:</td>
+  				<td class="value">{{ userName }}</td>
+  			</tr>
+  			<tr class="even">
+  				<td>Contact Phone:</td>
+  				<td>{{ userPhone }}</td>
+  			</tr>
+  			<tr>
+  				<td>Contact Email:</td>
+  				<td>{{ userEmail }}</td>
+  			</tr>
+  			<tr class="even">
+  				<td>Contact ID:</td>
+  				<td>{{ userId }}</td>
+  			</tr>
+  			<tr>
+  				<td>Location:</td>
+  				<td>{{ userAddress }}</td>
+  			</tr>
+  			<tr class="even">
+  				<td>Location Relationship:</td>
+  				<td>{{ userAddressRelation}}</td>
+  			</tr>
+  			<tr>
+  				<td>Owner Interest:</td>
+  				<td>{{ userOwnerInterest }}</td>
+  			</tr>
+  			<tr class="even">
+  				<td>Buyer Budget:</td>
+  				<td>{{ userBuyingBudget }}</td>
+  			</tr>
+  			<tr>
+  				<td>Renter Interest:</td>
+  				<td>{{ userRenterInterest }}</td>
+  			</tr>
+        <tr class="even">
+          <td>Rental Budget:</td>
+          <td>{{ userRentingBudget }}</td>
+        </tr>
+        <tr>
+          <td>Move Status:</td>
+          <td>{{ userMoveStatus }}</td>
+        </tr>
+  			<tr class="even">
+  				<td>Timeline:</td>
+  				<td>{{ userTimeline }}</td>
+  			</tr>
+  			<tr>
+  				<td>Content Interest:</td>
+  				<td>{{ userContentInterest }}</td>
+  			</tr>
+  			<tr class="even">
+  				<td>Lead Source:</td>
+  				<td>{{ userLeadSource }}</td>
+  			</tr>
+  			<tr>
+  				<td>Landing Page:</td>
+  				<td>{{ userLandingPage }}</td>
+  			</tr>
+  			<tr class="even">
+  				<td>Email Link:</td>
+  				<td>{{ userEmailLink }}</td>
+  			</tr>
+  			<tr>
+  				<td>Report Link:</td>
+  				<td>{{ userReportLink }}</td>
+  			</tr>
+  			<tr class="even">
+  				<td>Referrer:</td>
+  				<td>{{ userReferrer }}</td>
+  			</tr>
+  			<tr>
+  				<td>Registered:</td>
+  				<td>{{ humanDateTime( userRegisteredDate, pattern="%Y-%m-%d %I:%M%p") }}</td>
+  			</tr>
+        <tr class="last">
+          <td>Date / Time:</td>
+          <td>{{ humanDateTime( now(), pattern="%Y-%m-%d %I:%M%p") }}</td>
+        </tr>
+  		</table>
+
+    </div>
+{% endblock %}
+
+{% block footerLinks %}
+    <a href="{{ unsubscribe }}">Unsubscribe</a><br><br>
+{% endblock %}

@@ -1,0 +1,22 @@
+<div class="slide free-text-slide">
+    {% if required == undefined %}
+        {% set required = true %}
+    {% endif %}
+    <form nosubmit>
+        <h1>
+            {{ question }}
+        </h1>
+        <div class="input">
+            <form>
+                <input type="{{ type or 'text' }}" 
+                    placeholder="{{ placeholder }}"
+                    {% if required %}required{% endif %}
+                    data-required="{% if required %}true{% else %}false{% endif %}"
+                    />
+                <button class="cta btn-primary primary">
+                    {{ buttonText or 'Next' }}
+                </button>
+            </form>
+        </div>
+    </form>
+</div>

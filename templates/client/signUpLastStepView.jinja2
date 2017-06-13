@@ -1,0 +1,579 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block prehead %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+{% endblock %}
+{% block head %}
+    <link href="/resource/bootstrap-extra.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto:400,700" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block body %}
+    <div class="content container-fluid">
+
+        <div class="row intro">
+            <h2><p>Set Up Your AddressReport Account</p></h2>
+            <p>Complete your account set up by filling in the account details below. Please note that the red asterisk  (<span class="asterisk">*</span>)
+denotes a required field.</p>
+        </div>
+
+        <form>
+        	<div class="row user-form sign-up-form">
+                <div class="col-xs-12">
+	                <h4>STEP 3 of 4 - ENTER PERSONAL INFORMATION &amp; UPLOAD PROFILE PHOTO</h4>
+                    <div class="row account-details">
+		                <div class="col-sm-6">
+		                    <div class="form-group">
+		                        <label for="account_firstname">First Name</label>
+		                        <input type="text" name="account_firstname" id="account_firstname" class="form-control required" value="" size="32" placeholder="*First Name" />
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="account_lastname">Last Name</label>
+		                        <input type="text" name="account_lastname" id="account_lastname" class="form-control required" value="" size="32" placeholder="*Last Name" />
+		                    </div>
+                            <div class="form-group">
+                                <label for="account_email">Personal Email Address</label>
+                                <input type="email" name="account_email" id="account_email" class="form-control required" value="" size="32" placeholder="*Personal Email Address" />
+                            </div>
+                            <div class="form-group">
+                                <label for="account_website">Personal Website</label>
+                                <input type="url" name="account_website" id="account_website" class="form-control required" value="" size="32" placeholder="*Personal Website" />
+                            </div>
+                            <div class="form-group group-upload">
+                                <div class="col-xs-6">
+                                    Upload your Profile Image
+                                </div>
+                                <div class="col-xs-6">
+                                    <label for="account_profile_photo">Profile Photo</label>
+                                    <div class="fileUpload btn btn-primary pull-right">
+                                        <span>Select file to upload</span>
+                                        <input type="file" name="account_profile_photo" id="account_profile_photo" class="form-control profile-photo upload" value="" size="32" placeholder="*Profile Photo" />
+                                    </div>
+                                </div>
+                            </div>
+		        		</div>
+		                <div class="col-sm-6">
+                            <div class="preview-box">
+                                <div id="profile_photo_preview" class="ar-preview"><span class="preview-start">Profile Photo Preview</span></div>
+                            </div>
+		        		</div>
+		        	</div>
+	                <h4>STEP 4 of 4 - ENTER COMPANY INFORMATION</h4>
+                    <div class="row company-details">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="company_name">Company Name</label>
+                                <input type="text" name="company_name" id="company_name" class="form-control required" value="" size="32" placeholder="*Company Name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="company_email">Company Email Address</label>
+                                <input type="text" name="company_email" id="company_email" class="form-control" value="" size="32" placeholder="Company Email Address" />
+                            </div>
+                            <div class="form-group">
+                                <label for="company_website">Company Website</label>
+                                <input type="email" name="company_website" id="company_website" class="form-control required" value="" size="32" placeholder="*Company Website" />
+                            </div>
+                            <div class="form-group">
+                                <label for="company_address">Company Address</label>
+                                <input type="text" name="company_address" id="company_address" class="form-control required" value="" size="32" placeholder="*Company Address" />
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="company_city">City</label>
+                                    <input type="text" name="company_city" id="company_city" class="form-control required" value="" size="32" placeholder="*City" />
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="company_state">State</label>
+                                    <select name="company_state" id="company_state" class="form-control required">
+                                        <option value="">*State</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="company_zipcode">ZIP Code</label>
+                                    <input type="text" name="company_zipcode" id="company_zipcode" class="form-control required" value="" size="32" placeholder="*ZIP Code" />
+                                </div>
+                            </div>
+                            <div class="form-group group-upload">
+                                <div class="col-xs-6">
+                                    Upload your Company Logo
+                                </div>
+                                <div class="col-xs-6">
+                                    <label for="company_logo">Company Logo</label>
+                                    <div class="fileUpload btn btn-primary pull-right">
+                                        <span>Select file to upload</span>
+                                        <input type="file" name="company_logo" id="company_logo" class="form-control company-logo upload" value="" size="32" placeholder="*Company Logo" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="preview-box">
+                                <div id="profile_photo_preview" class="ar-preview"><span class="preview-start">Company Logo Preview</span></div>
+                            </div>
+                        </div>
+                    </div>
+	        	</div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 sign-up-button">
+                    <button type="submit" name="btnSignUp" id="btnSignUp" disabled="disabled" class="btn btn-success">SAVE &amp; FINISH</button>
+                    <span class="submit-instructions">Take me to the dashboard!</span>
+                </div>
+        	</div>
+    	</form>
+
+	</div>
+
+    {% include 'client/signUpFooter.jinja2' %}
+    {% include 'client/baseClientFoot.jinja2' %}
+
+    <script src="//code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    jQuery( function( $ ){
+    //  add class to BODY so we can target in CSS for white background
+        $( 'body' ).addClass( 'page-sign-up' );
+
+    //  prefill the API TOKEN from the URL
+        var api_token = '{{ request.args.get('api_key') }}';
+        var api_secret = '{{ request.args.get('api_secret') }}';
+        var target_api_token = '{{ request.args.get('target_api_key') }}';
+
+    //  Validate the form fields
+        function checkFields(){
+            var account_first = $( '#account_firstname' ).val();
+            var account_last = $( '#account_lastname' ).val();
+            var account_email = $( '#account_email' ).val();
+            var account_website = $( '#account_website' ).val();
+            var company_name = $( '#company_name' ).val();
+            var company_website = $( '#company_website' ).val();
+            var company_address = $( '#company_address' ).val();
+            var company_city = $( '#company_city' ).val();
+            var company_state = $( '#company_state' ).val();
+            var company_zipcode = $( '#company_zipcode' ).val();
+
+            if( account_first.length == 0 || account_last.length == 0 || account_email.length == 0 || account_website.length == 0 || company_name.length == 0 || company_website.length == 0 || company_address.length == 0 || company_city.length == 0 || company_state.length == 0 || company_zipcode.length == 0 ){
+                return false;
+            }
+            return true;   
+        }
+    //  Remove DISABLED or add DISABLED to the submit button
+        function allowSubmit( test ){
+            if( test ){
+                $( '#btnSignUp' ).removeAttr( 'disabled' );
+                $( '.submit-instructions' ).addClass( 'go' );
+                return true;
+            }else{
+                $( '#btnSignUp' ).attr( 'disabled', 'disabled' );
+                $( '.submit-instructions' ).removeClass( 'go' );
+                return false;
+            }
+        }
+    //  onChange to the Password and Confirm Password fields
+        $( '.required' ).bind( 'keyup change', function() {
+            var validateFields = checkFields();
+            allowSubmit(validateFields);
+        });
+    //  onClick of the Submit Button
+        $( '#btnSignUp' ).on( 'click', function(evt) {
+            evt.preventDefault();
+            var validateFields = checkFields();
+            var canSubmit = allowSubmit(validateFields);
+            if(canSubmit){
+                getPartnerURLs( api_token );
+            //  alert( 'At this point the user would be taken to the dashboard!' );
+                window.location.href = 'http://code-test.ten80snowboarder.com/adminLTE/';
+            }
+
+        });
+
+        function getPartnerURLs( api_token ){
+            var getURL = '/api/0/partner-urls.json';
+
+            if( !api_token ){
+                return;
+            }
+
+            var jsonData = {
+                "api_key" : api_token
+            }
+
+            $.ajax({
+                method: "POST",
+                url: getURL,
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(jsonData)
+
+            }).done( function( msg ){
+                var formBaseUrl = msg.formBaseUrl;
+                var resBaseUrl = msg.resBaseUrl;
+                loadPartnerInfo( api_token, resBaseUrl, formBaseUrl );
+
+            }).fail( function(jqXHR) {
+                msg = jqXHR.responseJSON;
+                console.log( msg );
+
+            });
+
+        }
+
+        function loadPartnerInfo( api_token, resBaseUrl, formBaseUrl ){
+        //  fire AJAX TO GET SOME BASE PARTNER INFO -- subpartner_name, subpartner_id, etc...
+            var getPartnerSets = '/api/0/get-partner-settings.json';
+
+            var jsonData    = {
+                "api_key" : api_token,
+                "api_secret" : api_secret,
+                "target_api_key" : target_api_token,
+                "infoscope" : "basic"
+            };
+
+        //  AJAX POST for GET PARTNER
+            $.ajax({
+                method: "POST",
+                url: getPartnerSets,
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(jsonData)
+
+            }).done( function( msg ){
+                var rsltJSON = msg;
+                updatePartnerInfo( rsltJSON, resBaseUrl, formBaseUrl )
+
+            }).fail( function(jqXHR) {
+                msg = jqXHR.responseJSON;
+                console.log( msg );
+
+            });
+
+        //  fire AJAX TO UPDATE THE PARTNER INFO
+            function updatePartnerInfo( partnerinfo, resBaseUrl, formBaseUrl ){
+                var postURL = '/api/0/update-subpartner.json ';
+
+                var company_office = '';
+
+                var jsonData    = {
+                    "api_key" : api_token,
+                    "api_secret" : api_secret,
+                    "subpartner_id" : partnerinfo.pid,
+                    "subpartner_name" : partnerinfo.name,
+                    "settings" : {
+                       "contact.firstname" : $( '#account_firstname' ).val(),
+                       "contact.lastname" : $( '#account_lastname' ).val(),
+                       "contact.email" : $( '#account_email' ).val(),
+                       "contact.website" : $( '#account_website' ).val(),
+                       "contact.company" : $( '#company_name' ).val(),
+                       "contact.office" : company_office
+                    }
+                };
+
+            //  AJAX POST for GET PARTNER
+                $.ajax({
+                    method: "POST",
+                    url: postURL,
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(jsonData)
+
+                }).done( function( msg ){
+                    var rsltJSON = msg;
+                    console.log( msg );
+
+                }).fail( function(jqXHR) {
+                    msg = jqXHR.responseJSON;
+                    console.log( msg );
+
+                });
+
+            }
+
+        }
+
+    //  TypeAhead Autocomplete
+        $( "#company_address" ).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    method: "GET",
+                    url: "/service/autocomplete",
+                    dataType: 'json',
+                    data: {
+                        query: $( '#company_address' ).val()
+                    },
+                    success: function( data ) {
+                        var acResults   = [];
+                        for( var i = 0; i < data['results'].length; i++ ){
+                            if( data['results'][i]['type'] == 'address' )
+                                acResults.push( data['results'][i]['name'].split('  ').join(' ') );
+                        }
+                        response( acResults );
+                    }
+                });
+            },
+            minLength: 3
+        });
+
+    //  image upload
+        $( '#account_profile_photo, #company_logo' ).on( 'change', function() {
+        //  which button was pressed?
+            var thisBtn = $( this ).prop( 'id' );
+
+        //  disable the #btnSignUp so the upload and display preview can happen // will activate later when complete
+            $( '#btnSignUp' ).attr( 'disabled', 'disabled' );
+            $( '.submit-instructions' ).removeClass( 'go' );
+
+        //  push the image to the server
+
+        });
+
+    //  States
+        var states = [
+            {
+                "name": "Alabama",
+                "abbreviation": "AL"
+            },
+            {
+                "name": "Alaska",
+                "abbreviation": "AK"
+            },
+            {
+                "name": "American Samoa",
+                "abbreviation": "AS"
+            },
+            {
+                "name": "Arizona",
+                "abbreviation": "AZ"
+            },
+            {
+                "name": "Arkansas",
+                "abbreviation": "AR"
+            },
+            {
+                "name": "California",
+                "abbreviation": "CA"
+            },
+            {
+                "name": "Colorado",
+                "abbreviation": "CO"
+            },
+            {
+                "name": "Connecticut",
+                "abbreviation": "CT"
+            },
+            {
+                "name": "Delaware",
+                "abbreviation": "DE"
+            },
+            {
+                "name": "District Of Columbia",
+                "abbreviation": "DC"
+            },
+            {
+                "name": "Federated States Of Micronesia",
+                "abbreviation": "FM"
+            },
+            {
+                "name": "Florida",
+                "abbreviation": "FL"
+            },
+            {
+                "name": "Georgia",
+                "abbreviation": "GA"
+            },
+            {
+                "name": "Guam",
+                "abbreviation": "GU"
+            },
+            {
+                "name": "Hawaii",
+                "abbreviation": "HI"
+            },
+            {
+                "name": "Idaho",
+                "abbreviation": "ID"
+            },
+            {
+                "name": "Illinois",
+                "abbreviation": "IL"
+            },
+            {
+                "name": "Indiana",
+                "abbreviation": "IN"
+            },
+            {
+                "name": "Iowa",
+                "abbreviation": "IA"
+            },
+            {
+                "name": "Kansas",
+                "abbreviation": "KS"
+            },
+            {
+                "name": "Kentucky",
+                "abbreviation": "KY"
+            },
+            {
+                "name": "Louisiana",
+                "abbreviation": "LA"
+            },
+            {
+                "name": "Maine",
+                "abbreviation": "ME"
+            },
+            {
+                "name": "Marshall Islands",
+                "abbreviation": "MH"
+            },
+            {
+                "name": "Maryland",
+                "abbreviation": "MD"
+            },
+            {
+                "name": "Massachusetts",
+                "abbreviation": "MA"
+            },
+            {
+                "name": "Michigan",
+                "abbreviation": "MI"
+            },
+            {
+                "name": "Minnesota",
+                "abbreviation": "MN"
+            },
+            {
+                "name": "Mississippi",
+                "abbreviation": "MS"
+            },
+            {
+                "name": "Missouri",
+                "abbreviation": "MO"
+            },
+            {
+                "name": "Montana",
+                "abbreviation": "MT"
+            },
+            {
+                "name": "Nebraska",
+                "abbreviation": "NE"
+            },
+            {
+                "name": "Nevada",
+                "abbreviation": "NV"
+            },
+            {
+                "name": "New Hampshire",
+                "abbreviation": "NH"
+            },
+            {
+                "name": "New Jersey",
+                "abbreviation": "NJ"
+            },
+            {
+                "name": "New Mexico",
+                "abbreviation": "NM"
+            },
+            {
+                "name": "New York",
+                "abbreviation": "NY"
+            },
+            {
+                "name": "North Carolina",
+                "abbreviation": "NC"
+            },
+            {
+                "name": "North Dakota",
+                "abbreviation": "ND"
+            },
+            {
+                "name": "Northern Mariana Islands",
+                "abbreviation": "MP"
+            },
+            {
+                "name": "Ohio",
+                "abbreviation": "OH"
+            },
+            {
+                "name": "Oklahoma",
+                "abbreviation": "OK"
+            },
+            {
+                "name": "Oregon",
+                "abbreviation": "OR"
+            },
+            {
+                "name": "Palau",
+                "abbreviation": "PW"
+            },
+            {
+                "name": "Pennsylvania",
+                "abbreviation": "PA"
+            },
+            {
+                "name": "Puerto Rico",
+                "abbreviation": "PR"
+            },
+            {
+                "name": "Rhode Island",
+                "abbreviation": "RI"
+            },
+            {
+                "name": "South Carolina",
+                "abbreviation": "SC"
+            },
+            {
+                "name": "South Dakota",
+                "abbreviation": "SD"
+            },
+            {
+                "name": "Tennessee",
+                "abbreviation": "TN"
+            },
+            {
+                "name": "Texas",
+                "abbreviation": "TX"
+            },
+            {
+                "name": "Utah",
+                "abbreviation": "UT"
+            },
+            {
+                "name": "Vermont",
+                "abbreviation": "VT"
+            },
+            {
+                "name": "Virgin Islands",
+                "abbreviation": "VI"
+            },
+            {
+                "name": "Virginia",
+                "abbreviation": "VA"
+            },
+            {
+                "name": "Washington",
+                "abbreviation": "WA"
+            },
+            {
+                "name": "West Virginia",
+                "abbreviation": "WV"
+            },
+            {
+                "name": "Wisconsin",
+                "abbreviation": "WI"
+            },
+            {
+                "name": "Wyoming",
+                "abbreviation": "WY"
+            }
+        ];
+
+    //  Loop and load in the States into the SELECT box
+        $( states ).each( function() {
+            var state = $( this );
+            $( '#company_state' ).append( '<option value="' + state[0].abbreviation + '">' + state[0].name + '</option>' );
+        });
+
+    });
+    </script>
+{% endblock %}

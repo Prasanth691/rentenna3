@@ -1,0 +1,49 @@
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container state-machine-log">
+        
+        <ol class="breadcrumb">
+            <li><a href="/web-admin/state-machines/">RSM</a></li>
+            <li>
+                <a href="{{ machine.getAdminUrl() }}">
+                    {{ machine.__class__.__name__ }}
+                </a>
+            </li>
+            <li class="active">{{ machine.key.id() }}</li>
+        </ol>
+
+        <h1>State Machine Log</h1>
+        <p>
+            <a href="{{ machine.getLogGraphVizUrl() }}" target="_blank">
+                Download GraphViz
+            </a>
+        </p>
+        
+        {% for generation in logs %}
+            <div class="generation">
+                <h4>{{ generation.time.strftime("%Y-%m-%dT%H:%M:%S.%f") }}</h4>
+
+                {% for log in generation.logs %}
+                    {% if 'state' in log %}
+                        <h5>Step {{ log.step }} // State: {{ log.state }}</h5>
+                    {% endif %}
+                    <div class="log">
+                        {% for logitem in log.logs %}
+                            {% if logitem.message.startswith('http') %}
+                                <div class="log-item {{ logitem.level }} link">
+                                    <a href="{{ logitem.message }}">
+                                        {{ logitem.message }}
+                                    </a>
+                                </div>
+                            {% else %}
+                                <pre class="log-item {{ logitem.level }}">{{ logitem.message }}</pre>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        
+    </div>
+{% endblock %}

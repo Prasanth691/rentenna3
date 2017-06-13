@@ -1,0 +1,56 @@
+{% import 'client/partnerPixelTracking.jinja2' as tracking %}
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block prehead %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+{% endblock %}
+{% block posthead %}
+    {{ tracking.addTracking('trackingHeaderSection') }}
+{% endblock %}
+
+{% block body %}
+{% if hasCreative %}
+    <div class="video-landing-page quiz-landing-page" style="background-image: url( '{{ creativeUrl }}' );">
+{% else %}
+    <div class="video-landing-page quiz-landing-page">
+        {% if not isPhone %}
+            <div class="vid">
+                <video width="1280" height="720" autoplay loop>
+                  <source src="https://storage.googleapis.com/rentenna-junk/bigvid/washedout2.mp4" type="video/mp4">
+                </video>
+            </div>
+        {% endif %}
+{% endif %}
+        <div class="main">
+            <div class="ar-quiz-stack">
+                <div class="content quiz-progress">
+                    <div class="label">
+                        Your Progress:
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar">
+                        </div>
+                    </div>
+                </div>
+                {{ JsonPayload(
+                    slug=quiz.slug,
+                    slides=quiz.getJson(),
+                    endpoint=endpoint,
+                    onComplete=thankyouUrl,
+                    thankyouFromAr=isArThankyou) }}
+            </div>
+        </div>
+        <div class="credibility-footer">
+            <div class="little-links">
+                <!--<a href="/" target="_blank">Home</a> &nbsp;|&nbsp;-->
+                <a href="/terms" target="_blank">Terms &amp; Conditions</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block postfooter %}
+    <div style="display:none;">
+        {{ tracking.addTracking('trackingFooterSection') }}
+    </div>
+{% endblock %}

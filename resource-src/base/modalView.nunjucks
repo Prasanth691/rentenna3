@@ -1,0 +1,8 @@
+<div class="modal">
+    <div class="modal-cover"></div>
+    <div class="modal-content">
+        <img class="modal-close" src="{{ resource('/image/modalClose.png') }}" />
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>

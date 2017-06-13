@@ -1,0 +1,24 @@
+{% import 'web-admin/form.jinja2' as form %}
+
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container">
+        <form action="/web-admin/manage-users/save-roles/" method="POST">
+            <h3>Manage Roles</h3>
+            {% for user in users %}
+                <div>
+                    {{ form.text('role-%s' % user.login, ",".join(user.roles), user.login,
+                        placeholder="Enter roles seperated by commas...") }}
+                </div>
+            {% endfor %}
+            <button class="btn btn-primary">Save Changes</button>
+        </form>
+        <form action="/web-admin/manage-users/add-user/" method="POST" class="col-md-6">
+            <h3>Add a User</h3>
+            {{ form.text('login', None, 'Login') }}
+            {{ form.text('password', None, 'Password', type='password') }}
+            <button class="btn btn-primary">Add</button>
+        </form>
+    </div>
+{% endblock %}

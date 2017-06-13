@@ -1,0 +1,14 @@
+{% macro render(percent, type, dull, centered=False) %}
+    <div class="subsection-row content {{ type }}-meter masked-meter {{ iff(centered, 'centered') }} {{ iff(percent > 50, 'higher', 'lower') }}">
+        {% if centered %}
+            {% if percent > 50 %}
+                {% set percent = percent / 2 %}
+            {% else %}
+                {% set percent = (50 - percent) %}
+            {% endif %}
+        {% endif %}
+        <div class="mask"></div>
+        <div class="fill {{ iff(dull,'dull') }}" style="width:{{ percent }}%;"></div>
+        <div class="empty"></div>
+    </div>
+{% endmacro %}

@@ -1,0 +1,13 @@
+{% import 'forms' as forms %}
+{% extends 'modalView' %}
+{% block content %}
+    <div class="main">    
+        <h2>Access Granted</h2>
+        <p>
+            You now have access to detailed report data on AddressReport. Let's regenerate this report now so you can drill into all its detailed stats, maps, and charts!
+        </p>
+        <a class="button cta" href="?force=true">
+            Regenerate AddressReport
+        </a>
+    </form>
+{% endblock %}

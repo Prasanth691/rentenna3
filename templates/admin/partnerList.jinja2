@@ -1,0 +1,30 @@
+{% extends 'admin/baseAdmin.jinja2' %}
+{% block content %}
+    <div class="content admin-root blog-list">
+        <h1>Partners</h1>
+
+        <a href="/admin/partners/new/" class="button primary">
+            Create New Partner
+        </a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for partner in partners %}
+                    <tr>
+                        <td>
+                            <a href="{{ partner.getAdminUrl() }}">
+                                {{ partner.name }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

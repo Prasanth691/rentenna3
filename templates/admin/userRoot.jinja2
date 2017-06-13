@@ -1,0 +1,46 @@
+{% import 'base/forms.nunjucks' as forms %}
+
+{% extends 'admin/baseAdmin.jinja2' %}
+{% block content %}
+    <div class="content users">
+        {% block findUser %}
+        {% endblock %}
+        {% block tableTitle %}
+            <h3>{{ tableTitle }}</h3>
+        {% endblock %}
+        {% block exportUsers %}
+        {% endblock %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Email Status</th>
+                    <th>Registed</th>
+                    <th>Partner</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            <a href="{{ user.getAdminLink() }}">
+                                {{ user.email }}
+                            </a>
+                        </td>
+                        <td>{{ user.briteverifyStatus }}</td>
+                        <td>{{ date(user.registered) }}</td>
+                        <td>{{ partnerTopBottomName(user.getPartner()) }}</td>
+                        <td>
+                            {% if user.getTracker() %}
+                                {{ user.getTracker().utmSource }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% block pagination %}
+        {% endblock %}
+    </div>
+{% endblock %}

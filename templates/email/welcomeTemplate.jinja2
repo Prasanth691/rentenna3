@@ -1,0 +1,30 @@
+{% extends 'email/baseTemplate2.jinja2' %}
+
+{% block extraCssClasses %}welcome-template{% endblock %}
+
+{% block header %}
+    <div class="header-text white">    
+        <h1>Welcome to AddressReport</h1>
+        <p>
+            We're here to help you find the unbiased facts<br />about any property and its neighborhood.
+        </p>
+        <a href="{{ otuLink('https://www.addressreport.com?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=welcome-email&utm_content=header-cta') }}">
+            <div class="content cta-btn">LOOK UP ANY ADDRESS NOW</div>
+        </a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="section-container cta">
+        {{ renderGreeting(user) }}
+        <p>Thanks for registering for AddressReport.</p>
+        <p>So, how does it work?</p>
+        <p>Basically, AddressReport gathers as much information as possible about any address you care about, brings it all together in one place, and presents it to you in a beautiful, easy-to-understand report.</p>
+        <p>It's kind of like a "background check" for real estate -- just plug any address, ZIP Code, city, town or neighborhood into our search bar and AddressReport generates a detailed "background check" for you, live and on-demand.</p>
+        <p>Thanks again and feel free to <strong>{% if contactInfo.email %}<a href="mailto:{{ contactInfo.email }}?subject=Welcome to AddressReport" target="_blank">reach out to me</a>{% else %} reach out to me{% endif %}</strong> anytime with questions or comments!</p>
+    </div>
+    {{ renderContactName(contactInfo) }}
+    <div class="cta-banner">
+        {% include 'email/asSeenIn.jinja2' %}
+    </div>
+{% endblock %}

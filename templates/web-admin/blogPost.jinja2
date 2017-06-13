@@ -1,0 +1,42 @@
+{% import "web-admin/form.jinja2" as form %}
+
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="blog-post">
+        <form role="form" class="form-horizontal" method="post">
+            <div class="meta">
+                <div class="actions">
+                    <button type="submit" class="btn btn-primary save">
+                        Save
+                    </button>
+                    {% if not post.new %}
+                        <a href="{{ post.getLink() }}"
+                            target="_blank" class="btn btn-default view">
+                            View
+                        </a>
+                    {% endif %}
+                </div>
+                {{ form.select('postType', post.postType, "Post Type", postTypes) }}
+                {{ form.text('title', post.title, "Title", required=True) }}
+                {{ form.text('slug', post.slug, "Slug", required=True) }}
+                {{ form.text('author', post.author, "Author")}}
+                {{ form.text('date', computerDatetime(post.date), "Date", 
+                    type='datetime-local', required=True) }}
+                {{ form.select('status', post.status, "Status", [
+                    ["publish", "Published"],
+                    ["draft", "Draft"],
+                    ["archive", "Archived"]]) }}
+                {{ form.textarea('excerpt', post.excerpt, "Excerpt Override") }}
+                {{ form.text('seoTitle', post.seoTitle, "SEO Title") }}
+                {{ form.textarea('seoDescription', post.seoDescription, "SEO Description") }}
+                {{ form.text('tags', post.tags|join(', '), "Tags (comma separated)")}}
+                <input type="hidden" name="content" value="" />
+            </div>
+            <div class="post-content">
+                {{ post.content|safe }}
+            </div>
+        </form>
+        {{ JsonPayload(isNew=post.slug == None) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ jsj.title }} - AddressReport Data</title>
+        <link rel="shortcut icon" href="{{ resource('/image/favicon.png') }}" />
+        <meta name="viewport" content="user-scalable=no,width=500">
+        <link href="/resource/compiled/jsj-monolith.css?tag={{ config().tag.hash }}" media="all" rel="stylesheet" type="text/css" />
+    </head>
+    <body class="jsj">
+        {% include 'client/gtmContainerTag.jinja2' %}
+        
+        <div class="header">
+            <div class="logo-space">
+                <a href="/" class="logo" target="_top">
+                    <img src="{{ resource('/image/logoWhite.png') }}" alt="AddressReport" />
+                </a>
+            </div>
+        </div>
+        
+        <div class="info">
+            <h1>{{ jsj.title }}</h1>
+            <p>{{ jsj.description }}</p>
+            <div class="shameless">
+                <h2>Moving? AddressReport uncovers the unbiased truth about any address.</h2>
+                <p>Enter any address to get the AddressReport:</p>
+                {{ AddressAutocomplete() }}
+                <ul>
+                    <li>crime</li>
+                    <li>demographic data</li>
+                    <li>building complaints &amp; violations</li>
+                    <li>bed bugs, roaches, rats</li>
+                    <li>plumbing, heat, and hot water</li>
+                    <li>subway access, commute times</li>
+                    <li>street and construction noise</li>
+                    <li>development &amp; alteration history</li>
+                    <li>and much more!</li>
+                </ul>
+            </div>
+        </div>
+        <div class="viz">
+            {% block body %}{% endblock%}
+        </div>
+        
+        {{ JsonPayload(
+            jsjSlug=jsj.slug,
+            clientState=clientState()) }}
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3J0_sX6Ty6Vwk5NS8nNUnYyInvx_r4bQ&sensor=false&libraries=places"></script>
+
+        {% include 'base/analytics.jinja2' %}
+
+        <script type="text/javascript" src="/resource/compiled/jsj-monolith.js?tag={{ config().tag.hash }}"></script>
+    </body>
+</html>

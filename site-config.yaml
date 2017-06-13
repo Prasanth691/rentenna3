@@ -1,0 +1,11 @@
+PIPELINE:
+  QUEUE: reporting
+  MODULE: reporting
+  REPORT_MODULE: rentenna3.reporting
+WEB:
+  SITE_PREFIX: ar
+  BASE_ADMIN_TEMPLATE: 'admin/baseAdmin.jinja2'
+BLOG:
+  POST_TYPES:
+  - name: blog
+    url: '/blog/%s/'

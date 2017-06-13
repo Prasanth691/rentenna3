@@ -1,0 +1,8 @@
+{
+  "name": "AddressReport",
+  "version": "3.0.0",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-web-rentenna3": "~0.1.13"
+  }
+}

@@ -1,0 +1,51 @@
+{% import 'common/pagination.jinja2' as pagination %}
+
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container blog-list">
+        <h1>Blog Admin</h1>
+        <a href="/web-admin/blog/new/" class="btn btn-primary">New Post</a>
+        <select class="post-type-select">
+            <option value="all">All Post Types</option>
+            {% for postType in postTypes %}
+                 <option value="{{ postType }}">
+                     {{ postType }}
+                 </option>
+            {% endfor %}
+        </select>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts.results %}
+                    <tr>
+                        <td>
+                            <a href="{{ post.getEditUrl() }}">
+                                {{ post.title }}    
+                            </a>
+                        </td>
+                        <td>
+                            {{ post.postType }}
+                        </td>
+                        <td>
+                            {{ humanDate(post.date) }}
+                        </td>
+                        <td>
+                            {{ post.status }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+
+        {{ pagination.render(posts) }}
+    </div>
+{% endblock %}

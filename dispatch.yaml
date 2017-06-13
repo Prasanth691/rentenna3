@@ -1,0 +1,8 @@
+application: rentenna3
+# No version required, this does routing independent of version
+
+dispatch:
+  - url: "*/_ah/pipeline/*"
+    module: reporting
+  - url: "*/*"
+    module: default

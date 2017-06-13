@@ -1,0 +1,25 @@
+{% macro render(
+        id, 
+        isDrilldown=True,
+        heading="Upgade now to unlock the full report",
+        description="""
+            The full AddressReport gives you access to the analysis
+            of over ten million data points. Upgrade now and view
+            unlimited AddressReports!
+        """,
+        button="Register Now"
+    ) %}
+    <div class="upgrade-cta {{ iff(isDrilldown, 'drilldown') }}" id="{{ id }}">
+        <div class="call">
+            <h3>
+                {{ heading }}
+            </h3>
+            <p>
+                {{ description }}
+            </p>
+            <button class="cta inverse upgrade-button" stat="{{ id }}">
+                {{ button }}
+            </button>
+        </div>
+    </div>
+{% endmacro %}

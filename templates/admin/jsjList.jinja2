@@ -1,0 +1,33 @@
+{% extends 'admin/baseAdmin.jinja2' %}
+{% block content %}
+    <div class="content blog-list jsj-list">
+        <h1>JSJ Admin</h1>
+        <a href="/admin/jsj/edit-post/?post=new" class="button primary">
+            Create New Post
+        </a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                    <tr>
+                        <td>
+                            <a href="{{ post.getAdminUrl() }}">
+                                {{ post.title }}
+                            </a>
+                        </td>
+                        <td>{{ date(post.date) }}</td>
+                        <td>{{ post.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

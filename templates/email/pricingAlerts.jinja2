@@ -1,0 +1,37 @@
+{% extends 'email/alertTemplateBase.jinja2' %}
+
+{% block extraCssClasses %}alert-base pricing-alert{% endblock %}
+
+{% block preview %}
+    See latest valuation for {{ property.shortName }}
+{% endblock %}
+
+{% block alerts %}
+    <div class="header-text no-margin" id="header-text">
+        <h1>There may be a change in the estimated value</h1>
+    </div>
+    {{ renderGreeting(user) }}
+    <p>
+        There may be a change in the estimated value of <strong>{{ property.shortName }}</strong> based on activity in the area.
+    </p>
+        {% if avm %}
+            <div class="section-heading">
+                CHECK THE ESTIMATED VALUE
+            </div>
+            <div class="section-container avm">
+                <div class="value-bar">
+                    <div class="property-value-bar">
+                        <div class="indicated-value">
+                            <a href="{{ otuLink('%s?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=property-alerts-pricing&utm_content=value-link' % property.getUrl(True)) }}#financial">
+                                {{ money(avm.indicatedValue, False) }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    <p>
+    These estimates are automatically generated based on various factors. They may or may not include crucial details that only a real estate professional can help with. Feel free to <strong>{% if contactInfo.email %}<a href="mailto:{{ contactInfo.email }}?subject=Estimated Value of {{ property.shortName }}" target="_blank">reach out to me</a>{% else %} reach out to me{% endif %}</strong> anytime to help value a property or provide a complete market analysis for you!
+    </p>
+    {{ renderContactName(contactInfo) }}
+{% endblock %}

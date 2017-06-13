@@ -1,0 +1,138 @@
+{% macro checkbox(name, checked, label) %}
+    <div class="form-group">
+        <div class="col-lg-offset-3 col-lg-9">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="{{ name }}"
+                        value="true" {{ iff(checked, "checked") }}>
+                    {{ label }}
+                </label>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro file(name, label) %}
+    <div class="form-group">
+        <label for="{{ name }}" class="col-lg-3 control-label">{{ label }}</label>
+        <div class="col-lg-9">
+            <input type="file" class="form-control"
+                id="{{ name }}" name="{{ name }}">
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro multicheckbox(name, value, label, options) %}
+    {# value is a list of preselected values #}
+    {# options is a list of [value, label] pairs #}
+    <div class="form-group">
+        <label for="{{ name }}" class="col-lg-3 control-label">{{ label }}</label>
+        <div class="col-lg-9">
+            {% for option in options %}
+                <div class="multicheckbox">
+                    <input type="checkbox" name="{{ name }}" value="{{ option[0] }}"
+                        {{ iff(option[0] in value, 'checked') }} />
+                    {{ option[1] }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro radio(name, value, label, options) %}
+    <div class="form-group">
+        <label for="{{ name }}" class="col-lg-3 control-label">{{ label }}</label>
+        <div class="col-lg-9">
+            {% for option in options %}
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="{{ name }}" value="{{ option[0] }}"
+                            {{ iff(option[0] == value, 'checked') }} />
+                        {{ option[1] }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro range(nameLow, nameHigh, valueLow, valueHigh, label) %}
+    <div class="form-group form-inline form-range">
+        <label for="{{ nameLow }}" class="col-lg-3 control-label">
+            {{ label }}
+        </label>
+        <div class="col-lg-9">
+            <input type="number" class="form-control lower"
+                id="{{ nameLow }}" name="{{ nameLow }}" placeholder="Lower Range"
+                value="{{ valueLow }}">
+            <input type="number" class="form-control upper"
+                id="{{ nameHigh }}" name="{{ nameHigh }}" placeholder="Upper Range"
+                value="{{ valueHigh }}">
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro select(name, value, label, options) %}
+    {# options is [value, label] pairs #}
+    <div class="form-group">
+        <label for="{{ name }}" class="col-lg-3 control-label">{{ label }}</label>
+        <div class="col-lg-9">
+            <select class="form-control" id="{{ name }}" name="{{ name }}">
+                {% for option in options %}
+                    <option value="{{ option[0] }}" {{ iff(option[0] == value, 'selected') }}>
+                        {{ option[1] }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro selectBooleanNullable(name, value, label) %}
+    <div class="form-group">
+        <label for="{{ name }}" class="col-lg-3 control-label">{{ label }}</label>
+        <div class="col-lg-9">
+            <select class="form-control" id="{{ name }}" name="{{ name }}">
+                    <option value="" {{ iff(value == None, 'selected') }}>
+                        None
+                    </option>
+                    <option value="True" {{ iff(value == True, 'selected') }}>
+                        True
+                    </option>
+                    <option value="False" {{ iff(value == False, 'selected') }}>
+                        False
+                    </option>
+            </select>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro text(name, value, label, type='text', readonly=False, disabled=False, step="any", required=False, placeholder=None) %}
+    <div class="form-group">
+        <label for="{{ name }}" class="col-lg-3 control-label">{{ label }}</label>
+        <div class="col-lg-9">
+            <input type="{{ type }}" class="form-control"
+                id="{{ name }}" name="{{ name }}" placeholder="{{ placeholder or label }}"
+                {% if value != None %}
+                    value="{{ value }}"
+                {% endif %}
+                {{ iff(readonly, 'readonly') }}
+                {{ iff(required, 'required') }}
+                {{ iff(disabled, 'disabled') }}
+                step="{{ step }}">
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro textarea(name, value, label, rows=5, required=False) %}
+    <div class="form-group">
+        <label for="{{ name }}" class="col-lg-3 control-label">{{ label }}</label>
+        <div class="col-lg-9">
+            <textarea class="form-control" id="{{ name }}" name="{{ name }}" rows="{{ rows }}" {{ iff(required, 'required') }}>
+                {%- if value != None -%}
+                    {{ value }}
+                {%- endif -%}
+            </textarea>
+        </div>
+    </div>
+{% endmacro %}

@@ -1,0 +1,14 @@
+<div class="loading-interim mock-loading">
+    <img src="{{ resource('/image/loading-256-dark-on-background.gif') }}" class="loading-r" />
+    {% if not quiz %}
+        <h1>Generating Report for {{ commonName }}...</h1>
+    {% endif %}
+    <div class="loading">
+        <div class="progress progress-striped active">
+            <div class="progress-bar">
+            </div>
+        </div>
+    </div>
+    <div class="loading-message">
+    </div>
+</div>

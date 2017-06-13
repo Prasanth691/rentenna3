@@ -1,0 +1,142 @@
+@import "web-base.sass"
+@import "base.sass"
+
+.explosion-map
+    .map
+        position: absolute
+        top: 0
+        bottom: 72px
+        left: 0
+        right: 0
+
+    .timeline
+        position: absolute
+        bottom: 0
+        right: 0
+        left: 0
+        height: 72px
+        background-color: $primary
+        color: $white
+        font-size: 32px
+        z-index: 100
+
+        .current
+            position: absolute
+            left: 20px
+            top: 20px
+
+        .reset
+            position: absolute
+            right: 20px
+            top: 12px
+            display: none
+
+            &.visible
+                display: block
+
+        .slider
+            position: absolute
+            left: 100px
+            right: 150px
+            top: 23px
+            height: 30px
+            background-color: $white
+
+            .now
+                background-color: $success
+                position: absolute
+                top: 0
+                left: 0
+                height: 30px
+                width: 0%
+
+.jsj
+    .header
+        padding-left: 20px
+
+    .info
+        position: absolute
+        top: 72px
+        left: 0
+        bottom: 0
+        width: 400px
+        background-color: $dark
+        color: $white
+        padding: 20px
+
+        @include isMobile()
+            display: none
+
+        h1
+            color: $white
+            font-size: 28px
+
+        h2
+            color: $white
+            font-size: 20px
+
+
+        .shameless
+            margin-top: 20px
+            padding-top: 20px
+            border-top: 1px solid $white
+
+            p
+                margin-bottom: 10px
+
+    .viz
+        position: absolute
+        top: 72px
+        left: 400px
+        right: 0
+        bottom: 0
+
+        @include isMobile()
+            left: 0
+
+@include keyframe('map-dot-explode-1')
+    0%
+        opacity: 0
+        @include circle(0px)
+    10%
+        @include circle(10px)
+        opacity: 1
+    100%
+        opacity: 0
+        @include circle(20px)
+
+@include keyframe('map-dot-explode-2')
+    0%
+        opacity: 0
+        @include circle(0px)
+    10%
+        @include circle(20px)
+        opacity: 1
+    100%
+        opacity: 0
+        @include circle(30px)
+
+@include keyframe('map-dot-explode-3')
+    0%
+        opacity: 0
+        @include circle(0px)
+    10%
+        @include circle(40px)
+        opacity: 1
+    100%
+        opacity: 0
+        @include circle(50px)
+
+.map-dot
+
+    &.explode-1
+        transition: none
+        @include animation(0s, 5s, 'map-dot-explode-1')
+
+    &.explode-2
+        transition: none
+        @include animation(0s, 5s, 'map-dot-explode-2')
+
+    &.explode-3
+        transition: none
+        @include animation(0s, 5s, 'map-dot-explode-3')

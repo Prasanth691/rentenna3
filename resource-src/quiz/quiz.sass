@@ -1,0 +1,163 @@
+.quiz-content
+    margin: 0px auto
+    width: 850px
+
+    @include isMobile()
+        width: 500px
+
+    .dropdown-slide
+        select
+            display: inline-block
+            height: 40px
+            line-height: 30px
+            border: 1px solid #aaa
+            padding: 10px
+            color: #555
+            font-size: 28px
+            width: 100%
+
+        button
+            margin-top: 10px
+            font-size: 36px
+
+    .free-text-slide
+        input
+            font-size: 34px
+            border-radius: 5px
+            border: 1px solid #ccc
+            padding: 5px
+            width: 100%
+
+        button
+            margin-top: 10px
+            font-size: 20px
+
+    .progression
+        width: 380px
+        height: 30px
+        margin: 5px auto 20px auto
+        position: relative
+
+        h5
+            display: inline-block
+            margin: 10px
+
+        .meter
+            display: inline-block
+            position: absolute
+            top: 3px
+            right: 0px
+            width: 250px
+            height: 25px
+            border-radius: 10px
+            border: 2px solid
+
+            .meter-fill
+                left: 0px
+                width: 0px
+                height: 22px
+                border-radius: 7px
+
+    .slide
+
+        margin: 0px auto
+        height: 400px
+        text-align: center
+        vertical-align: middle
+
+        &.box-rectangle
+            .option-box
+                width: 300px
+
+                @include isMobile()
+                    width: 200px
+
+        &.box-large-square
+            .option-box
+                vertical-align: top
+                width: 199px
+                height: 190px
+                padding: 5px 10px 10px 10px
+
+                .fa
+                    margin-top: 15px
+                
+                @include isMobile()
+                    width: 235px
+                    height: 200px
+                    padding: 5px 10px 10px 10px
+
+        &.box-small-square
+            .option-box
+                vertical-align: top
+                width: 120px
+                height: 120px
+                padding: 20px
+                
+                @include isMobile()
+                    width: 175px
+                    height: 80px
+                    padding: 12px 20px
+       
+        &.box-square
+            .option-box
+                vertical-align: top
+                width: 170px
+                height: 150px
+
+                .fa
+                    margin-top: 15px
+                
+                @include isMobile()
+                    width: 200px
+                    height: 110px
+                    padding: 0px
+
+        &.flow-block 
+            .option-box
+                display: block
+
+        &.flow-inline
+            .option-box
+                display: inline-block
+
+        img
+            display: block
+            margin: 15px auto
+            border-radius: 5px
+            padding: 10px
+            background-color: #ECF0F1
+
+        form
+            padding-bottom: 3.5em
+        
+        .clickable
+            cursor: pointer
+
+        .option-box
+            background-color: #fff
+            border-color: #000
+            padding: 10px 0px
+            border-radius: 5px
+            text-align: center
+            margin: 5px
+            border: 2px solid
+
+            &.has-color:hover
+                box-shadow: inset 0px 0px 15px rgba(0,0,0,0.7)
+
+            &.text-only-option
+                vertical-align: middle
+
+        .options
+            display: inline-block
+            vertical-align: middle
+            margin-top: 20px
+ 
+.stupid-links
+    position: fixed
+    bottom: 5px
+    right: 5px
+
+    @include isMobile()
+        display: none

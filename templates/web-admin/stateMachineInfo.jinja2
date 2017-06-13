@@ -1,0 +1,48 @@
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container state-machine-info">
+        <ol class="breadcrumb">
+            <li><a href="/web-admin/state-machines/">RSM</a></li>
+            <li class="active">{{ machine.__name__ }}</li>
+        </ol>
+        <h1>State Machine: {{ machine.__name__ }}</h1>
+        <p>
+            <a href="{{ machine.getGraphVizUrl() }}" target="_blank">
+                Download GraphViz
+            </a>
+        </p>
+        <h2>Recent Executions:</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Created</th>
+                    <th>Last Activity</th>
+                    <th>Current State</th>
+                    <th>Execution State</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for execution in recentExecutions %}
+                    <tr>
+                        <td>
+                            <a href="{{ execution.getLogUrl() }}">
+                                {{ execution.key.id() }}
+                            </a>
+                        </td>
+                        <td>{{ humanDateTime(execution.created, brief=True) }}</td>
+                        <td>{{ humanDateTime(execution.lastActivity, brief=True) }}</td>
+                        <td>{{ execution.currentState }}</td>
+                        <td>{{ execution.executionState }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if nextCursor %}
+            <a href="{{ machine.getAdminUrl() }}?cursor={{ nextCursor.urlsafe() }}" class="btn btn-default">
+                Next Page
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

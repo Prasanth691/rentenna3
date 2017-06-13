@@ -1,0 +1,393 @@
+{% import 'base/forms.nunjucks' as forms %}
+{% import 'client/upgradeCta.jinja2' as upgradeCta %}
+
+{% macro renderSubways(nycSubway) %}
+    <div class="subway">
+        <h3 class="content">Subway Access</h3>
+        <div class="subsection-row content">
+            {% for subwayEntrance in nycSubway.subwayEntrances %}
+                <div class="subway-entrance">
+                    <div class="name">
+                        {{ subwayEntrance.getNiceName() }}
+                    </div>
+                    <div class="lines">
+                        {% for line in subwayEntrance.getLines() %}
+                            <div class="subway-line" line="{{ line }}" city="{{ target.city }}">
+                                {{ line.split(" ")[0] }}
+                            </div>
+                        {% endfor %}
+                        <div class="distance">
+                            <img src="{{ resource('/image/walkingMan.png') }}" class="walking" />
+                            {{ getWalkingDistance(subwayEntrance.distance) }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="subway-entrance">
+                    <div class="name">
+                        No subway entrances 
+                        {{ target.getCity().getDistance('reasonableTravel')['description'] }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro renderCommuteOptimizer() %}
+    <div class="commute-optimizer content">
+        <h3>Your Commute Times</h3>
+        <div class="destinations">
+        </div>
+        <div class="new-location">
+            <div class="new-location-form">
+                <div class="name">
+                    {{ forms.text('Nickname', 'name') }}
+                </div>
+                <div class="address">
+                    {{ forms.text('Address', 'address') }}
+                </div>
+                <div class="travel-modes">
+                    <div class="travel-mode active" title="Transit" data-mode="TRANSIT">
+                        <img src="{{ resource('/image/noun-project/train.svg') }}" class="train"/>
+                    </div>
+                    <div class="travel-mode" title="Driving" data-mode="DRIVING">
+                        <img src="{{ resource('/image/noun-project/driving.svg') }}" class="driving"/>
+                    </div>
+                    <div class="travel-mode" title="Walking" data-mode="WALKING">
+                        <img src="{{ resource('/image/noun-project/walking.svg') }}" class="walking"/>
+                    </div>
+                </div>
+                <div class="actions">
+                    
+                    <button class="danger outline cancel" type="button">
+                        <span class="fa fa-times"></span>
+                        Cancel
+                    </button>
+                    <button class="success outline save" type="button">
+                        <span class="fa fa-plus"></span>
+                        Save Destination
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button class="primary edit-locations">
+            <span class="fa fa-plus"></span>
+            Add/Edit Locations
+        </button>
+        {{ JsonPayload(address=target.getFullAddress()) }}
+    </div>
+{% endmacro %}
+
+{% macro renderTimeLeavingForWork(commuteStats) %}
+    {% if commuteStats.modeTimeLeavingForWork %}
+        <div class="narrative-box-container time-leaving-for-work-narrative-box">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    The common time to leave
+                    for work in this neighborhood is
+                </div>
+                <div class="qualitative">
+                    {{ commuteStats.modeTimeLeavingForWork }}
+                </div>
+            </div>
+
+            {% if commuteStats.timeLeavingForWork %}
+                <button class="drilldown-button" target="time-leaving-for-work">
+                    <span class="label">
+                        See the commute stats
+                    </span>
+                </button>
+                {{ renderTimeLeavingForWorkDrilldown(commuteStats) }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTimeLeavingForWorkDrilldown(commuteStats) %}
+    {% if renderFullReport %}
+        <div class="time-leaving-for-work-stats multi-drilldown-base drilldown" id="time-leaving-for-work">
+            {{ JsonPayload(
+                timeLeavingForWork=commuteStats.timeLeavingForWork,
+                commuteTimes=commuteStats.commuteTimes) }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTransportationType(commuteStats) %}
+    {% if commuteStats.modeCommuteMethod %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    The most common way to commute in this
+                    neighborhood is
+                </div>
+                <div class="qualitative">
+                    {{ commuteStats.modeCommuteMethod }}
+                </div>
+            </div>
+
+            {% if commuteStats.commuteMethods %}
+                <button class="drilldown-button" target="commute-methods">
+                    <span class="label">
+                        See the distribution
+                    </span>
+                </button>
+                {{ renderTransportationTypeDrilldown(commuteStats) }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTransportationTypeDrilldown(commuteStats) %}
+    {% if renderFullReport %}
+        <div class="commute-methods-stats multi-drilldown-base drilldown" id="commute-methods">
+            {{ JsonPayload(
+                stats=subsections.commuteStats.commuteMethods) }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderCitibikeCount(commuteStats) %}
+    {% if not isMissing(commuteStats.citibikeCount) %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There {{ pluralName(commuteStats.citibikeCount, "is", "are") }}
+                </div>
+                <div class="number">
+                    {{ commuteStats.citibikeCount }}
+                </div>
+                <div class="units">
+                    {{ pluralName(commuteStats.citibikeCount, "Citi Bike Station") }}
+                    {{ target.getCity().getDistance('area')['description'] }} 
+                    of {{ commonName }}
+                </div>
+            </div>
+
+            <button class="drilldown-button" target="citibike-map">
+                <span class="label">
+                    See the citi bike map
+                </span>
+            </button>
+            {{ renderCitibikeMap() }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderCitibikeMap() %}
+    {% if renderFullReport %}
+        <div class="citibike-map drilldown map-drilldown" id="citibike-map">
+            {{ JsonPayload(
+                location=target.location) }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTaxiWaitTime(taxiStats) %}
+    {% if taxiStats.taxiWaitTime %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    The typical wait time for a taxi is
+                </div>
+                {% if taxiStats.taxiWaitTime <= 90 %}
+                    <div class="number">
+                        {{ taxiStats.taxiWaitTime }}
+                    </div>
+                    <div class="units">
+                        {{ pluralName(taxiStats.taxiWaitTime, "second") }}
+                        at 
+                        {{ taxiStats.taxiBestIntersection.getName() }}
+                    </div>
+                {% else %}
+                    <div class="number">
+                        {{ ceil(taxiStats.taxiWaitTime/60) }}
+                    </div>
+                    <div class="units">
+                        {{ pluralName(ceil(taxiStats.taxiWaitTime/60), "minute") }}
+                        at 
+                        {{ taxiStats.taxiBestIntersection.getName() }}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if taxiStats.taxiWaitTimeByHour %}
+                <button class="drilldown-button" target="taxi-wait-by-hour">
+                    <span class="label">
+                        See Wait Time by Hour
+                    </span>
+                </button>
+                {% if renderFullReport %}
+                    <div class="drilldown taxis-by-hour" id="taxi-wait-by-hour">
+                        {{ JsonPayload(
+                            data=taxiStats.taxiWaitTimeByHour,
+                            mode='wait',
+                            title='Taxi Wait Times by Hour') }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTaxiPassEmpties(taxiStats) %}
+    {% if taxiStats.taxiPassEmpties %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    In a typical hour
+                </div>
+                <div class="number">
+                    {{ taxiStats.taxiPassEmpties }}
+                </div>
+                <div class="units">
+                    available
+                    {{ pluralName(taxiStats.taxiPassEmpties, "taxi") }}
+                    pass by
+                    {{ taxiStats.taxiBestIntersection.getName() }}
+                </div>
+            </div>
+            {% if taxiStats.taxiPassEmptiesByHour %}
+                <button class="drilldown-button" target="taxi-pass-empties-by-hour">
+                    <span class="label">
+                        See Available Taxis by Hour
+                    </span>
+                </button>
+                {% if renderFullReport %}
+                    <div class="drilldown taxis-by-hour" id="taxi-pass-empties-by-hour">
+                        {{ JsonPayload(
+                            data=taxiStats.taxiPassEmptiesByHour,
+                            mode='taxis',
+                            title='Available Taxis by Hour') }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTaxiPickups(taxiStats) %}
+    {% if taxiStats.taxiPickups %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    In a typical hour
+                </div>
+                <div class="number">
+                    {{ taxiStats.taxiPickups }}
+                </div>
+                <div class="units">
+                    {{ pluralName(taxiStats.taxiPassEmpties, "taxi") }}
+                    pick up passengers at
+                    {{ taxiStats.taxiBestIntersection.getName() }}
+                </div>
+            </div>
+            {% if taxiStats.taxiPickupsByHour %}
+                <button class="drilldown-button" target="taxi-pickups-by-hour">
+                    <span class="label">
+                        See Pickups by Hour
+                    </span>
+                </button>
+                {% if renderFullReport %}
+                    <div class="drilldown taxis-by-hour" id="taxi-pickups-by-hour">
+                        {{ JsonPayload(
+                            data=taxiStats.taxiPickupsByHour,
+                            mode='pickups',
+                            title='Taxi Pickups by Hour') }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTaxiDropoffs(taxiStats) %}
+    {% if taxiStats.taxiDropoffs %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    In a typical hour
+                </div>
+                <div class="number">
+                    {{ taxiStats.taxiDropoffs }}
+                </div>
+                <div class="units">
+                    {{ pluralName(taxiStats.taxiPassEmpties, "taxi") }}
+                    drop off passengers at
+                    {{ taxiStats.taxiBestIntersection.getName() }}
+                </div>
+            </div>
+            {% if taxiStats.taxiDropoffsByHour %}
+                <button class="drilldown-button" target="taxi-dropoffs-by-hour">
+                    <span class="label">
+                        See Dropoffs by Hour
+                    </span>
+                </button>
+                {% if renderFullReport %}
+                    <div class="drilldown taxis-by-hour" id="taxi-dropoffs-by-hour">
+                        {{ JsonPayload(
+                            data=taxiStats.taxiDropoffsByHour,
+                            mode='dropoffs',
+                            title='Taxi Dropoffs by Hour') }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderCarAvailability(commuteStats) %}
+    {% if commuteStats.carsPercent %}
+        <div class="narrative-box-container time-leaving-for-work-narrative-box">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    The percent of households with at least one
+                    car in this area is 
+                </div>
+                <div class="number">
+                    {{ percent(commuteStats.carsPercent, True) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+<div class="transportation-report-section report-section">
+    <div class="report-section-header">
+        <h2>Transportation</h2>
+    </div>
+
+    {% if subsections.nycSubway %}
+        {{ renderSubways(subsections.nycSubway) }}
+    {% endif %}
+
+    {% if subsections.nycTaxi %}
+        <div class="taxi-stats">
+            <h3 class="content">Taxi Stats</h3>
+            
+            <div class="subsection-row content">
+                {{ renderTaxiWaitTime(subsections.nycTaxi) }}
+                {{ renderTaxiPassEmpties(subsections.nycTaxi) }}
+                {{ renderTaxiPickups(subsections.nycTaxi) }}
+                {{ renderTaxiDropoffs(subsections.nycTaxi) }}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if subsections.commuteStats %}
+        <div class="commute-stats">
+            <h3 class="content">Commute Stats</h3>
+            
+            <div class="subsection-row content">
+                {{ renderTimeLeavingForWork(subsections.commuteStats) }}
+                {{ renderTransportationType(subsections.commuteStats) }}
+                {{ renderCitibikeCount(subsections.commuteStats) }}
+                {{ renderCarAvailability(subsections.commuteStats) }}
+            </div>
+        </div>
+    {% endif %}
+
+    {{ renderCommuteOptimizer() }}
+
+</div>

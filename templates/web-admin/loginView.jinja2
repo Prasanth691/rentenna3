@@ -1,0 +1,18 @@
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container">
+        <form class="form-signin little-form" method="POST">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            {% if error %}
+                <div class="alert alert-danger">Sorry, that's wrong.</div>
+            {% endif %}
+            <input type="text" class="form-control" placeholder="Username" name="username" value="{{ username }}" autofocus />
+            {% if back %}
+                <input type="hidden" name="back" value="{{ back }}" />
+            {% endif %}
+            <input type="password" class="form-control" placeholder="Password" name="password" value="{{ password }}" />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,186 @@
+<style type="text/css">
+    {% include 'email/style.css' %}
+</style>
+
+{% set partnerLogo = appCustomizer.partnerLogo() %}
+{% set contactInfo = appCustomizer.getContactInfo() %}
+{% set urlBase = appCustomizer.urlBase() %}
+{% set brandingPositionClass = iff( appCustomizer.brandingPosition() == 'left', 'branding-left', 'branding-right' ) %}
+{% set cobrandingClass = iff( appCustomizer.cobranding(), 'with-cobranding', 'without-cobranding' ) %}
+{% set emailHeaderColorClass = iff( appCustomizer.headerStyle() == 'dark', 'email-header-dark', 'email-header-light' ) %}
+{% set customLink = appCustomizer.settings().get('customLink') %}
+{% set customLinkLabel = appCustomizer.settings().get('customLinkLabel') %}
+{% set logoLink = appCustomizer.settings().get('logoLink') %}
+
+{% macro renderGreeting(user) %}
+    {% if user.firstName %}
+    <p>
+        Hi {{ user.firstName }},
+    </p>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderContactName(contactInfo) %}
+    <p class="light">
+    {% if contactInfo and contactInfo.name %}
+        <b>- {{ contactInfo.name }}</b>
+    {% else %}
+        <b>- Team AddressReport</b>
+    {% endif %}
+    </p>
+{% endmacro %}
+
+{% macro renderPartnerLogo() %}
+    {% if logoLink %}
+        <a href="{{ logoLink }}#external" target="_blank">
+            <!-- <img src="{{ urlJoin( urlBase, partnerLogo ) }}" class="logo-img" /> -->
+            <img src="{{ photoServingUrl(partnerLogo, 200) }}" class="logo-img" />
+        </a>
+    {% else %}
+        <!-- <img src="{{ urlJoin( urlBase, partnerLogo ) }}" class="logo-img" /> -->
+        <img src="{{ photoServingUrl(partnerLogo, 200) }}" class="logo-img" />
+    {% endif %}
+{% endmacro %}
+
+
+<div class="ar-email-container">
+    <div class="ar-email {% block extraCssClasses %}{% endblock %}">
+        <!-- {{ brandingPositionClass }} -->
+        <div class="ar-email-body {{ brandingPositionClass }} {{ cobrandingClass }}">
+            {% include 'email/unsubscribeInferiorEmailClients.jinja2' %}
+            <div class="preview small">
+                {% block preview %}{% endblock %}
+            </div>
+            <div class="view-email small">
+                If you're having trouble viewing this email, click <a target="_blank" href="{{ urlJoin(urlBase, emailUrl) }}">here</a> to view in your browser.
+            </div>
+            <div class="email-header {{ emailHeaderColorClass }}" id="email-header">
+            {% block branding %}
+            {% if not partnerLogo %}
+                <div class="logo without-partnership">
+                    <img width="280" src="https://www.addressreport.com/resource/image/logoWhite.png" class="logo-img" />
+                </div>
+            {% else %}
+                {% if cobrandingClass == 'with-cobranding' %}
+                <div class="logo with-partnership">
+                    <div class="ar-stuff">
+                        <img width="135" src="https://www.addressreport.com/resource/image/logoBlack.png" class="logo-img" />
+                        <div class="partnership-note">
+                            in partnership with
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if contactInfo %}
+
+                    <table class="header-table" width="100%">
+                        <tr>
+
+                        {% if brandingPositionClass == 'branding-left' %}
+                            <td class="cell partner-logo">
+                                {{ renderPartnerLogo() }}
+                            </td>
+                        {% endif %}
+
+                                    {% if brandingPositionClass != 'branding-left' %}
+                                        {% if contactInfo.photo %}
+                                            <td class="cell contact-photo">
+                                                <!-- <img src="{{ urlJoin( urlBase, contactInfo.photo) }}" class="photo-img" /> -->
+                                                <img src="{{ photoServingUrl(contactInfo.photo, 96) }}" class="photo-img" />
+                                            </td>
+                                        {% endif %}
+                                    {% endif %}
+
+                                        <td class="cell contact-details">
+                                            <div class="name">
+                                                {{ contactInfo.name }}
+                                            </div>
+                                            {% if contactInfo.company %}
+                                                <div class="company">
+                                                    {{ contactInfo.company }}
+                                                </div>
+                                            {% endif %}
+                                            {% if contactInfo.phone %}
+                                                <div class="phone">
+                                                    {{ contactInfo.phone }}
+                                                </div>
+                                            {% endif %}
+                                            {% if contactInfo.license %}
+                                                <div class="license">
+                                                    LIC#: {{ contactInfo.license }}
+                                                </div>
+                                            {% endif %}
+                                            {% if contactInfo.email or contactInfo.website %}
+                                                <div class="link-me">
+                                                    {% if contactInfo.email %}
+                                                        <a href="mailto:{{ contactInfo.email }}" target="_blank">Email me Today</a><br />
+                                                    {% endif %}
+                                                    {% if contactInfo.website %}
+                                                        <a href="{{ contactInfo.website }}#external" target="_blank">Visit Our Website</a><br />
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                            {% if customLink %}
+                                                <div class="custom-link">
+                                                    <a href="{{ customLink }}#external" target="_blank">{{ customLinkLabel }}</a>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+
+                                    {% if brandingPositionClass == 'branding-left' %}
+                                        {% if contactInfo.photo %}
+                                            <td class="cell contact-photo">
+                                                <!-- <img src="{{ urlJoin( urlBase, contactInfo.photo) }}" class="photo-img" /> -->
+                                                <img src="{{ photoServingUrl(contactInfo.photo, 96) }}" class="photo-img" />
+                                            </td>
+                                        {% endif %}
+                                    {% endif %}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        {% if brandingPositionClass != 'branding-left' %}
+                            <td id="partner-logo-right" class="cell partner-logo">
+                                {{ renderPartnerLogo() }}
+                            </td>
+                        {% endif %}
+                        </tr>
+                    </table>
+
+                {% endif %}
+            {% endif %}
+            {% endblock %}
+            </div>
+
+            <div class="email-content">
+                <div class="content-header">
+                    {% block header %}
+                    {% endblock %}
+                </div>
+                {% block banner %}
+                {% endblock %}
+                <div class="content-body">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="email-footer light">
+                <p class="small">
+                    &#169; Copyright 2017 Onboard Informatics. All rights reserved.<br>
+                    You're receiving this email because you signed up for property reports<br>
+                    and alerts from <a href="https://www.addressreport.com">AddressReport.com</a> and our partners.<br><br>
+                    {% block footerLinks %}
+                        <a href="{{ unsubscribe }}">Unsubscribe</a>
+                        |
+                        <a href="https://www.addressreport.com/profile/">Update Your Account</a><br><br>
+                    {% endblock %}
+                    Onboard Informatics<br />
+                    AddressReport Team<br>
+                    85 Broad Street, 29th Floor<br>
+                    New York, NY 10004
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

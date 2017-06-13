@@ -1,0 +1,329 @@
+{% import 'client/maskedMeter.jinja2' as maskedMeter %}
+
+{% macro expenseMeter(name, key, expenses) %}
+    <div class="expense {{ expenses[key].direction }}">
+        <h4>
+            {{ name }}
+        </h4>
+        <div class="statistical">
+            {{ percent(expenses[key].difference, True) }}
+            {{ expenses[key].direction }}
+            <span class="extra">
+                than the national average
+            </span>
+        </div>
+        {{ maskedMeter.render(expenses[key].percent, 'cash', centered=False) }}
+    </div>
+{% endmacro %}
+
+{% macro salesList(sales) %}
+    {% for sale in sales %}
+        <div class="sale">
+            <div class="sale-header">
+                <div class="sale-info">
+                    <div class="sale-price">{{ money(sale.get('closePrice'), False) }}</div>
+                    <div class="sale-date">{{ humanDate(sale.get('closeDate')) }}</div>
+                </div>
+                <div class="address">
+                    <div class="street-address">
+                        <a href="{{ sale.getPropertyLink() }}">
+                            {{ sale.get('street').title() }}
+                        </a>
+                    </div>
+                    <div class="distance">
+                        {{ commas(sale.get('distance'), 2) }} miles away
+                    </div>
+                </div>
+            </div>
+            {% if
+                    sale.get('bedrooms')
+                    or sale.get('yearBuilt')
+                    or sale.get('sqft')
+                    or sale.get('bathrooms')
+                    or sale.get('floorCount')
+                    or sale.get('lotSize') %}
+                <div class="property-info">
+                    {% if sale.get('bedrooms') %}
+                        <div class="fact">
+                            <span class="key">Bedrooms:</span>
+                            <span class="value">{{ sale.get('bedrooms') }}</span>
+                        </div>
+                    {% endif %}
+                    {% if sale.get('yearBuilt') %}
+                        <div class="fact">
+                            <span class="key">Build Year:</span>
+                            <span class="value">{{ sale.get('yearBuilt') }}</span>
+                        </div>
+                    {% endif %}
+                    {% if sale.get('sqft') %}
+                        <div class="fact">
+                            <span class="key">Square Feet:</span>
+                            <span class="value">{{ commas(sale.get('sqft')) }}</span>
+                        </div>
+                    {% endif %}
+                    {% if sale.get('bathrooms') %}
+                        <div class="fact">
+                            <span class="key">Bathrooms:</span>
+                            <span class="value">{{ sale.get('bathrooms') }}</span>
+                        </div>
+                    {% endif %}
+                    {% if sale.get('floorCount') %}
+                        <div class="fact">
+                            <span class="key">Floor Count:</span>
+                            <span class="value">{{ sale.get('floorCount') }}</span>
+                        </div>
+                    {% endif %}
+                    {% if sale.get('lotSize') %}
+                        <div class="fact">
+                            <span class="key">Lot Size:</span>
+                            <span class="value">
+                                {{ commas(sale.get('lotSize')/43560, 2) }}
+                                acres
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+<div class="financial-report-section report-section">
+    <div class="report-section-header">
+        <h2>Financial</h2>
+    </div>
+
+    {% if subsections.propertyValue and subsections.propertyValue.preferredValueRange %}
+        <div class="property-value content">
+            <h3>
+                {% if not subsections.propertyValue.preferredValueRange.caveat == 'area' %}
+                    Property
+                {% endif %}
+                Value Estimate*
+            </h3>
+            <div class="value-bar">
+                <div class="property-value-bar">
+                    <div class="indicated-value">
+                        {{ money(subsections.propertyValue.preferredValueRange.indicated, False) }}
+                    </div>
+                    <div class="low-line"></div>
+                    <div class="low-value">
+                        {{ money(subsections.propertyValue.preferredValueRange.low, False) }}
+                    </div>
+                    <div class="high-line"></div>
+                    <div class="high-value">
+                        {{ money(subsections.propertyValue.preferredValueRange.high, False) }}
+                    </div>
+                </div>
+            </div>
+            {% set disableClickToSpeak = app().settings().get("suppression.property.Financial.propertyValue-clickToSpeak") %}
+            {% if subsections.propertyValue.preferredValueRange.caveat == 'accuracy' %}
+                <div class="caveat">
+                    *Value Estimates are based on a variety of algorithmic factors.
+                    {% if not disableClickToSpeak %}
+                        <a href="#" class="speak-with-expert">
+                            Click here to speak
+                        </a>
+                        with a local neighborhood specialist
+                        who can provide you with a free, custom analysis of the value of
+                        this property.
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="caveat">
+                    *Value Estimate range is for typical homes in this area.
+                    {% if not disableClickToSpeak %}
+                        <a href="#" class="speak-with-expert">
+                            Click here to speak
+                        </a>
+                        with a neighborhood specialist
+                        who can provide you with a free, custom valuation of this property.
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if subsections.expenses %}
+        <div class="expenses content drilldown" id="expenses" inline="true">
+            <h3>
+                Cost of living
+            </h3>
+            <div class="expense-meters">
+                <div class="national-average">
+                    National Average
+                </div>
+                {{ expenseMeter("Overall costs", 'total', subsections.expenses) }}
+                {{ expenseMeter("Housing costs", 'shelter', subsections.expenses) }}
+                {{ expenseMeter("Food & Beverage costs", 'foodAndBeverage', subsections.expenses) }}
+                {{ expenseMeter("Transportation costs", 'transportation', subsections.expenses) }}
+                {{ expenseMeter("Apparel costs", 'apparel', subsections.expenses) }}
+                {{ expenseMeter("Entertainment costs", 'entertainment', subsections.expenses) }}
+                {{ expenseMeter("Utility costs", 'utilities', subsections.expenses) }}
+                {{ expenseMeter("Healthcare costs", 'healthCare', subsections.expenses) }}
+                {{ expenseMeter("Insurance costs", 'personalInsurance', subsections.expenses) }}
+                {{ expenseMeter("Tobacco costs", 'tobacco', subsections.expenses) }}
+            </div>
+            <div class="drilldown-button-space">
+                <button class="drilldown-button expand-expense-meters" target="expenses">
+                    <span class="label">
+                        See the breakdown by category
+                    </span>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if subsections.incomes %}
+        <div class="incomes">
+            <h3 class="content">Income</h3>
+            <div class="subsection-row content">
+
+                {% if subsections.incomes.medianHouseholdIncome %}
+                    <div class="narrative-box-container">
+                        <div class="narrative-box neutral">
+                            <div class="intro">
+                                The median household income in this area is
+                            </div>
+                            <div class="number">
+                                {{ money(subsections.incomes.medianHouseholdIncome, False) }}
+                            </div>
+                            <div class="units">
+                                Per year
+                            </div>
+                        </div>
+                        {% if subsections.incomes.householdIncomeBreakdown %}
+                            <button class="drilldown-button" target="household-income-stats">
+                                <span class="label">
+                                    See the breakdown
+                                </span>
+                            </button>
+                            {% if renderFullReport %}
+                                <div class="single-stats-drilldown multi-drilldown-base drilldown" id="household-income-stats">
+                                    {{ JsonPayload(
+                                        title="Household Income",
+                                        mode="simple",
+                                        unitLabel="Annual Household Income (USD)",
+                                        labelSpace=110,
+                                        stats=subsections.incomes.householdIncomeBreakdown) }}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if subsections.incomes.medianIndividualIncome %}
+                    <div class="narrative-box-container">
+                        <div class="narrative-box neutral">
+                            <div class="intro">
+                                The median full-time individual income in this area is
+                            </div>
+                            <div class="number">
+                                {{ money(subsections.incomes.medianIndividualIncome, False) }}
+                            </div>
+                            <div class="units">
+                                Per year
+                            </div>
+                        </div>
+                        {% if subsections.incomes.earningsBySex %}
+                            <button class="drilldown-button" target="earnings-by-sex-stats">
+                                <span class="label">
+                                    See the breakdown by sex
+                                </span>
+                            </button>
+                            {% if renderFullReport %}
+                                <div class="single-stats-drilldown multi-drilldown-base drilldown" id="earnings-by-sex-stats">
+                                    {{ JsonPayload(
+                                        title="Individual Income",
+                                        mode="bisected",
+                                        dataLabels=['Male', 'Female'],
+                                        unitLabel="Annual Individual Income (USD)",
+                                        labelSpace=110,
+                                        stats=subsections.incomes.earningsBySex) }}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="content taxes clearfix">
+        {% if subsections.rentVsOwn %}
+            <div class="half-subsection-row rent-v-own">
+                <h3>Rent vs. Own</h3>
+
+                <div class="subsection-row">
+                    <div class="narrative-box-container">
+                        <div class="narrative-box neutral">
+                            <div class="intro">
+                                The percent of households occupied by renters is
+                            </div>
+                            <div class="number">
+                                {{ percent(subsections.rentVsOwn.rent) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="narrative-box-container">
+                        <div class="narrative-box neutral">
+                            <div class="intro">
+                                The percent of households occupied by owners is
+                            </div>
+                            <div class="number">
+                                {{ percent(subsections.rentVsOwn.own) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if subsections.taxes %}
+            <div class="half-subsection-row">
+                <h3>Tax Information</h3>
+
+                <div class="subsection-row">
+                    {% if not isMissing(subsections.taxes.salesTax) %}
+                        <div class="narrative-box-container">
+                            <div class="narrative-box neutral">
+                                <div class="intro">
+                                    The sales tax rate in this area is
+                                </div>
+                                <div class="number">
+                                    {{ percent(subsections.taxes.salesTax, True, True) }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if not isMissing(subsections.taxes.propertyTax) %}
+                        <div class="narrative-box-container">
+                            <div class="narrative-box neutral">
+                                <div class="intro">
+                                    The average annual property tax in this area is
+                                </div>
+                                <div class="number">
+                                    {{ money(subsections.taxes.propertyTax, cents=False) }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if subsections.nearbySales %}
+        <a name="nearby-sales"></a>
+        <div class="nearby-sales content">
+            <h3>Recent Sales Nearby</h3>
+            <div class="half-subsection-row">
+                {{ salesList(subsections.nearbySales.sales[::2]) }}
+            </div>
+            <div class="half-subsection-row">
+                {{ salesList(subsections.nearbySales.sales[1::2]) }}
+            </div>
+        </div>
+    {% endif %}
+
+</div>

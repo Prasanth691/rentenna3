@@ -1,0 +1,57 @@
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+    <div class="blog blog-post">
+        <div class="shameless">
+            <h2>Moving is Stressful.<br/>We can help.</h2>
+            <p>
+                AddressReport mines millions of public records to 
+                reveal the unbiased truth about any address. Never 
+                move into an apartment without seeing its AddressReport.
+            </p>
+            <p>Enter any address to get the AddressReport:</p>
+            {{ AddressAutocomplete() }}
+            <div>
+                <p>Look up any address to explore:</p>
+                <ul>
+                    <li>crime</li>
+                    <li>demographic data</li>
+                    <li>building complaints &amp; violations</li>
+                    <li>bed bugs, roaches, rats</li>
+                    <li>plumbing, heat, and hot water</li>
+                    <li>subway access, commute times</li>
+                    <li>street and construction noise</li>
+                    <li>development &amp; alteration history</li>
+                    <li>and much more!</li>
+                </ul>
+            </div>
+        </div>
+        <div class="blog-meat">
+            <div class="ad-header">
+                <a target="_blank" href="http://www.insurent.com/?utm_source=rentenna.com">
+                    <img class="insurent-banner" src="{{ resource('/image/insurent-banner.jpg') }}" />
+                </a>
+            </div>
+            <div class="blog-entry">
+                <h1>    
+                    {{ blogEntry.title }}
+                </h1>
+                <div class="date">
+                    {{ date(blogEntry.date, '%B %d, %Y') }}
+                </div>
+                <div class="social">
+                    <a href="{{ facebookShare }}" target="_blank" class="social-share">
+                        <img src="{{ resource('/image/facebook.png') }}" />
+                    </a>
+                    <a href="{{ twitterShare }}" target="_blank" class="social-share">
+                        <img src="{{ resource('/image/twitter.png') }}" />
+                    </a>
+                </div>
+                <div class="blog-content">
+                    {{ blogEntry.content|safe }}
+                </div>
+            </div>
+        </div>
+
+        {{ JsonPayload(slug=blogEntry.slug) }}
+    </div>
+{% endblock %}

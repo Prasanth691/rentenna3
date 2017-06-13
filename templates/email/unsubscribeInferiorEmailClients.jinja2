@@ -1,0 +1,21 @@
+{% set emailDomain = '' %}
+{% if user['email'] %}
+	{% set emailDomain = user.email.split('@')[1] %}
+{% endif %}
+
+{% if partner and emailDomain == '' %}
+	{% set emailDomain = partnerEmail.split('@')[1] %}
+{% endif %}
+
+{% if emailDomain %}
+	{% set emailDomain = emailDomain.lower() %}
+{% endif %}
+
+{% if emailDomain == 'aol.com' 
+        or emailDomain == 'yahoo.com' 
+        or emailDomain == 'hotmail.com' %}
+    If you wish to stop all emails from AddressReport, 
+    <a href="{{ unsubscribe }}">
+        click here to unsubscribe.
+    </a>
+{% endif %}

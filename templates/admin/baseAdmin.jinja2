@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Administration</title>
+        <link href="/resource/compiled/admin-monolith.css?tag={{ config().tag.hash }}" media="all" rel="stylesheet" type="text/css" />
+        {% if jsPayload %}
+            <script>
+                window.PAYLOAD = {{ jsPayload|safe }};
+            </script>
+        {% endif %}
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3J0_sX6Ty6Vwk5NS8nNUnYyInvx_r4bQ&sensor=false&libraries=places"></script>
+        <script src="/resource/compiled/admin-monolith.js?tag={{ config().tag.hash }}"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    </head>
+    <body class="client">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <a class="navbar-brand" href="/admin/">
+                    <img class="logo" src="{{ resource('/image/logoWhite.png') }}" alt="AddressReport" />
+                </a>
+                <ul class="nav navbar-nav">
+                    {% include 'web-admin/webAdminLinks.jinja2' %}
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Users <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/users/">User Admin</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Content <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/jsj/">JSJ Admin</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Email <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/email-log/">Email Log</a></li>
+                            <li><a href="/admin/partner-free-trial/email-log/">Free Trial Email Log</a></li>
+                            <li><a href="/admin/ar-email/email-log/">Emails to AR</a></li>
+                            <li><a href="/admin/preview-emails/">Preview Emails</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Partners <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/admin/partners/">
+                                   Partners
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Dashboard <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/admin/partner/address-report/dashboard/">
+                                   AddressReport Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/partner/address-report/free-trial/">
+                                   AddressReport Free Trial
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                {% include 'web-admin/userMetaMenu.jinja2' %}
+            </div>
+        </div>
+        {% block content %}{% endblock%}
+    </body>
+</html>

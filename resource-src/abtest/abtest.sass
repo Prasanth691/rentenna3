@@ -1,0 +1,88 @@
+.client-experiments 
+    position: fixed
+    top: 51px
+    left: 0
+    right: 0
+    bottom: 0
+
+    form .form-group
+        overflow: hidden
+
+    .editor
+        position: absolute
+        right: 0
+        bottom: 0
+        top: 30px
+        left: 400px
+
+        .CodeMirror
+            height: auto
+            position: absolute
+            left: 0
+            right: 0
+            bottom: 0
+            top: 0
+            height: auto
+
+    .editor-selector
+        position: absolute
+        left: 400px
+        right: 0
+        top: 0
+        height: 30px
+        background-color: #111
+
+        .option
+            color: #fff
+            float: left
+            height: 30px
+            border-right: 1px solid #444
+            padding: 4px 10px
+            cursor: pointer
+            background-color: #222
+
+            &:hover, &.active
+                background-color: #333
+
+    .css-editor
+        display: none
+
+    .variation
+        margin-top: 10px
+
+        &.active
+            background-color: #ff0
+
+        .actions
+            margin-top: 5px
+
+        .info
+            overflow: hidden
+            
+            .name-control
+                float: left
+                width: 72%
+                margin-right: 3%
+
+            .weight-control
+                float: left
+                width: 25%
+
+
+    .sidebar
+        position: absolute
+        left: 0
+        top: 0
+        bottom: 0
+        width: 400px
+        padding: 10px
+        overflow-y: scroll
+
+.client-root .experiment
+    margin-top: 20px
+
+.site-manager 
+    .client
+        margin-bottom: 10px
+    .site
+        margin-bottom: 10px

@@ -1,0 +1,17 @@
+{% import 'forms' as forms %}
+{% extends 'modalView' %}
+{% block content %}
+    <div class="image-uploader main">
+        <h2>Upload an Image</h2>
+        {{ forms.file('Image', 'file') }}
+        <div class="loading">
+            <div class="progress progress-striped active">
+                <div class="progress-bar">
+                </div>
+            </div>
+        </div>
+        <button class="primary">
+            Upload It Captain!
+        </button>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'admin/baseAdmin.jinja2' %}
+{% block content %}
+    <div class="content blog-list jsj-list">
+        <h1>Preview Emails</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for email in emails %}
+                    <tr>
+                        <td>
+                            <a href="/admin/preview-emails/{{ email }}/">
+                                {{ email }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

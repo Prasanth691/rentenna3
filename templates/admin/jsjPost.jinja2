@@ -1,0 +1,64 @@
+{% import 'base/forms.nunjucks' as forms %}
+
+{% extends 'admin/baseAdmin.jinja2' %}
+
+{% block content %}
+    <div class="content blog-editor jsj-editor">
+        {{ JsonPayload(
+            slug=post.slug) }}
+        <form method="POST" action="{{ uploadUrl }}" enctype="multipart/form-data">
+            <div class="actions">
+                <h1>Javascript Journalism Post Admin</h1>
+                <button class="normal primary">Save Post</button>
+                {% if post.slug != 'new' %}
+                    <a class="normal button save" href="{{ post.getUrl() }}" target="_blank">
+                        Preview
+                    </a>
+                {% endif %}
+            </div>
+            <div class="post-meta">
+                <div class="post-details">
+                    {{ forms.text('Title', 'title', 
+                        post.title, 
+                        required=True) }}
+                    {{ forms.text('Slug', 'slug', 
+                        iff(post.slug == 'new', '', post.slug),  
+                        required=True) }}
+                    <div class="form-field text name">
+                        <label>Template</label>
+                        <div class="input-space">
+                            <select name="template">
+                                <option value="explosion-map" 
+                                        {{ iff(post.template=='explosion-map', 'selected') }}>
+                                    Explosion Map
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    {{ forms.file("File", 'file') }}
+                </div>
+                <div class="publish-details">
+                    {{ forms.text('Date', 'date', date(post.date, "%Y-%m-%dT%H:%M"),
+                        type='datetime-local') }}
+                    <div class="form-field text name">
+                        <label>Status</label>
+                        <div class="input-space">
+                            <select name="status">
+                                <option value="publish" {{ iff(post.status=='draft', 'selected') }}>
+                                    Publish
+                                </option>
+                                <option value="draft" {{ iff(post.status=='draft', 'selected') }}>
+                                    Draft
+                                </option>
+                                <option value="deleted" {{ iff(post.status=='deleted', 'selected') }}>
+                                    Deleted
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <textarea name="description">{{ post.description }}</textarea>
+        </form>
+    </div>
+{% endblock %}

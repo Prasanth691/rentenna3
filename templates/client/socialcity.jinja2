@@ -1,0 +1,12 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block head %}
+    <title>Social City</title>
+{% endblock %}
+
+{% block body %}
+	<div class="content">
+    <iframe src="//www.instacityguides.com/demo-miami/" frameborder="0" scrolling="no" width="100%" id="kirk" sandbox="allow-same-origin allow-scripts allow-popups" onload="function socialcityguidesembed(){var script1= document.createElement('script'); script1.type= 'text/javascript'; script1.src= '//www.instacityguides.com/wp-content/themes/smart-mag/js/embedwallouter.js'; head = document.getElementsByTagName('head')[0]; head.appendChild(script1); }; socialcityguidesembed();"></iframe>
+
+    </div>
+{% endblock %}

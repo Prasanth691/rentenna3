@@ -1,0 +1,28 @@
+{% import 'base/forms.nunjucks' as forms %}
+{% import 'client/partnerPixelTracking.jinja2' as tracking %}
+{% extends 'client/baseClientView.jinja2' %}
+{% block posthead %}
+    {{ tracking.addTracking('trackingHeaderSection') }}
+{% endblock %}
+{% block body %}
+    <div class="quiz-thank-you mock-processing content">
+        <h1>
+            <i class="fa fa-envelope-o"></i>
+            Final step: Check your Inbox...
+        </h1>
+        {% if embeddedThankYouUrl %}
+            <br />
+            <h3><a href="{{ embeddedThankYouUrl }}" target="_blank">{{ embeddedThankYouUrlText }}</a></h3>
+        {% endif %}
+        {% include 'client/socialProof.nunjucks' %}
+        <!-- Live Intent Quiz Conversion Pixel -->
+        <img src="https://p.liadm.com/p?c=16213"/>
+
+        <!-- {% include 'client/openMailSearchFeed.jinja2' %} -->
+    </div>
+{% endblock %}
+{% block postfooter %}
+    <div style="display:none;">
+        {{ tracking.addTracking('trackingFooterSection') }}
+    </div>
+{% endblock %}

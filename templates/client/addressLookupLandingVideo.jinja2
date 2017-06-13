@@ -1,0 +1,45 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ resource('/fonts/proxima_nova.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div class="video-landing-page">
+        <div class="header">
+            <div class="content">
+                <img src="{{ resource('/image/logoWhite.png') }}" />
+            </div>
+        </div>
+        {% if not isPhone %}
+            <div class="vid">
+                <video width="1280" height="720" autoplay loop>
+                  <source src="https://storage.googleapis.com/rentenna-junk/bigvid/washedout2.mp4" type="video/mp4">
+                </video>
+            </div>
+        {% endif %}
+        <div class="main">
+            {% block text %}
+                <h1>Background-Check for any Address</h1>
+                <h2>Never move without seeing the AddressReport</h2>
+            {% endblock %}
+            <div class="search address-autocomplete">
+                <input type="text" placeholder="Type any address (e.g. 45 Wall St)" />
+                <button>
+                    Get the Report
+                </button>
+            </div>
+        </div>
+        <div class="credibility-footer">
+            <div class="notice">
+                As seen in
+            </div>
+            <div class="logos">
+                <img src="{{ resource('/image/credibility-white/product-hunt.png') }}" />
+                <img src="{{ resource('/image/credibility-white/wsj.png') }}" />
+                <img src="{{ resource('/image/credibility-white/the-real-deal.png') }}" />
+                <img src="{{ resource('/image/credibility-white/thrillist.png') }}" />
+            </div>
+        </div>
+    </div>
+{% endblock %}

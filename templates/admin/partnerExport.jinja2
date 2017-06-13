@@ -1,0 +1,59 @@
+{% import 'base/forms.nunjucks' as forms %}
+
+{% extends 'admin/baseAdmin.jinja2' %}
+
+{% block content %}
+    <div class="content">
+        <div class="breadcrumbs">
+            <div class="content">
+                {% for breadcrumb in breadcrumbs %}
+                    {% if not loop.last %}
+                        <div class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a href="{{ breadcrumb.url }}" itemprop="url">
+                                <span itemprop="title">{{ breadcrumb.title }}</span>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="breadcrumb current">
+                            <span class="name">
+                                {{ breadcrumb.title }}
+                            </span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-fields export-partners export-partners-basic">
+            {{ JsonPayload(exportPartnerUrl=exportPartnerUrl) }}
+            <h3>Export basic info for descendant partners:</h3>
+            <button class="primary export">Export to CSV</button>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar"></div>
+            </div>
+            <div class="log">
+                {% if downloadUrl %}
+                <p>Created at: {{ downloadCreated }} <a href="{{ downloadUrl }}">Click here to download</a></p>
+                {% endif %}
+            </div>
+            <div class="warning"></div>
+        </div>
+
+        <div class="form-fields export-partners export-partners-billing">
+            <h3>Export descendant partners whose site being visited</h3>
+            {{ JsonPayload(exportPartnerUrl=exportPartnerUrl) }}
+            {{ forms.date('Start Date', 'startDate', billingStart, 1)}}
+            {{ forms.date('End Date', 'endDate', billingEnd, 1)}}
+           
+            <button class="primary export">Export to CSV</button>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar"></div>
+            </div>
+            <div class="log">
+                {% if billingDownloadUrl %}
+                <p>Created at: {{ billingDownloadCreated }} <a href="{{ billingDownloadUrl }}">Click here to download</a></p>
+                {% endif %}
+            </div>
+            <div class="warning"></div>
+        </div>
+    </div>
+{% endblock %}

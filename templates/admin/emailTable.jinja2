@@ -1,0 +1,47 @@
+{% macro render(emails) %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>User</th>
+                <th>Partner</th>
+                <th>Template</th>
+                <th>Unsubscribed</th>
+                <th>Suppressed</th>
+                <th>Clicks</th>
+                <th>Opens</th>
+                <th>Preview</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for email in emails %}
+                {% set user = email.getUser() %}
+                <tr>
+                    <td>{{ humanDateTime(email.date, brief=True) }}</td>
+                    <td>
+                        {% if user %}
+                            <a href="{{ user.getAdminLink() }}">{{ user.email }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user %}
+                            {{ user.getPartner().name }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ email.template }}
+                    </td>
+                    <td>{{ iff(email.unsubscribed, 'Yes', 'No') }}</td>
+                    <td>{{ iff(email.suppressed, 'Yes', 'No') }}</td>
+                    <td>{{ email.getClicksCount() }}</td>
+                    <td>{{ email.getOpensCount() }}</td>
+                    <td>
+                        <a href="{{ email.getAdminLink() }}" class="btn btn-default btn-xs" target="_blank">
+                            View Content
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}

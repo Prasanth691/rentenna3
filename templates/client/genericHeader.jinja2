@@ -1,0 +1,49 @@
+{% macro render(title) %}
+    <div class="content">
+        <h1>{{ title }}</h1>
+        <p class="blurb">
+            Enter any address and we’ll comb through 
+            thousands of records to expose what the 
+            broker, owner, or management may not be 
+            telling you.
+        </p>
+
+        <div class="use-cases">
+            <div class="use-case">
+                <img src="{{ resource('/image/useCase1.png') }}" />
+                <p>
+                    "I couldn’t have known the building 
+                    has such a serious history of infestations
+                    without the AddressReport."
+                </p>
+            </div>
+            <div class="use-case">
+                <img src="{{ resource('/image/useCase2.png') }}" />
+                <p>
+                    "I loved the apartment, and the market 
+                    overview from the AddressReportlet me know I was getting 
+                    a fair deal."
+                </p>
+            </div>
+            <div class="use-case">
+                <img src="{{ resource('/image/useCase3.png') }}" />
+                <p>
+                    "We feel much better about the location 
+                    of our daughter’s new apartment after 
+                    seeing the crime statistics on AddressReport."
+                </p>
+            </div>
+            <div class="use-case">
+                <img src="{{ resource('/image/useCase4.png') }}" />
+                <p>
+                    "In my last building, the elevators were 
+                    slow and overcrowded -- not what I want 
+                    if I’m paying luxury prices."
+                </p>
+            </div>
+        </div>
+
+        {{ AddressAutocomplete() }}
+        <p class="input-sample-report">Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+    </div>
+{% endmacro %}

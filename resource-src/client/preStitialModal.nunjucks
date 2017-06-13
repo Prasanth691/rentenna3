@@ -1,0 +1,10 @@
+<div class="pre-stitial modal">
+    <div class="modal-cover"></div>
+    <div class="modal-content">
+    	<div class="counter">Skip in (<span class="countdown"></span>)>></div>
+    	{% block ad %}
+        	<img src="{{ resource('/image/insurent-prestitial.jpg') }}" alt="insurent"
+        	data-partner="insurent" data-campaign="insurent-prestitial" />
+        {% endblock %}
+    </div>
+</div>

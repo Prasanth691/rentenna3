@@ -1,0 +1,19 @@
+{% import 'client/upgradeCta.jinja2' as upgradeCta %}
+{% set socialDomain=iff(subsections.socialPhotos.socialPhotoDomain, subsections.socialPhotos.socialPhotoDomain, 'www.instacityguides.com') %}
+<div class="socialbuzz-report-section report-section">
+    <div class="report-section-header">
+        <h2>Social Buzz</h2>
+        <p>{{ description }}</p>
+    </div>
+
+    {% if subsections.socialPhotos %}
+        <div class="socialbuzz-photo">
+            <h3 class="content">Local Photos</h3>
+            
+            <div class="subsection-row content">     
+                <iframe src="//{{ socialDomain }}/{{subsections.socialPhotos.socialPhotoSlug}}/" frameborder="0" scrolling="no" width="100%" id="kirk" sandbox="allow-same-origin allow-scripts allow-popups" onload="function socialcityguidesembed(){var script1= document.createElement('script'); script1.type= 'text/javascript'; script1.src= '//{{ socialDomain }}/wp-content/themes/smart-mag/js/embedwallouter.js'; head = document.getElementsByTagName('head')[0]; head.appendChild(script1); }; socialcityguidesembed();"></iframe>
+            </div>
+        </div>
+                        
+    {% endif %}
+</div>

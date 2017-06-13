@@ -1,0 +1,25 @@
+<div class="compare-to-parent-box tall">
+    <h4>{{ type }}</h4>
+    <div class="child">
+        <div class="label">
+             {{ type }} near {{ address.getShortName() }}
+        </div>
+        <div class="number">
+            {{ count }}
+        </div>
+        <div class="units">
+            {{ address.getCity().getDistance('reasonableTravel')['description'] }}
+        </div>
+    </div>
+    <button class="drilldown-button" target="poi_{{ googlePlaceType }}">
+        <span class="label">
+            See them on a map
+        </span>
+    </button>
+    <div class="drilldown poi-map-drilldown" id="poi_{{ googlePlaceType }}">
+        {{ JsonPayload(
+            location=address.location,
+            googlePlaceType=googlePlaceType) }}
+        <div class="results"></div>
+    </div>
+</div>

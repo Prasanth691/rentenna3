@@ -1,0 +1,85 @@
+{% import 'base/forms.nunjucks' as forms %}
+
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+    <div class="profile">
+        <div class="content">
+            {% if user().status == 'guest' %}
+                <h1>You must be logged in to view this page</h1>
+                <button class="login-button cta">
+                    Login Now
+                </button>
+            {% else %} 
+                <div class="edit-profile">
+                    {{ changeEmail() }}
+                    {{ changePassword() }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% macro changeEmail() %}
+    <form class="information" method="POST">
+        <h2>Change Email</h2>
+
+        {% if emailExists %}
+            <div class="form-message form-error">
+                That email is already in use by another user.
+            </div>
+        {% endif %}
+
+        {% if infoChanged %}
+            <div class="form-message form-success">
+                Your changes have been saved.
+            </div>
+        {% endif %}
+
+        {{ forms.text("Email", 'email', user().email,
+            required=True,
+            type='email')}}
+
+        <button class="normal">
+            Save Changes
+        </button>
+
+        <input type="hidden" name="action" value="info" />
+    </form>
+{% endmacro %}
+
+{% macro changePassword() %}
+    <form class="passwords" method="POST">
+        <h2>Change Password</h2>
+
+        {% if passwordWrong %}
+            <div class="form-message form-error">
+                The current password you entered was incorrect.
+            </div>
+        {% endif %}
+
+        {% if passwordChanged %}
+            <div class="form-message form-success">
+                Your password has been changed.
+            </div>
+        {% endif %}
+
+        {{ forms.text("Current Password", 'current', "",
+            placeholder="Verify your current password",
+            required=True,
+            type='password')}}
+
+        {{ forms.text("New Password", 'new', "",
+            placeholder="Create a new password",
+            required=True,
+            type='password',
+            title="8 characters minimum",
+            pattern=".{8,}")}}
+
+        <button class="normal">
+            Update Password
+        </button>
+
+        <input type="hidden" name="action" value="password" />
+    </form>
+{% endmacro %}

@@ -1,0 +1,141 @@
+{% import 'client/maskedMeter.jinja2' as maskedMeter %}
+
+{% macro renderNoise(stats) %}
+    {% if stats.noiseComplaintsPerCapita %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There were
+                </div>
+                <div class="number">
+                    {{ commas(stats.noiseComplaintsPerCapita) }}
+                </div>
+                <div class="units">
+                    noise complaints in the last year
+                    per 1,000 {{ target.name }} residents
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderFilth(stats) %}
+    {% if stats.filthComplaintsPerCapita %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There were
+                </div>
+                <div class="number">
+                    {{ commas(stats.filthComplaintsPerCapita) }}
+                </div>
+                <div class="units">
+                    filth complaints in the last year
+                    per 1,000 {{ target.name }} residents
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderStreet(stats) %}
+    {% if stats.streetComplaintsPerCapita %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    There were
+                </div>
+                <div class="number">
+                    {{ commas(stats.streetComplaintsPerCapita) }}
+                </div>
+                <div class="units">
+                    street complaints in the last year
+                    per 1,000 {{ target.name }} residents
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderComplaints(stats) %}
+    <div class="quick-stats">
+        <h3 class="content">Local Quality at a Glance</h3>
+
+        <div class="subsection-row content">
+            {{ renderNoise(stats) }}
+            {{ renderFilth(stats) }}
+            {{ renderStreet(stats) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro renderTrees(stats) %}
+    <div class="street-trees content subsection-row">
+        <div class="heading">
+            <h3>Street Trees</h3>
+        </div>
+
+        <div class="here street-tree-section">
+            <h4>
+                {{ commas(stats.area) }} 
+                street trees per square mile in
+                {{ target.name }}
+            </h4>
+            {{ maskedMeter.render(stats.areaPercent, 'street-tree', False) }}
+        </div>
+        <div class="city street-tree-section">
+            <h4>
+                {{ commas(stats.city) }} 
+                street trees per square mile is typical for
+                {{ target.getCity().name }}
+            </h4>
+            {{ maskedMeter.render(stats.cityPercent, 'street-tree', True) }}
+        </div>
+    </div>    
+{% endmacro %}
+
+{% macro renderRodents(stats) %}
+    <div class="rodent-sightings content subsection-row">
+        <div class="heading">
+            <h3>Rodent Sightings</h3>
+        </div>
+
+        <div class="here rodent-section">
+            <h4>
+                {{ commas(stats.area, 2) }} 
+                rodent sightings per 1,000 
+                {{ target.name }}
+                residents
+            </h4>
+            {{ maskedMeter.render(stats.areaPercent, 'rodent', False) }}
+        </div>
+
+        <div class="city rodent-section">
+            <h4>
+                {{ commas(stats.city, 2) }} 
+                per 1,000 residents is typical for 
+                {{ target.getCity().name }} 
+            </h4>
+            {{ maskedMeter.render(stats.cityPercent, 'rodent', True) }}
+        </div>
+    </div>    
+{% endmacro %}
+
+<div class="local-quality-report-section report-section">
+    <div class="report-section-header">
+        <h2>Local Quality</h2>
+        <p>{{ description }}</p>
+    </div>
+
+    {% if subsections.complaints %}
+        {{ renderComplaints(subsections.complaints) }}
+    {% endif %}
+
+    {% if subsections.trees %}
+        {{ renderTrees(subsections.trees) }}
+    {% endif %}
+
+    {% if subsections.rats %}
+        {{ renderRodents(subsections.rats) }}
+    {% endif %}
+</div>

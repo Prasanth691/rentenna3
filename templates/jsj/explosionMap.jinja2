@@ -1,0 +1,22 @@
+{% extends 'jsj/baseJsj.jinja2' %}
+{% block body %}
+    <div class="explosion-map">
+        <div class="map"></div>
+        {{ JsonPayload(
+            speed=data.get('speed'),
+            size=data.get('size'),
+            focus=city.getFocus(),
+            data=data.data) }}
+        <div class="timeline">
+            <div class="current"></div>
+            <div class="slider">
+                <div class="now"></div>
+            </div>
+            <div class="reset">
+                <button class="success">
+                    Watch Again
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

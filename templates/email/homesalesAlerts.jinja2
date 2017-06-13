@@ -1,0 +1,55 @@
+{% extends 'email/alertTemplateBase.jinja2' %}
+
+{% block extraCssClasses %}alert-base homesales-alert{% endblock %}
+
+{% block preview %}
+     See the latest
+     {{ plural(safeLen(sales), "property sale") }}
+     near
+     {{ property.shortName }}
+{% endblock %}
+
+{% block alerts %}
+    <div class="header-text no-margin" id="header-text">
+        <h1>There may be new sales nearby</h1>
+    </div>
+    {{ renderGreeting(user) }}
+    <p>
+        There may be new home sales you’d like to know about near <strong>{{ property.shortName }}</strong> based on activity in the area.
+    </p>
+        {% if sales %}
+            <div class="section-heading">
+                {{ plural(safeLen(sales),
+                    "PROPERTY SALE RECORDED NEARBY",
+                    "PROPERTY SALES RECORDED NEARBY") }}
+            </div>
+            <div class="section-container property-sales">
+                {% for sale in sales %}
+                <div class="section {{ iff(loop.last, 'last-section') }}">
+                    <b>Sold For:</b>
+                    <a href="{{ otuLink('%s?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=property-alerts-pricing&utm_content=individual-sale-link' % sale.getPropertyLink(True)) }}">
+                        {{ money(sale.data.closePrice, False) }}
+                        -
+                        {{ sale.data.street }}
+                        {{ sale.data.unit }}
+                    </a>
+                    <div class="small light">
+                        <i>
+                            {{ commas(sale.data.distance, limitDecimals=2) }}
+                            miles away
+                        </i>
+                    </div>
+                </div>
+                {% endfor %}
+                <a href="{{ otuLink('%s?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=property-alerts-pricing&utm_content=sale-link' % property.getUrl(True)) }}#nearby-sales">
+                    <div class="all-sales">
+                        See All Nearby Property Sales
+                    </div>
+                </a>
+            </div>
+        {% endif %}
+    <p>
+        Sales information may be delayed a few weeks based on local filings. If you’re curious about something you saw on the market feel free to <strong>{% if contactInfo.email %}<a href="mailto:{{ contactInfo.email }}?subject=New Sales Nearby {{ property.shortName }}" target="_blank">reach out to me</a>{% else %} reach out to me{% endif %}</strong> anytime and I can track the details down for you!
+    </p>
+    {{ renderContactName(contactInfo) }}
+{% endblock %}

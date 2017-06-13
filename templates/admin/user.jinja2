@@ -1,0 +1,52 @@
+{% extends 'admin/baseAdmin.jinja2' %}
+{% block content %}
+    <div class="content">
+        {% if not user %}
+            <h1>No user found</h1>
+            <p><a href="/admin/users/">Go back.</a></p>
+        {% else %}
+            <h1>User Found</h1>
+            <p>Email: {{ user.email }}</p>
+            <p>Email Status: {{ user.briteverifyStatus }}</p>
+            <p>Name: {{ user.name }}</p>
+            <p>Created: {{ date(user.created) }}</p>
+            {% if user.registered %}
+                <p>Registered: {{ date(user.registered) }}</p>
+            {% endif %}
+            <p>Status: {{ user.status }}</p>
+            <p>Move Status: {{ user.moveStatus }}</p>
+            <p>Move Date: {{ user.moveDateString }}</p>
+            <p>Partner: {{ user.getPartner().name }}</p>
+            <p>Contact Id: {{ user.contactId }} </p>
+
+            {% if user.tracker %}
+                <h3>Original Tracker</h3>
+                {{ renderTracker(user.tracker.get()) }}
+            {% endif %}
+
+            {% if user.registeredTracker %}
+                <h3>Registration Tracker</h3>
+                {{ renderTracker(user.registeredTracker.get()) }}
+            {% endif %}
+
+            <h3>Actions</h3>
+            <a href="/admin/users/login/?email={{ user.email }}" class="button normal">
+                Login as this User
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% macro renderTracker(tracker) %}
+    <p>browser = {{ tracker.browser }}</p>
+    <p>landingUrl = {{ tracker.landingUrl }}</p>
+    <p>ipAddress = {{ tracker.ipAddress }}</p>
+    <p>referringUrl = {{ tracker.referringUrl }}</p>
+    <p>userAgent = {{ tracker.userAgent }}</p>
+    <p>utmCampaign = {{ tracker.utmCampaign }}</p>
+    <p>utmContent = {{ tracker.utmContent }}</p>
+    <p>utmKeyword = {{ tracker.utmKeyword }}</p>
+    <p>utmMedium = {{ tracker.utmMedium }}</p>
+    <p>utmTerm = {{ tracker.utmTerm }}</p>
+    <p>utmSource = {{ tracker.utmSource }}</p>
+{% endmacro %}

@@ -1,0 +1,31 @@
+{% import 'forms' as forms %}
+
+<div class="slide phone-slide single-textbox-slide" data-slide="phone">
+    <h1>
+        {{ headerText or "Would you like someone to call you?" }}
+    </h1>
+    {% if required == undefined %}
+        {% set required = true %}
+    {% endif %}
+    <form class="phone-form" nosubmit>
+        {{ forms.text('Phone', 'phone', phone,
+            type='tel', 
+            placeholder='Your phone number',
+            required=required ) }}
+
+        <button class="cta btn-primary primary">
+            <i class="fa"></i>
+            {{ buttonText or "Next" }}
+        </button>
+        <p class="tcpa-warning">
+            By clicking Send Me My Report, you acknowledge, consent and agree to the following:
+            a) Our Privacy Policy and consent to receive notices and other communications electronically.
+            b) We take your privacy seriously. You are providing express written consent for AddressReport
+            to share your information with <a class="tcpa-partner-link" href="/partners/" target="_blank">Our Partners</a>
+            for AddressReport, parties calling on behalf of AddressReport, Our Partners or authorized third
+            parties on their behalf to contact you (including through automated means; e.g. autodialing, text
+            and pre-recorded messaging) via telephone, mobile device (including SMS and MMS) and/or email, even
+            if your telephone number is currently listed on any state, federal, local or corporate Do Not Call list.
+        </p>
+    </form>
+</div>

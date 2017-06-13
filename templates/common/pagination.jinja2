@@ -1,0 +1,15 @@
+{% macro render(pageInfo, class='') %}
+    {% if pageInfo.pages > 1 %}
+        <ul class="pagination pagination-sm {{ class }}">
+            <li><a href="{{ pageLink(1) }}" data-page="1">&laquo;</a></li>
+            {% for page in range(1, pageInfo.pages + 1) %}
+                {% if abs(page-pageInfo.page) < 10 %}
+                    <li class="{{ iff(page == pageInfo.page, 'active') }}">
+                        <a href="{{ pageLink(page) }}" data-page="{{ page }}">{{ page }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            <li><a href="{{ pageLink(pageInfo.pages) }}" data-page="{{ pageInfo.pages }}">&raquo;</a></li>
+        </ul>
+    {% endif %}
+{% endmacro %}

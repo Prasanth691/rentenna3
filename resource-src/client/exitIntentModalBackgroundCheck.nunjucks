@@ -1,0 +1,53 @@
+{% extends 'modalView' %}
+
+{% block content %}
+	<div class="background-check exit-intent">
+		<div class="header">
+			<img src="{{ resource('/image/analyzing.png') }}">
+			<span>
+				<h1><b>FREE</b> background check on any address</h1>
+				<p>What address do you want to know more about?</p>
+			</span>
+		</div>
+		<div class="banner">
+			<span>
+				<p>Instant online report! Accessing records for...</p>
+			</span>
+		</div>
+		<div class="bullets">
+			<ul>
+				<li>
+					<i class="fa fa-check-circle-o fa-lg"></i>
+					Property Values
+				</li>
+				<li>
+					<i class="fa fa-spinner fa-lg"></i>
+					Crime Statistics
+				</li>
+				<li>
+					<i class="fa fa-spinner fa-lg"></i>
+					Demographics
+				</li>
+				<li>
+					<i class="fa fa-check-circle-o fa-lg"></i>
+					Construction Projects
+				</li>
+				<li>
+					<i class="fa fa-spinner fa-lg"></i>
+					Local Amenities
+				</li>
+				<li>
+					<i class="fa fa-spinner fa-lg"></i>
+					Complaints
+				</li>
+			</ul>
+		</div>
+		<div class="lookup">
+			<div class="address">
+			</div>
+			<button class="cta">
+	            GET REPORT FOR THIS ADDRESS!
+	        </button>
+		</div>
+	</div>
+{% endblock %}

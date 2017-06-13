@@ -1,0 +1,94 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block prehead %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+{% endblock %}
+{% block head %}
+    <link href="/resource/bootstrap-extra.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto:400,700" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block body %}
+    <div class="content container-fluid">
+
+        <div class="row intro">
+            <h2><p>Set Up Your Data-Driven Lead Generation Free Trial</p></h2>
+            <p>To get started please review the information below and continue.</p>
+        </div>
+
+        <form method="POST">
+            <div class="row user-form sign-up-form">
+                <div class="col-xs-12">
+                    <div class="row api-credentials">
+		                <div class="col-sm-6">
+		                    <label class="display" for="api_key">API Key:</label>
+                            <div class="form-group">
+		                        <input type="text" name="api_key" id="api_key" class="form-control required" readonly value="{{partner.apiKey}}" size="32" placeholder="*API Token" />
+		                    </div>
+		                    <label class="display" for="api_secret">API Secret:</label>
+                            <div class="form-group">
+		                        <input type="text" name="api_secret" id="api_secret" class="form-control required" readonly value="{{partner.apiSecret}}" size="32" placeholder="*API Secret" />
+		                    </div>
+                            <label class="display" for="account_name">Account Name:</label>
+                            <div class="form-group form-inline">
+                                <input type="text" name="account_name" id="account_name" class="form-control required" readonly value="{{partner.name}}" size="32" placeholder="*Account Name" />
+                            </div>
+                            <label class="display" for="account_id">Account ID:</label>
+                            <div class="form-group form-inline">  
+                                <input type="text" name="account_id" id="account_id" class="form-control required" readonly value="{{ partner.pid }}" size="32" placeholder="*Account ID" />
+                            </div>
+                            <label class="display" for="lead_email">Email Address for Lead Delivery:</label>
+                            <div class="form-group form-inline">
+                                <input type="text" name="lead_email" id="leadEmail" class="form-control required" value="{{ partner.getSetting('leadEmail') }}" size="32" placeholder="*Email for lead delivery" />
+                                <span class="warning nodisplay">*</span>
+                            </div>
+		        		</div>
+		        	</div>
+	        	</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-12 sign-up-button">
+                    <button type="submit" name="btnFreeTrial" id="btnFreeTrial" class="btn btn-success">SAVE &amp; NEXT</button>
+                    <span class="warning nodisplay">Please fill in fields marked with *</span>
+                </div>
+        	</div>
+    	</form>
+
+	</div>
+
+    {% include 'client/signUpFooter.jinja2' %}
+    {% include 'client/baseClientFoot.jinja2' %}
+
+    <script src="//code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    jQuery( function( $ ){
+    //  add class to BODY so we can target in CSS for white background
+        $( 'body' ).addClass( 'page-sign-up' );
+
+        function isBlank(str) {
+            return (!str || /^\s*$/.test(str));
+        }
+        $("#btnFreeTrial").click(function(evt){
+            
+            email = $("#leadEmail").val();
+            if ( isBlank(email) ) {
+                $(".warning").removeClass("nodisplay")
+                evt.preventDefault();
+                return false
+            }
+
+            if ( email.indexOf("@")<1 ) {
+                $(".warning").removeClass("nodisplay")
+                evt.preventDefault();
+                return false
+            }
+
+            $(".warning").addClass("nodisplay")
+
+            return true;
+        })
+
+    });
+    </script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% import 'web-admin/form.jinja2' as forms %}
+
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+{% block content %}
+    <div class="client-experiments">
+        {{ JsonPayload(
+            experimentId=experiment.key.id() if not experiment.new else None,
+            experimentUrl=experiment.defaultPage,
+            variations=variations) }}
+        <form method="post">
+            <div class="sidebar">
+                <input type="hidden" name="variations" />
+                {{ forms.text('name', experiment.name, "Name", required=True) }}
+                {{ forms.select('status', experiment.status, "Status", [
+                    ['pending', 'Pending'],
+                    ['running', 'Running'],
+                    ['paused', 'Paused'],
+                    ['archived', 'Archived']]) }}
+                {{ forms.text('defaultPage', experiment.defaultPage, "Default Page") }}
+                <button class="btn btn-primary save-button">Save Experiment</button>
+                <h2>Variations</h2>
+                <button class="btn btn-default add-variation">Add a Variation</button>
+                <div class="variations"></div>
+            </div>
+        </form>
+        <div class="editor-selector">
+            <div class="option js active">Inject Javascript</div>
+            <div class="option css">Inject CSS</div>
+        </div>
+        <div class="editor">
+            <div class="js-editor editor-container">
+                <textarea id="js-editor"></textarea>
+            </div>
+            <div class="css-editor editor-container">
+                <textarea id="css-editor"></textarea>
+            </div>
+        </div>
+    </div>
+{% endblock %}

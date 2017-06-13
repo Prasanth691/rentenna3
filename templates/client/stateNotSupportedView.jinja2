@@ -1,0 +1,18 @@
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+    <div class="property-not-found landing">
+        <div class="bannerwrapper">
+            <div class="banner content">
+                <div class="title">
+                    <h1>
+                        Sorry, you don't have access to this state.
+                    </h1>
+                    <p>
+                        This site has access to:
+                        {{ ', '.join(allowedStates) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

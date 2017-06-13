@@ -1,0 +1,26 @@
+.twitter-typeahead {
+    width: 100%;
+}
+
+.tt-menu {
+    background-color: #fff;
+    margin-top: 3px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px 0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    width: 100%;
+}
+.tt-hint {
+    padding: 5px 10px;
+}
+.tt-suggestion {
+    padding: 5px 10px;
+}
+.tt-suggestion.tt-cursor {
+    background-color: #428bca;
+    color: #fff;
+}
+.tt-suggestion p {
+    margin: 0;
+}

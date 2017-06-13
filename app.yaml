@@ -1,0 +1,48 @@
+application: rentenna3
+version: dev
+runtime: python27
+api_version: 1
+threadsafe: true
+module: default
+instance_class: F4
+
+builtins:
+- remote_api: on
+
+handlers:
+- url: "/resource"
+  static_dir: resource
+  secure: always
+  expiration: 4d
+- url: "/admin/.*"
+  script: rentenna3._frontendApp.APP
+  secure: always
+- url: "/background/.*"
+  script: rentenna3._frontendApp.APP
+  secure: always
+  login: admin
+- url: "/.*"
+  script: rentenna3._frontendApp.APP
+  secure: optional
+
+libraries:
+- name: lxml
+  version: latest
+- name: jinja2
+  version: latest
+- name: yaml
+  version: latest
+- name: pycrypto
+  version: latest
+- name: numpy
+  version: latest
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- node_modules/(.*)
+- datastore
+- blobstore

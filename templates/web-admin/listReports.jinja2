@@ -1,0 +1,47 @@
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container list-reports">
+        <div class="reports">
+            <h1>Reporting</h1> 
+            {% for reportClass in reportClasses %}
+                <div class="report-type col-md-3">
+                    <p>
+                        <strong>{{ reportClass.reportName }}</strong> 
+                        {{ reportClass.description }}
+                    </p>
+                    <a href="/web-admin/reports/run/{{ reportClass.reportName }}/" class="btn btn-default">
+                        Run: {{ reportClass.reportName }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <h2>Report History</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Report ID</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in history %}
+                    <tr>
+                        <td>
+                            {{ humanDate(report.run) }}
+                        </td>
+                        <td>
+                            <a href="{{ report.getInfoUrl() }}">
+                                {{ report.reportId }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ report.reportInfo }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

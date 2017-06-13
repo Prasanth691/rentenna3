@@ -1,0 +1,19 @@
+<div class="variation">
+    <div class="info">
+        <div class="name-control">
+            <label>Name</label>
+            <input type="text" name="name" value="{{ variation.name }}" class="name form-control" />
+        </div>
+        <div class="weight-control">
+            <label>Weight</label>
+            <input type="number" name="weight" value="{{ variation.weight }}" class="weight form-control" />
+        </div>
+    </div>
+    <div class="actions">
+        <button class="btn btn-xs btn-default edit">Edit injections</button>
+        {% if variation.id %}
+            <a href="{{ experimentUrl }}?_nocache=True&_ABTEST_RESET&_ABTEST_FORCE={{ experimentId }}:{{ variation.id }}" class="btn btn-xs btn-default preview" target="_blank">Preview</a>
+        {% endif %}
+        <button class="btn btn-xs btn-danger delete">Delete</button>
+    </div>
+</div>

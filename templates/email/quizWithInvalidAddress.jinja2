@@ -1,0 +1,38 @@
+{% extends 'email/confirmationTemplateBase.jinja2' %}
+
+{% block preview %}
+    Help us finish generating the report you requested
+{% endblock %}
+
+{% block header %}
+    <h1>
+        Sorry, we had trouble locating the address you entered,
+        but we know a way to fix this!
+    </h1>
+{% endblock %}
+
+{% block banner %}
+    <a href="{{ otuLink('https://www.addressreport.com/find-address/?utm_source=automation-email&utm_medium=email&utm_campaign=trouble-finding-address&utm_content=banner-cta') }}">
+        <div class="cta-btn">
+            CLICK TO HELP US LOCATE THAT ADDRESS<br>
+        </div>
+    </a>
+{% endblock %}
+
+{% block body %}
+    {{ renderGreeting(user) }}
+    <p>
+        Sometimes we have trouble finding addresses, and it helps to break
+        it out into individual components. Click the link above to finish generating your report!
+    </p>
+    <p>
+        Oh, and just to be up front: we're certainly not perfect, but we're constantly improving, and would love your feedback!
+    </p>
+    <p>
+        See what users say about us below, and feel free to hit "reply" to this email or tweet at us anytime!
+    </p>
+    {{ renderContactName(contactInfo) }}
+    <div class="cta-banner">
+        {% include 'email/asSeenIn.jinja2' %}
+    </div>
+{% endblock %}

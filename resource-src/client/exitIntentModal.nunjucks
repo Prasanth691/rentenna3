@@ -1,0 +1,26 @@
+{% import 'features' as features %}
+{% extends 'modalView' %}
+
+{% block content %}
+    <div class="lookup-box {{ cssClass }}">
+        <h2>Which Address?</h2>
+        <p>Which address do you want to know more about?</p>
+
+        <div class="address"></div>
+
+        {% if modalType == 'quiz' %}
+            <a class="button cta" href="/quiz/new_alert/">
+                See Your Free AddressReport
+            </a>
+        {% elif modalType == 'lookup' %}
+            <a class="button cta">
+                See Your Free AddressReport
+            </a>
+        {% endif %}
+
+        {{ features.renderFeatureList(
+            featureList=["Property Value", "Local Attractions", "Crime Reports", 
+            "Building Violations"],
+            valueProp="For any address in the U.S., we'll report on...") }}
+    </div>
+{% endblock %}

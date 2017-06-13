@@ -1,0 +1,11 @@
+<div class="__address-report-badges">
+    {% for badge in badges %}
+        {{ FullBadge(badge=badge) }}
+    {% endfor %}
+    <div class="address-report-cta">
+        <a href="{{ url }}" target="_blank">
+            <!-- Get the full addressreport -->
+            <img src="{{ resource('image/logoWhite.png') }}" class="address-report-logo" />
+        </a>
+    </div>
+</div>

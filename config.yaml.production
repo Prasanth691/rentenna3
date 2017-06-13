@@ -1,0 +1,30 @@
+ABTEST:
+  MOCK: false
+AUTOCOMPLETE:
+  elastic: true
+  unit: true
+EMAIL:
+  shard: production
+MAILCHIMP:
+  MOCK: false
+MCI:
+  DOMAIN: www.addressreport.com
+PIPELINE:
+  BUCKET: ar-reporting
+URL:
+  BASE: https://www.addressreport.com
+  DOMAIN: www.addressreport.com
+  ISOLATE_IFRAME_BASE: https://isolated-dot-rentenna3.appspot.com
+  STATIC: https://cdn-addressreport.netdna-ssl.com
+WEB:
+  EXPORT_BUCKET: ar-export
+  PARTNER_BULK_BUCKET: partnerbulk
+  UPLOAD_BUCKET: ar-resource
+  UPLOAD_URL: /web-admin/uploaded-file/
+analytics.mock: false
+datastore_namespace: null
+report_simultaneous: 8
+tag:
+  hash: 73b9aa7f-0b45-4d63-bc13-73cff482d7d3
+  level: production
+

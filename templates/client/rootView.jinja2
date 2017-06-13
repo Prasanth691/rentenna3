@@ -1,0 +1,145 @@
+{% import 'client/credibility.jinja2' as credibility %}
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+    <div class="landing root">
+        <div class="bannerwrapper">
+            <div class="banner content">
+                <div class="title">
+                    <h1>
+                        The "background check" report for any address
+                    </h1>
+                    <p class="subtitle">
+                        Enter any address and AddressReport will analyze 
+                        millions of records to reveal the unbiased truth 
+                        about that condo, co-op, or apartment building 
+                        and its neighborhood.
+                    </p>
+                </div>
+                {{ AddressAutocomplete() }}
+                <button class="cta inverse iphone-button">Look up an address</button>
+                <p class="input-sample-report">Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+            </div>
+            <div class="divider"></div>
+        </div>
+
+        <div class="explanation">
+            <div class="content">
+                <div class="secrets">
+                    <h4>AddressReport reveals the unbiased truth about any apartment, condo, or co-op address</h4>
+                </div>
+
+                <div class="blurb">
+                    <img class="snippet" src="{{ resource('/image/snippet1.png') }}" alt=""/>
+                    <div class="text">
+                        <h3>Peer back into a property's history</h3>
+                        <p>
+                            From renovations and major construction to complaints and violations, see an easy-to-digest history behind a property.
+                        </p>
+                        <button class="cta">Get Started Now</button>
+                        <p>Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+                    </div>
+                </div>
+                <div class="blurb">
+                    <img class="snippet" src="{{ resource('/image/snippet12.png') }}" alt=""/>
+                    <div class="text">
+                        <h3>Know the market around an address</h3>
+                        <p>
+                            With recent nearby transaction data, you'll have an instant sense of the market in and around a property.
+                        </p>
+                        <button class="cta">Get Started Now</button>
+                        <p>Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+                    </div>
+                </div>
+                <div class="blurb">
+                    <img class="snippet" src="{{ resource('/image/snippet3.png') }}" alt=""/>
+                    <div class="text">
+                        <h3>Crime rarely happens during a midday property viewing</h3>
+                        <p>
+                            Crime stats and maps help you decide if you could truly feel safe walking this block alone at night.
+                        </p>
+                        <button class="cta">Get Started Now</button>
+                        <p>Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+                    </div>
+                </div>
+                <div class="blurb">
+                    <img class="snippet" src="{{ resource('/image/snippet4.png') }}" alt=""/>
+                    <div class="text">
+                        <h3>Slow, overcrowded elevators are a bad combination</h3>
+                        <p>
+                            Waiting for the elevator shouldn't be a major component of your daily commute
+                        </p>
+                        <button class="cta">Get Started Now</button>
+                        <p>Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+                    </div>
+                </div>
+                <div class="blurb">
+                    <img class="snippet" src="{{ resource('/image/snippet5.png') }}" alt=""/>
+                    <div class="text">
+                        <h3>A shorter commute means a better quality of life</h3>
+                        <p>
+                            Compare estimated commute times from various properties to your key destinations.
+                        </p>
+                        <button class="cta">Get Started Now</button>
+                        <p>Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+                    </div>
+                </div>
+                <div class="blurb">
+                    <img class="snippet" src="{{ resource('/image/snippet6.png') }}" alt=""/>
+                    <div class="text">
+                        <h3>See the objective facts, not a marketing message</h3>
+                        <p>
+                            Get a full picture of any property, community and block you call (or are thinking of calling) home, so you can choose a home that fits your lifestyle
+                        </p>
+                        <button class="cta">Get Started Now</button>
+                        <p>Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+                    </div>
+                </div>
+                <div class="blurb">
+                    <img class="snippet" src="{{ resource('/image/snippet13.png') }}" alt=""/>
+                    <div class="text">
+                        <h3>Access anytime, from anywhere</h3>
+                        <p>
+                            AddressReport is optimized for iPhone, Android, and desktop use, so you can view property reports from the office, couch, or out at the property itself.
+                        </p>
+                        <button class="cta">Get Started Now</button>
+                        <p>Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+                    </div>
+                </div>
+                <div class="blurb">
+                    <img class="snippet" src="{{ resource('/image/snippet10.png') }}" alt=""/>
+                    <div class="text">
+                        <h3>Share reports with family or friends</h3>
+                        <p>
+                            Easily print or save reports to PDF to share with family or roommates.
+                        </p>
+                        <button class="cta">Get Started Now</button>
+                        <p>Or see a <a target="_blank" href="/sample-report/">sample report</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ credibility.render() }}
+
+        <div class="city-list content">
+            <h2>Browse by City</h2>
+            {% for city in cities() %}
+                <a class="city tag-link" href="{{ city.getUrl() }}">
+                    {{ city.name }}
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="state-list content">
+            <h2>Browse by State</h2>
+            {% for state in states %}
+                <a class="state tag-link" href="{{ state.getUrl() }}">
+                    {{ state.name }}
+                </a>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    {% include 'client/baseClientFoot.jinja2' %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% macro renderFeatureList(featureList, valueProp) %}
+    <div class="feature-list">
+        <h4>{{ valueProp }}</h4>
+
+        {% for feature in featureList %}
+            <div class="feature">
+                <i class="fa fa-bell-o"></i>
+                {{ feature }}
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

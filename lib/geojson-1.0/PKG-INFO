@@ -1,0 +1,29 @@
+Metadata-Version: 1.0
+Name: geojson
+Version: 1.0
+Summary: Encoder/decoder for simple GIS features
+Home-page: http://trac.gispython.org/lab/wiki/GeoJSON
+Author: Sean Gillies
+Author-email: sgillies@frii.com
+License: BSD
+Description: geojson: encode/decode geodata
+        ==============================
+        
+        This package contains:
+        
+        * The reference implementation of the Python geo interface:
+        
+        http://trac.gispython.org/lab/wiki/PythonGeoInterface
+        
+        * Functions for encoding and decoding GeoJSON (http://geojson.org) formatted
+        data.
+        
+Keywords: gis geography json
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Scientific/Engineering :: GIS

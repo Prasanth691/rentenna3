@@ -1,0 +1,70 @@
+cron:
+- description: update 311 calls
+  url: /background/update-311/
+  schedule: every day 2:00
+  timezone: America/New_York
+- description: check for hpd data
+  url: /background/nyc-hpd-data-update/
+  schedule: every day 3:00
+  timezone: America/New_York
+- description: update nypd data
+  url: /background/update-crime/nypd/
+  schedule: every day 4:00
+  timezone: America/New_York
+- description: update dob jobs
+  url: /background/nyc-dob-job-update/
+  schedule: every day 5:00
+  timezone: America/New_York
+- description: backup the database
+  url: /background/start-backups/
+  schedule: every day 6:00
+  timezone: America/New_York
+- description: precompute neighborhood reports
+  url: /background/compute-neighborhood-reports/
+  schedule: every saturday 09:00
+  timezone: America/New_York
+- description: precompute zipcode reports
+  url: /background/compute-zipcode-reports/
+  schedule: every saturday 09:00
+  timezone: America/New_York
+- description: generate alerts
+  url: /background/reap-alerts/
+  schedule: every day 08:00
+  timezone: America/New_York
+- description: staging - generate alerts
+  url: /background/reap-alerts/
+  schedule: every day 06:00
+  timezone: America/New_York
+  target: staging
+- description: partner analytics daily aggs
+  url: /background/all-partners-daily-aggs/
+  schedule: every day 5:30
+  timezone: America/New_York
+- description: partner analytics daily email template aggs
+  url: /background/all-partners-daily-template-aggs/
+  schedule: every day 5:30
+  timezone: America/New_York
+- description: production - dump ndb to mongo
+  url: /background/start-dump-ndb-to-mongo/
+  schedule: every day 4:21
+  timezone: America/New_York
+- description: staging---partner analytics daily aggs
+  url: /background/all-partners-daily-aggs/
+  target: staging
+  schedule: every day 5:00
+  timezone: America/New_York
+- description: staging---partner analytics daily email template aggs
+  url: /background/all-partners-daily-template-aggs/
+  target: staging
+  schedule: every day 5:00
+  timezone: America/New_York
+- description: staging - generate Partner emails
+  url: /background/reap-partner-alerts/
+  schedule: every day 8:00
+  timezone: America/New_York
+  target: staging
+- description: staging - dump ndb to mongo
+  url: /background/start-dump-ndb-to-mongo/
+  schedule: every day 4:01
+  timezone: America/New_York
+  target: staging

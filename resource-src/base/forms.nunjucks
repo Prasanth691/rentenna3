@@ -1,0 +1,68 @@
+{% macro file(label, name) %}
+    <div class="form-field {{ name }}">
+        <label>{{ label }}</label>
+        <div class="input-space">
+            <input type="file" name="{{ name }}" />
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro text(label, name, value, 
+        placeholder="", 
+        type="text", 
+        required=0,
+        pattern="",
+        title="",
+        disabled=0,
+        readonly=0) %}
+    <div class="form-field text {{ name }}">
+        <label>{{ label }}</label>
+        <div class="input-space">
+            <input type="{{ type }}" name="{{ name }}" 
+                placeholder="{{ placeholder }}"
+                value="{{ value }}"
+                {% if required %}required{% endif %}
+                {% if pattern %}pattern="{{ pattern }}"{% endif %}
+                {% if disabled %}disabled{% endif %}
+                {% if readonly %}readonly{% endif %}
+                data-required="{% if required %}true{% else %}false{% endif %}"
+                title="{{ title }}" />
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro date(label, name, value, required=0) %}
+    {{ text(label, name, value, 'mm/dd/yyyy', 'date', required) }}        
+{% endmacro %}
+
+{% macro hidden(name, value) %}
+    <input type="hidden" name="{{ name }}" value="{{ value }}" />
+{% endmacro %}
+
+{% macro yesnoSelect(label, name, value) %}
+    {{ select(label, name, value, [
+            (True, 'Yes'),
+            (False, 'No')]) 
+    }}
+{% endmacro %}
+
+{% macro select(label, name, value, options) %}
+    {# options are (value, label) pairs #}
+    <div class="form-field text name select-field {{ name }}">
+        <label>{{ label }}</label>
+        <div class="input-space">
+            <select name="{{ name }}">
+                {% for option in options  %}
+                    <option value="{{ option[0] }}" 
+                        {% if option[0] == value %}
+                            selected
+                        {% endif %}
+                        >
+                        {{ option[1] }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <i class="fa fa-chevron-down"></i>
+    </div>
+{% endmacro %}

@@ -1,0 +1,7 @@
+<div class="slide processing-slide auto-text-slide" data-slide="text">
+    <form nosubmit>
+    	<h1>
+    		<div class="text-message"></div>
+    	</h1>
+    </form>
+</div>

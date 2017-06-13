@@ -1,0 +1,16 @@
+{% extends 'admin/baseAdmin.jinja2' %}
+{% block content %}
+    <div class="content">
+        <h1>Radical Quiz Management</h1>
+        <a href="/web-admin/quiz/new/" class="btn btn-primary">
+            Create a New Quiz, Man
+        </a>
+        {% for quiz in quizzes %}
+            <p>
+                <a href="{{ quiz.getAdminUrl() }}">
+                    {{ quiz.slug }}
+                </a>
+            </p>
+        {% endfor %}
+    </div>
+{% endblock %}

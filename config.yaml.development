@@ -1,0 +1,31 @@
+ABTEST:
+  MOCK: false
+AUTOCOMPLETE:
+  elastic: true
+  unit: true
+EMAIL:
+  shard: development-kevin
+MANDRILL:
+  MOCK: false
+MAILCHIMP:
+  MOCK: false
+MCI:
+  DOMAIN: www.addressreport.com
+PIPELINE:
+  BUCKET: ar-reporting  
+WEB:
+  EXPORT_BUCKET: ar-export
+  PARTNER_BULK_BUCKET: partnerbulk
+  UPLOAD_BUCKET: ar-resource
+  UPLOAD_URL: /web-admin/uploaded-file/
+URL:
+  BASE: 'http://ar'
+  DOMAIN: ar
+  ISOLATE_IFRAME_BASE: ''
+  STATIC: /resource
+analytics.mock: false
+tag:
+  hash: ok
+  level: "development"
+report_simultaneous: 1
+datastore_namespace: dev

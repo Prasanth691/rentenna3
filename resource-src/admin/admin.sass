@@ -1,0 +1,228 @@
+@import "web-base.sass"
+@import "base.sass"
+@import "web-admin.sass"
+@import "quiz-admin.sass"
+@import "abtest.sass"
+
+.admin
+    background-color: #ff0
+
+.admin-root
+    a
+        display: block
+        font-size: 18px
+
+.breadcrumbs
+    padding: 10px 10px
+
+    .breadcrumb
+        background-color: $dark
+        border-radius: 5px
+        display: inline
+        color: $white
+        padding: 2px 15px 
+        margin-right: 5px
+        transition: background-color 0.5s
+
+        a, .name
+            text-decoration: none
+            color: $white
+            padding: 2px 5px
+            display: inline-block
+
+        &.current, &:hover
+            background-color: $primary
+
+.blog-editor
+
+    .actions
+        overflow: hidden
+        margin-bottom: 10px
+        
+        h1
+            float: left
+        
+        button, a
+            float: right
+            margin: 20px 10px 0 0
+   
+
+    .post-meta
+        overflow: hidden
+
+    .post-details
+        float: left
+        width: 50%
+
+    .publish-details
+        float: right
+        width: 49%
+
+.blog-list
+    table
+        margin-top: 20px
+
+.collection-description-editor
+
+    textarea
+        display: block
+        height: 250px
+        width: 100%
+
+.client
+    padding-top: 50px
+
+.data-viewer
+    &.non-string
+        color: #6362ff
+        font-style: italic
+
+.data-viewer-expanded
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 50%
+    width: 800px
+    margin: 0 0 0 -400px
+    padding: 20px
+    background-color: #fff
+    color: #6362ff
+    overflow: scroll
+
+    .close
+        cursor: pointer
+        position: absolute
+        top: 5px
+        right: 5px
+        color: #ff0000
+
+.edit-question
+    
+    .actions
+        margin-bottom: 20px
+
+.export-users
+    .margin-bottom: 10px
+    .progress
+        display: none
+        .progress-bar
+            width: 100%
+
+.export-partners
+
+    @include override-form-label-width(120px)
+
+    margin-top: 20px
+    margin-bottom: 30px
+    .progress
+        display: none
+        .progress-bar
+            width: 100%
+
+.image-uploader
+    
+    .loading
+        display: none
+        .progress-bar
+            width: 100%
+.partner-bulk
+    .progress
+        display: none
+        .progress-bar
+            width: 100%
+
+.partner-dashboard-section
+    margin-top: 20px
+
+.partner-tracking-section
+    margin-bottom: 10px
+    
+.navbar
+    .navbar-brand
+        height: auto
+        padding: 15px 15px 0 15px
+    .logo
+        height: 25px
+
+.review-answers
+    
+    button
+        margin-top: 15px
+
+    .answer
+        margin-top: 20px
+        overflow: hidden
+         
+        .profile-image
+            float: left
+            margin-right: 20px
+
+        .question
+            font-size: 18px
+
+.warehouse-collection
+    .data-preview
+        overflow-x: auto
+        width: 100%
+
+    .description
+        width: 50%
+        float: left
+
+    .stats
+        width: 50%
+        float: left
+        border-left: 1px dashed #ccc
+
+.warning
+    color: red
+    
+.subdomain-form
+    
+    a
+        display: block
+
+    a.bulk-load-btn
+        margin-bottom: 10px
+        
+    @include override-form-label-width(170px)
+    
+    .form-lead-restrictions
+        .restriction
+            display: inline-block
+            width: 200px
+
+    .form-email-suppressions
+        .suppression
+            display: inline-block
+            width: 200px
+            
+    .form-states
+        padding-bottom: 20px
+        .subdomain-state
+            display: inline-block
+            width: 200px
+    .image-upload
+        padding-bottom: 20px
+        .subdomain-image-container
+            img
+                max-width: 250px
+        .logo-upload
+            display: inline-block
+
+        .contact-logo-upload
+            display: inline-block
+            
+    .form-subsections
+        padding: 0px 0px 20px 0px
+        h4 
+            margin-top: 20px
+            margin-left: 5px
+            font-weight: bold
+        h5
+            margin-bottom: 5px
+            margin-left: 20px
+        .label-container
+            margin-left: 30px
+        label
+            margin-right: 10px

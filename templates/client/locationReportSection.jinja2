@@ -1,0 +1,9 @@
+<div class="location-report-section report-section">
+	{% if subsections.map %}
+		<div class="location-report-map">
+			{{ JsonPayload(
+				location=subsections.map.location,
+                footprint=subsections.map.footprint) }}
+		</div>
+	{% endif %}
+</div>

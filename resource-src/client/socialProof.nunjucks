@@ -1,0 +1,41 @@
+<div class="social-proof content">
+    <h3>
+        Why People Love AddressReport 
+        {% if mode == 'alert'%} 
+            Alerts
+        {% endif %}
+    </h3>
+    <div class="tweets">
+        <div class="tweet">
+            <blockquote class="twitter-tweet" lang="en" data-conversation="none"><p><a href="https://twitter.com/AddressReport">@AddressReport</a> loved seeing so much info in one place! Seriously so helpful! You guys really have it all. :)</p>&mdash; Anna Osgoodby (@annaosgoodby) <a href="https://twitter.com/annaosgoodby/status/517842079264043008">October 3, 2014</a></blockquote>
+        </div>
+        <div class="tweet">
+            <blockquote class="twitter-tweet" lang="en"><p>Holy Details Broker Man! This is by far the coolest site aggregating neighborhood and building data I&#39;ve seen yet! <a href="http://t.co/BqXUCsNwRY">http://t.co/BqXUCsNwRY</a></p>&mdash; Scott Strenger (@ScottStrenger) <a href="https://twitter.com/ScottStrenger/status/525667453679173632">October 24, 2014</a></blockquote>
+        </div>
+    </div>
+    <div class="tweets">
+        <div class="tweet">
+            <blockquote class="twitter-tweet" data-cards="hidden" lang="en"><p>New fave web tool <a href="https://twitter.com/AddressReport">@addressreport</a> uses <a href="https://twitter.com/uscensusbureau">@uscensusbureau</a>, <a href="https://twitter.com/Yelp">@yelp</a>, real estate data to describe neighborhoods. h/t <a href="https://twitter.com/nttd">@nttd</a> <a href="http://t.co/P13GQ5Gqgl">pic.twitter.com/P13GQ5Gqgl</a></p>&mdash; Dale Vieregge (@dvieregge) <a href="https://twitter.com/dvieregge/status/512635681622228992">September 18, 2014</a></blockquote>
+        </div>
+        <div class="tweet">
+            <blockquote class="twitter-tweet" lang="en"><p>Wow, <a href="https://twitter.com/AddressReport">@addressreport</a> is pretty amazing for apartment searching. Literally any info you could need (elevator speed?)&#10;&#10;<a href="http://t.co/f9CeHKiM3g">http://t.co/f9CeHKiM3g</a></p>&mdash; David Abrams (@CheapyD) <a href="https://twitter.com/CheapyD/status/516487055262482432">September 29, 2014</a></blockquote>
+        </div>
+    </div>
+    <div class="tweets">
+        <div class="tweet">
+            <blockquote class="twitter-tweet" lang="en"><p>Find out the good, bad &amp; ugly about your neighborhood by using this handy website from <a href="https://twitter.com/AddressReport">@AddressReport</a> : <a href="https://t.co/RLvjE7VNiB">https://t.co/RLvjE7VNiB</a></p>&mdash; Gina Pautazzo (@originalgina) <a href="https://twitter.com/originalgina/status/510247470421393409">September 12, 2014</a></blockquote>
+        </div>
+        <div class="tweet">
+            <blockquote class="twitter-tweet" lang="en"><p>Moving into a new neighborhood? do a carfax like check on your new address <a href="https://t.co/74cRUERNOk">https://t.co/74cRUERNOk</a></p>&mdash; Tyler Jefford (@tjefford) <a href="https://twitter.com/tjefford/status/506806557175054337">September 2, 2014</a></blockquote>
+        </div>
+    </div>
+    <div class="tweets">
+        <div class="tweet">
+            <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/AddressReport">@AddressReport</a> is cool. you can know things like &quot;8 rodent sightings reported within a block of 59 Franklin St&quot; <a href="https://t.co/uQqFfqicGZ">https://t.co/uQqFfqicGZ</a></p>&mdash; Kenneth Schlenker (@kschlenker) <a href="https://twitter.com/kschlenker/status/506888374993825792">September 2, 2014</a></blockquote>
+        </div>
+        <div class="tweet">
+            <blockquote class="twitter-tweet" lang="en"><p>&#39;Carfax for addresses.&#39; Impressive data project. Found some amusing facts about my building: <a href="http://t.co/ASXM6XcuxK">http://t.co/ASXM6XcuxK</a></p>&mdash; Cody Brown (@CodyBrown) <a href="https://twitter.com/CodyBrown/status/506922253838475265">September 2, 2014</a></blockquote>
+        </div>
+    </div>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>

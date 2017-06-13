@@ -1,0 +1,20 @@
+<div class="report-section-container" id="properties">
+    <div class="properties-in-area-section report-section">
+        <div class="report-section-header">
+            <h2>Properties in {{ target.name }}</h2>
+        </div>
+
+        <div class="nearby-properties">
+            <div class="property-list content properties property-results">
+                {% for property in subsections.properties.properties.results %}
+                    <div class="property">
+                        <a href="{{ property.getUrl() }}">
+                            {{ property.shortName }}
+                        </a>
+                    </div>
+                {% endfor %}
+                {{ Pager(pageInfo=subsections.properties.properties) }}
+            </div>
+        </div>
+    </div>
+</div>

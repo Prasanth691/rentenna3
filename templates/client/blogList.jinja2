@@ -1,0 +1,38 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block head %}
+    {% if pageInfo.page > 1 %}
+        <link rel="prev" href="{{ pageLink(pageInfo.page-1) }}" />
+    {% endif %}
+    {% if pageInfo.page < pageInfo.pages %}
+        <link rel="next" href="{{ pageLink(pageInfo.page+1) }}" />
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="blog blog-list">
+        <div class="ad-header">
+            <a target="_blank" href="http://www.insurent.com/?utm_source=rentenna.com">
+                <img class="insurent-banner" src="{{ resource('/image/insurent-banner.jpg') }}" />
+            </a>
+        </div>
+        {% for blogEntry in blogEntries %}
+            <div class="blog-entry">
+                <h2>    
+                    <a href="{{ blogEntry.getLink() }}">
+                        {{ blogEntry.title }}
+                    </a>
+                </h2>
+                <div class="date">
+                    {{ date(blogEntry.date, '%B %d, %Y') }}
+                </div>
+                <div class="blog-content truncated">
+                    {{ blogEntry.content|safe }}
+                </div>
+            </div>
+        {% endfor %}
+        {{ Pager(pageInfo=pageInfo) }}
+    </div>
+
+    {% include 'client/baseClientFoot.jinja2' %}
+{% endblock %}

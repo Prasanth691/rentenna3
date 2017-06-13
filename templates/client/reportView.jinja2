@@ -1,0 +1,116 @@
+{% extends 'client/baseClientView.jinja2' %}
+
+{% block body %}
+    <div class="
+            report-page
+            {{ report.type }}-report
+            {{ iff(renderFullReport, 'full-report', 'partial-report') }}">
+
+        {% if not app().suppressBreadcrumbs() %}
+            <div class="breadcrumbs">
+                <div class="content">
+                    {% for breadcrumb in breadcrumbs %}
+                        {% if not loop.last %}
+                            <div class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <a href="{{ breadcrumb.url }}" itemprop="url">
+                                    <span itemprop="title">{{ breadcrumb.title }}</span>
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="breadcrumb current">
+                                <span class="name">
+                                    {{ breadcrumb.title }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <button class="primary back-to-top hidden">Back To Top</button>
+
+        <div class="summary">
+            <div class="content">
+                <h1>{{ heading }}</h1>
+                {% if subheading %}
+                    <h2 class="aka">
+                        <span class="text">
+                            <span class="name">
+                                {{ subheading }}
+                            </span>
+                        </span>
+                    </h2>
+                {% endif %}
+
+                <div class="summary-content">
+                    <div class="at-a-glance">
+                        <h3>{{ atAGlanceName }}</h3>
+                        <div class="badges">
+                            {% for badge in badges %}
+                                {{ FullBadge(badge=badge) }}
+                            {% endfor %}
+                        </div>
+
+                        {% if allowAlerts and app().allowAlerts() %}
+                            <div class="alert-cta">
+                                {{ JsonPayload(isSubscribed=isSubscribed) }}
+                                <button class="cta subscribe"></button>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="rentenna-review">
+                        <div class="word-bubble">
+                            {% for line in description %}
+                                {% if line %}
+                                    <p>{{ line|safe }}</p>
+                                {% endif %}
+                            {% endfor %}
+                            <button class="primary full-description">See Full Summary</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ StickyHeader(sections=sections) }}
+
+        {% for section in sections %}
+            <div class="page-break"></div>
+            <div class="report-section-container" id="{{ section.key }}">
+                <a name="{{ section.key }}"></a>
+                {{ section.render(renderFullReport, commonName=commonName)|safe }}
+            </div>
+        {% endfor %}
+
+        {% if previewMode %}
+            <div class="sticky-footer upgrade-cta">
+                <img class="drilldown-close" src="{{ resource('/image/modalClose.png') }}" />
+                <i class="fa fa-plus"></i>
+                <div class="call">
+                    <h3>This is a sample report. Get the AddressReport for any address.</h3>
+                    <p>
+                        Get full, detailed reports for every address you're interested in, including building details, complaints / violations, crime statistics, pricing histories, local amenities, demographic breakdowns, and more.
+                    </p>
+                    <button class="cta inverse search-button">
+                        Search Now
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+
+        {{ JsonPayload(
+            city=city.slug,
+            renderFullReport=renderFullReport,
+            showLoading=showLoading,
+            pendingReporters=pendingReporters,
+            completedReporters=completedReporters,
+            reportType=report.type,
+            reportTargetKey=report.key.urlsafe(),
+            previewMode=previewMode,
+            bias=bias,
+            **jsonPayload) }}
+
+    </div>
+    {% include 'client/baseClientFoot.jinja2' %}
+{% endblock %}

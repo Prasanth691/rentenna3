@@ -1,0 +1,204 @@
+{% import 'client/upgradeCta.jinja2' as upgradeCta %}
+{% import 'client/mapLegend.jinja2' as legend %}
+
+{% macro renderTotalCrimes(quickStats) %}
+    {% if quickStats.nypdCrimes %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    In the past year, there were
+                </div>
+                <div class="number">
+                    {{ commas(quickStats.nypdCrimes.count) }}
+                </div>
+                <div class="units">
+                    felony crimes 
+                    {{ target.getCity().getDistance('area')['description'] }}
+                </div>
+            </div>
+
+            {% if quickStats.policePrecinctGeo %}
+                <button class="drilldown-button" target="crime-map">
+                    <span class="label">
+                        See the Crime Map
+                    </span>
+                </button>
+
+                {{ renderMapDrilldown(quickStats) }}
+            {% endif %}
+        
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderMapDrilldown(quickStats) %}
+    {% if renderFullReport %}
+        <div class="crime-map drilldown map-drilldown" id="crime-map">
+            {{ JsonPayload(
+                precinct=quickStats.policePrecinctGeo,
+                location=target.location) }}
+            {{ legend.render([
+                "Robbery", "Assault", "Burglary", "Grand Theft Auto", "Rape", "Murder"
+            ])}}
+        </div>
+    {% else %}
+        {{ upgradeCta.render('crime-map',
+            heading="Upgrade to see detailed crime statistics",
+            description="""
+                 See the severity and frequency of crime around
+                this building, so you can make an informed decision about the safety of
+                your potential future neighborhood.
+            """) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTypes(quickStats) %}
+    {% if quickStats.nypdCrimes and quickStats.nypdCrimes.byType|length > 0 %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    The most common felony crime 
+                    {{ target.getCity().getDistance('area')['description'] }} 
+                    was
+                </div>
+                <div class="qualitative">
+                    {{ quickStats.nypdCrimes.byType[0][0] }}
+                </div>
+                <div class="units">
+                    in the past year
+                </div>
+            </div>
+
+            {% if quickStats.nypdCrimes.byType %}
+                <button class="drilldown-button" target="crimes-by-type">
+                    <span class="label">
+                        See Crimes by Type
+                    </span>
+                </button>
+                {{ renderTypesDrilldown(quickStats) }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTypesDrilldown(quickStats) %}
+    {% if renderFullReport %}
+        <div class="drilldown bar-chart-drilldown" id="crimes-by-type">
+            {{ JsonPayload(
+                data=quickStats.nypdCrimes.byType,
+                xUnitLabel="Crime Type",
+                yUnitLabel="Number of Offenses in Past Year within 1/4 Mile") }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTime(quickStats) %}
+    {% if quickStats.crimeCountChangeOneYear %}
+        {% set diff = quickStats.crimeCountChangeOneYear %}
+        <div class="narrative-box-container">
+            <div class="narrative-box {{ iff(diff <= 0, 'positive', 'negative') }}">
+                <div class="intro">
+                    The crime rate is
+                </div>
+                <div class="number">
+                    {{ percent(abs(diff), True) }}
+                </div>
+                <div class="units">
+                    {{ iff(diff >=0, 'higher', 'less') }} than a year ago
+                </div>
+            </div>
+
+            {% if quickStats.crimesOverTime %}
+                <button class="drilldown-button" target="crimes-over-time">
+                    <span class="label">
+                        See Crimes over Time
+                    </span>
+                </button>
+                {{ renderTimeDrilldown(quickStats) }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderTimeDrilldown(quickStats) %}
+    {% if renderFullReport %}
+        <div class="drilldown bar-chart-drilldown" id="crimes-over-time">
+            {{ JsonPayload(
+                data=quickStats.crimesOverTime,
+                xUnitLabel="Quarter",
+                yUnitLabel="Number of Felonies Committed within 1/4 Mile") }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderDensity(quickStats) %}
+    {% if quickStats.crimeDensityPastYear %}
+        {% set diff = quickStats.crimeDensityPastYear %}
+        <div class="narrative-box-container">
+            <div class="narrative-box neutral">
+                <div class="intro">
+                    In the past year, there were
+                </div>
+                <div class="number">
+                    {{ commas(quickStats.crimeDensityPastYear) }}
+                </div>
+                <div class="units">
+                    felonies per 1,000 residents
+                </div>
+                <div class="outro">
+                    This is where you compare a 
+                    stat that's half-valid.
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro risk(name, key, stats) %}
+    <div class="narrative-box-container tall">
+        <div class="narrative-box 
+            {{ iff(stats[key].direction == 'higher', 'negative', 'positive') }}">
+            <div class="intro">
+                Risk of {{ name }}<br/>
+                in this area is
+            </div>
+            <div class="qualitative">
+                {{ percent(stats[key].percent, True) }}
+            </div>
+            <div class="outro">
+                {{ stats[key].direction }} 
+                than the national average
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+<div class="crime-report-section report-section">
+    <div class="report-section-header">
+        <h2>Crime</h2>
+    </div>
+
+    {% if subsections.quickStats %}
+        <div class="quick-stats">
+            <h3 class="content">Crime at a Glance</h3>
+            
+            <div class="subsection-row content">
+                {{ renderTotalCrimes(subsections.quickStats) }}
+                {{ renderTypes(subsections.quickStats) }}
+            </div>
+        </div>
+    {% endif %}
+    {% if subsections.risks %}
+        <div class="crime-risks-section content">
+            <h3>Crime Risks (This data represents crime risk for the ZIP code of the property.)</h3>
+            <div class="subsection-row">
+                {{ risk('burglary', 'burglary', subsections.risks) }}
+                {{ risk('assault', 'assault', subsections.risks) }}
+                {{ risk('robbery', 'robbery', subsections.risks) }}
+                {{ risk('rape', 'rape', subsections.risks) }}
+                {{ risk('murder', 'murder', subsections.risks) }}
+                {{ risk('car theft', 'gta', subsections.risks) }}
+            </div>
+        </div>
+    {% endif %}
+</div>

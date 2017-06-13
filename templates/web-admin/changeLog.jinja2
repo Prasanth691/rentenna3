@@ -1,0 +1,25 @@
+{% macro render(changeLog) %}
+    <div class="change-log-item">
+        <div class="labeled-info">
+            <label>Change Date:</label>
+            {{ humanDateTime(changeLog.entryDate) }}
+        </div>
+        {% for (key, oldValue) in changeLog.oldValues.items() %}
+            {% set newValue = changeLog.newValues.get(key) %}
+            {% if oldValue != newValue %}
+                <div class="labeled-info">
+                    <label>{{ key }}:</label>
+                    {{ oldValue }}
+                    <strong>-></strong>
+                    {{ newValue }}
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% if changeLog.note %}
+            <div class="labeled-info">
+                <label>Notes:</label>
+                {{ changeLog.note }}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}

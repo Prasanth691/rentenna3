@@ -1,0 +1,16 @@
+{% import 'client/credibility.jinja2' as credibility %}
+{% extends 'client/baseClientView.jinja2' %}
+{% block body %}
+    <div class="landing root">
+        <div class="bannerwrapper">
+            <div class="banner content">
+                {{ AddressAutocomplete() }}
+                <button class="cta inverse iphone-button">Look up an address</button>
+            </div>
+            <div class="divider"></div>
+        </div>
+
+    </div>
+
+    {% include 'client/baseClientFoot.jinja2' %}
+{% endblock %}

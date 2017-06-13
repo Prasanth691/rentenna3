@@ -1,0 +1,47 @@
+{% import 'base/forms.nunjucks' as forms %}
+
+{% extends 'admin/userRoot.jinja2' %}
+{% block findUser %}
+    <h2>Find a User by Email</h2>
+    <form action="/admin/users/find/">
+        {{ forms.text('Email', 'email',
+            placeholder="Enter an email to find a user...",
+            type='email',
+            required=True) }}
+        <button class="primary">FIND THEM!</button>
+    </form>
+    <h2>Find a User by Contact Id</h2>
+    <form action="/admin/users/find/">
+        {{ forms.text('ContactId', 'contactId',
+            placeholder="Enter a contact Id to find a user...",
+            type='text',
+            required=True) }}
+        <button class="primary">FIND THEM!</button>
+    </form>
+{% endblock %}
+{% block tableTitle %}
+    <h2>Recently Registered Users</h2>
+{% endblock %}
+{% block exportUsers %}
+    <div class="form-fields export-users">
+        <button class="primary export">Export to CSV</button>
+        {{ JsonPayload(exportUserUrl=exportUserUrl) }}
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar"></div>
+        </div>
+        <div class="log">
+            {% if downloadUrl %}
+            <p>Created at: {{ downloadCreated }} <a href="{{ downloadUrl }}">Click here to download</a></p>
+            {% endif %}
+        </div>
+        <div class="warning"></div>
+    </div>
+{% endblock %}
+{% block pagination %}
+    {% set prevDisabled = '' if page > 1 else 'disabled' %}
+    {% set nextDisabled = '' if hasNext else 'disabled' %}
+    <div class="pagination">
+        <a href="?page={{ page-1 }}" class="btn btn-default" {{ prevDisabled }}>Previous Page</a>
+        <a href="?page={{ page+1 }}" class="btn btn-default" {{ nextDisabled }}>Next Page</a>
+    </div>
+{% endblock %}

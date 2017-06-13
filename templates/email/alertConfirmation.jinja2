@@ -1,0 +1,47 @@
+{% extends 'email/confirmationTemplateBase.jinja2' %}
+
+{% block preview %}
+    Confirm that you'd like us to send you alerts for {{ property.shortName }}
+{% endblock %}
+
+{% block header %}
+    <h2>We got your alert request for<br> {{ property.shortName }}</h2>
+    <h3>There's just one step remaining:</h3>
+{% endblock %}
+
+{% block banner %}
+    <div class="cta-banner report">
+        <a href="{{ otuLink('%s?force=true&utm_source=automation-email&utm_medium=email&utm_campaign=alert-confirmation&utm_content=banner-cta' % property.getUrl(True)) }}">
+            <div class="cta-btn">
+                CLICK TO ACTIVATE ALERTS FOR<br>
+                {{ property.shortName }}
+            </div>
+        </a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {{ renderGreeting(user) }}
+    <p>
+        <strong>Thanks for signing up for alerts!</strong>
+        </p>
+    <p>
+        AddressReport will notify you whenever there are important changes affecting this address.
+    </p>
+    <p>
+        Alert emails include notifications on things like crime, property value changes and nearby sales, school zones, neighborhood complaints, health hazards, major construction, nearby business openings / closings, and more.
+    </p>
+    <p>
+        Generally you can expect to receive alerts up to a few times per week, depending on how much activity we detect around {{ property.shortName }}.
+    </p>    
+    <p>
+        Remember, you can <strong><a href="{{ unsubscribe }}">one-click unsubscribe</a></strong> anytime and you can also add alerts for as many properties as you like.
+    </p>
+    <p>
+        Thanks again and feel free to <strong>{% if contactInfo.email %}<a href="mailto:{{ contactInfo.email }}?subject=Alert Confirmations" target="_blank">reach out to me</a>{% else %} reach out to me{% endif %}</strong> anytime with questions or comments.
+    </p>
+    {{ renderContactName(contactInfo) }}
+    <div class="cta-banner">
+        {% include 'email/asSeenIn.jinja2' %}
+    </div>
+{% endblock %}

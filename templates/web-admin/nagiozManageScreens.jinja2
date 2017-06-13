@@ -1,0 +1,19 @@
+{% import 'web-admin/form.jinja2' as form %}
+
+{% extends config()['WEB']['BASE_ADMIN_TEMPLATE'] %}
+
+{% block content %}
+    <div class="container nagioz-manage">
+        <h1>Manage Screens</h1>
+
+        <form method="POST">
+            <button class="btn btn-primary">Save Changes</button>
+            <div class="code-mirror">
+                {{ JsonPayload(
+                    name="src",
+                    src=src,
+                    mode='text/x-yaml') }}
+            </div>
+        </form>
+    </div>
+{% endblock %}
